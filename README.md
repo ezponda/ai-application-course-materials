@@ -19,68 +19,68 @@ The course is organized into two main blocks focusing on practical AI applicatio
 
 ### Block I: Computer Vision
 
-#### 1. Computer Vision Applications (`01_cv_applications.ipynb`)
-- Real-world Computer Vision applications and motivation
-- Image classification, object detection, and segmentation
-- Facial recognition and optical character recognition (OCR)
-- Applications in healthcare, autonomous vehicles, retail, and security
+1. **Computer Vision Applications** (`01_cv_applications.ipynb`)
+   - Real-world Computer Vision applications and motivation
+   - Image classification, object detection, and segmentation
+   - Facial recognition and optical character recognition (OCR)
+   - Applications in healthcare, autonomous vehicles, retail, and security
 
-#### 2. What is an Image & Basic Tools
+2. **Introduction to Pillow & Image Fundamentals** (`03_intro_to_pillow.ipynb`)
+   - What is an image: pixels, resolution, and channels
+   - Grayscale vs. RGB images
+   - Loading, displaying, and saving images with Pillow
+   - Image attributes (size, mode, format)
+   - Basic transformations (rotate, flip, crop, resize)
+   - Adjusting brightness, contrast, color, and sharpness
+   - Converting between Pillow images and NumPy arrays
+   - **Note:** This notebook now includes the "What is an image?" content originally planned for `02_what_is_an_image.ipynb`.
 
-**2.1. What is an Image?** (`02_what_is_an_image.ipynb`)
-- Images as data: pixels, resolution, and channels
-- Grayscale vs. RGB images
-- Image representation as arrays
-- Basic image properties and formats
+3. **Introduction to OpenCV** (`04_intro_to_opencv.ipynb`)
+   - Reading and displaying images with OpenCV
+   - BGR vs RGB color space handling
+   - Basic geometric transformations (resize, rotate, crop)
+   - Image thresholding (global and adaptive)
+   - Optional: Histogram equalization and CLAHE for contrast enhancement
 
-**2.2. Introduction to Pillow** (`03_intro_to_pillow.ipynb`)
-- Loading, displaying, and saving images
-- Image attributes (size, mode, format)
-- Basic transformations (rotate, flip, crop, resize)
-- Adjusting brightness, contrast, color, and sharpness
-- Converting between Pillow images and NumPy arrays
+4. **CNN Theory and Implementation with Keras** (`05_cnn_theory_keras.ipynb`)
+   - Why CNNs for images: parameter explosion problem with dense networks
+   - CNN components: convolution (with padding/stride), pooling types (Max/Average/Global)
+   - Building CNNs with Keras Functional API
+   - Training workflow: compile, fit, evaluate with visualization
+   - Data augmentation techniques and their importance
+   - Hands-on exercises for architecture experimentation
 
-**2.3. Introduction to OpenCV** (`04_intro_to_opencv.ipynb`)
-- Reading and displaying images with OpenCV
-- BGR vs RGB color space handling
-- Basic geometric transformations (resize, rotate, crop)
-- Image thresholding (global and adaptive)
-- Optional: Histogram equalization and CLAHE for contrast enhancement
+5. **Transfer Learning and Fine-tuning** (`06_transfer_learning.ipynb`)
+   - Transfer learning concepts and when to use it
+   - Overview of pre-trained models in `tf.keras.applications` (MobileNetV2, EfficientNet, ResNet, etc.)
+   - Model-specific preprocessing requirements
+   - Feature extraction with frozen backbone
+   - Fine-tuning strategies with low learning rates
+   - Optional: hybrid approaches that combine custom CNNs with pre-trained features
+   - Practical exercises comparing different backbones and fine-tuning strategies
 
-#### 3. CNN Theory and Implementation (`05_cnn_theory_keras.ipynb`)
-- Why CNNs for images: parameter efficiency and spatial structure
-- CNN architecture components: convolution, pooling, activation, dense layers
-- Building CNNs with Keras on the flowers dataset
-- Training and evaluating CNN models
-- Data augmentation techniques for improved generalization
+6. **Advanced Computer Vision: Detection and Tracking** (`07_advanced_cv_detection_tracking.ipynb`)
+   - Object detection with YOLO / Ultralytics
+   - Object tracking and counting in video
+   - (Optional) Image segmentation techniques
+   - Real-time detection applications
+   - Evaluation metrics (IoU, mAP, precision–recall)
 
-#### 4. Transfer Learning and Fine-tuning (`06_transfer_learning.ipynb`)
-- Transfer learning concepts and benefits
-- Pre-trained models in Keras Applications (MobileNetV2, EfficientNet, ResNet)
-- Feature extraction with frozen backbones
-- Fine-tuning strategies and best practices
-- Comparing approaches: from scratch vs. transfer learning vs. fine-tuning
-
-#### 5. Advanced Computer Vision (`07_advanced_cv_detection_tracking.ipynb`)
-- Object detection with YOLO / Ultralytics
-- Single-shot vs. region-based detection methods
-- Object tracking and counting in video
-- Real-time detection applications
-- Evaluation metrics (IoU, mAP, precision-recall)
+> **Note:** The notebook `02_what_is_an_image.ipynb` does not exist as a separate file. Its content has been integrated into `03_intro_to_pillow.ipynb` to provide a cohesive introduction to image fundamentals and the Pillow library.
 
 ### Block II: AI Agents
 
-#### 6. Introduction to AI Agents (`08_ai_agents_intro.ipynb`)
-- High-level introduction to AI agents and their applications
-- Agent architectures and types (reactive, deliberative, hybrid)
-- Agent environments and decision-making
-- How agents orchestrate tools and models
-- Practical application scenarios:
-  - Conversational AI and chatbots
-  - Autonomous agents in robotics
-  - Planning and scheduling systems
-  - Multi-agent collaboration
-- Real-world applications in business, healthcare, and automation
+7. **Introduction to AI Agents** (`08_ai_agents_intro.ipynb`)
+   - High-level introduction to AI agents and their applications
+   - Agent architectures and types (reactive, deliberative, hybrid)
+   - Agent environments and decision-making
+   - How agents orchestrate tools and models
+   - Practical application scenarios:
+     - Conversational AI and chatbots
+     - Autonomous agents in robotics
+     - Planning and scheduling systems
+     - Multi-agent collaboration
+   - Real-world applications in business, healthcare, and automation
 
 ## Getting Started
 
