@@ -2,6 +2,16 @@
 
 Course materials for Master's level "Application of AI" course focusing on practical Computer Vision applications and AI Agents.
 
+## Online Version (GitHub Pages)
+
+The course is available as a navigable HTML site at:
+
+**https://ezponda.github.io/ai-application-course-materials/**
+
+- Automatically built and deployed from the `main` branch via GitHub Actions
+- Each notebook appears as a separate page with navigation and download buttons
+- Includes Colab launch buttons for interactive execution
+
 ## Repository Structure
 
 ```
