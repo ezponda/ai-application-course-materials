@@ -46,15 +46,24 @@ These notebooks form the main learning path for students:
    - Optional hybrid model section (custom CNN + pre-trained backbone)
    - Exercises comparing different backbones and fine-tuning strategies
 
-6. **07_advanced_cv_detection_tracking.ipynb** *(planned)*
-   - Object detection with YOLO / Ultralytics
-   - Object tracking and counting in video
-   - (Optional) Image segmentation examples
-   - Real-world applications and evaluation metrics
+6. **07_intro_to_ultralytics.ipynb**
+   - Introduction to YOLO and the Ultralytics ecosystem
+   - YOLO11 model variants (nano, small, medium, large, xlarge)
+   - Loading models and running first detections
+   - Understanding results objects (boxes, confidence, class names)
+   - Other YOLO tasks (segmentation, pose, classification)
+
+7. **07_object_detection_with_ultralytics.ipynb**
+   - Hands-on object detection with YOLO11
+   - Confidence threshold tuning and visualization
+   - IoU threshold and Non-Max Suppression (NMS)
+   - Intersection over Union (IoU) implementation
+   - Optional webcam detection
+   - TODO-based exercises for model comparison
 
 ### Block II: AI Agents (planned)
 
-7. **08_ai_agents_intro.ipynb** *(planned)*
+8. **08_ai_agents_intro.ipynb** *(planned)*
    - High-level introduction to AI agents and their applications
    - Agent architectures and types (reactive, deliberative, hybrid)
    - How agents orchestrate tools and models
@@ -98,4 +107,4 @@ Students should have:
 1. Install dependencies from `requirements.txt`.
 2. Launch Jupyter Notebook or JupyterLab.
 3. Navigate to this `notebooks/` folder.
-4. Run notebooks in logical order (01 → 03 → 04 → 05 → 06; then 07–08 when available).
+4. Run notebooks in logical order (01 → 03 → 04 → 05 → 06 → 07; then 08 when available).

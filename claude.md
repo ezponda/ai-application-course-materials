@@ -174,20 +174,37 @@ Target notebooks are the student-facing materials you should create, refine, and
    * May include an optional hybrid model section combining custom CNN features with pre-trained features.
    * Reuses content from the transfer learning sections of `Introduction_to_CNN.ipynb`.
 
-6. `notebooks/07_advanced_cv_detection_tracking.ipynb` *(planned)*
+6. `notebooks/07_intro_to_ultralytics.ipynb` ✅ **COMPLETED**
 
-   * Advanced Computer Vision applications:
+   * Introduction to **YOLO and Ultralytics ecosystem**:
 
-     * object detection with YOLO / Ultralytics,
-     * object tracking and counting in video,
-     * optionally, introductory segmentation examples.
+     * what is YOLO and how it evolved (YOLOv1–YOLO11),
+     * Ultralytics framework overview and unified API,
+     * YOLO11 model variants (nano, small, medium, large, xlarge),
+     * loading models and running first detections,
+     * inspecting results (boxes, confidence, class names),
+     * other YOLO tasks (segmentation, pose, classification).
+   * Reuses:
+
+     * `Object_Detection_YOLO_ultralytics.ipynb`
+   * Downloads example images locally to `images/` with User-Agent headers.
+
+7. `notebooks/07_object_detection_with_ultralytics.ipynb` ✅ **COMPLETED**
+
+   * Hands-on **object detection with YOLO11**:
+
+     * detection on multiple images,
+     * confidence threshold tuning and visualization,
+     * IoU threshold and Non-Max Suppression (NMS),
+     * Intersection over Union (IoU) implementation and visualization,
+     * optional webcam detection.
+   * Includes TODO-based exercises for model comparison.
    * Reuses:
 
      * `Object_Detection_YOLO_ultralytics.ipynb`
      * `Object_Tracking_Counting.ipynb`
-   * Goal: one coherent notebook with a few complete examples (no long unfinished exercises).
 
-7. `notebooks/08_ai_agents_intro.ipynb` *(planned)*
+8. `notebooks/08_ai_agents_intro.ipynb` *(planned)*
 
    * High-level introduction to **AI agents** and their applications.
    * Definitions, architectures, and real-world scenarios.
@@ -238,3 +255,4 @@ When generating or modifying any **target notebook** (`01_...`, `03_...`, `04_..
 * ✅ Refined CNN and transfer learning notebooks (`05_cnn_theory_keras.ipynb`, `06_transfer_learning.ipynb`) with consistent style and helper functions.
 * ✅ Allowed TODO-based exercises, as long as the main narrative remains runnable and exercises are clearly labelled.
 * ✅ Aligned README, `notebooks/README.md`, and this contract with the actual plan for notebooks 01, 03, 04, 05, 06, 07, 08.
+* ✅ Created two Ultralytics YOLO notebooks (`07_intro_to_ultralytics.ipynb`, `07_object_detection_with_ultralytics.ipynb`) with YOLO11 models, image download helpers, and IoU/NMS demonstrations.
