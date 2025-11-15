@@ -48,7 +48,7 @@ The course is divided into two comprehensive parts:
 
 ### Practical Tools
 
-3. **[Introduction to Pillow](notebooks/03_intro_to_pillow.ipynb)** ✅
+3. **[Introduction to Pillow & Image Fundamentals](notebooks/03_intro_to_pillow.ipynb)** ✅
    - Loading, displaying, and saving images
    - Image attributes and transformations
    - Cropping, resizing, rotating, flipping
@@ -64,14 +64,14 @@ The course is divided into two comprehensive parts:
 
 ### Deep Learning for Vision
 
-5. **[CNN Theory with Keras](notebooks/05_cnn_theory_keras.ipynb)** ✅
+5. **[CNN Theory and Implementation with Keras](notebooks/05_cnn_theory_keras.ipynb)** ✅
    - Convolutional Neural Networks fundamentals
    - Convolution, pooling, and architecture design
    - Building CNNs with Keras Functional API
    - Training workflow and data augmentation
    - Hands-on exercises and experimentation
 
-6. **[Transfer Learning](notebooks/06_transfer_learning.ipynb)** ✅
+6. **[Transfer Learning and Fine-tuning](notebooks/06_transfer_learning.ipynb)** ✅
    - Pre-trained models and when to use them
    - Feature extraction with frozen backbones
    - Fine-tuning strategies
@@ -80,31 +80,31 @@ The course is divided into two comprehensive parts:
 
 ### Advanced Computer Vision with Ultralytics
 
-7. **[CV Tasks: Theory](notebooks/07_cv_tasks_theory.ipynb)** *(Placeholder)*
+7. **[Computer Vision Tasks: Theory and Concepts](notebooks/07_cv_tasks_theory.ipynb)** *(Placeholder)*
    - Overview of CV tasks: classification to tracking
    - Theoretical foundations of object detection
    - Understanding YOLO architecture
    - Evaluation metrics and trade-offs
 
-8. **[Introduction to Ultralytics](notebooks/07_intro_to_ultralytics.ipynb)** ✅
+8. **[Introduction to Ultralytics YOLO](notebooks/07_intro_to_ultralytics.ipynb)** ✅
    - Setting up Ultralytics YOLO11
    - Model architecture and capabilities
    - Basic inference and predictions
    - Understanding model outputs
 
-9. **[Object Detection](notebooks/07_object_detection_with_ultralytics.ipynb)** ✅
+9. **[Object Detection with Ultralytics YOLO](notebooks/07_object_detection_with_ultralytics.ipynb)** ✅
    - Implementing object detection with YOLO11
    - Working with bounding boxes
    - Multi-class detection
    - Real-time detection applications
 
-10. **[Segmentation and Pose](notebooks/07b_segmentation_and_pose_with_ultralytics.ipynb)** ✅
+10. **[Segmentation and Pose Estimation with Ultralytics YOLO](notebooks/07b_segmentation_and_pose_with_ultralytics.ipynb)** ✅
     - Instance and semantic segmentation
     - Human pose estimation
     - Keypoint detection
     - Medical and sports applications
 
-11. **[Object Tracking](notebooks/07c_object_tracking_with_ultralytics.ipynb)** ✅
+11. **[Object Tracking with Ultralytics YOLO](notebooks/07c_object_tracking_with_ultralytics.ipynb)** ✅
     - Multi-object tracking in videos
     - Track persistence and ID management
     - Counting and flow analysis

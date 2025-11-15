@@ -5,17 +5,29 @@ parts:
   - caption: "Part 1 – Computer Vision"
     chapters:
       - file: notebooks/01_cv_applications
+        title: "01 - Computer Vision Applications (Placeholder)"
       - file: notebooks/02_what_is_an_image
+        title: "02 - What is an Image? (Placeholder)"
       - file: notebooks/03_intro_to_pillow
+        title: "03 - Introduction to Pillow & Image Fundamentals"
       - file: notebooks/04_intro_to_opencv
+        title: "04 - Introduction to OpenCV"
       - file: notebooks/05_cnn_theory_keras
+        title: "05 - CNN Theory and Implementation with Keras"
       - file: notebooks/06_transfer_learning
+        title: "06 - Transfer Learning and Fine-tuning"
       - file: notebooks/07_cv_tasks_theory
+        title: "07 - Computer Vision Tasks: Theory and Concepts (Placeholder)"
       - file: notebooks/07_intro_to_ultralytics
+        title: "08 - Introduction to Ultralytics YOLO"
       - file: notebooks/07_object_detection_with_ultralytics
+        title: "09 - Object Detection with Ultralytics YOLO"
       - file: notebooks/07b_segmentation_and_pose_with_ultralytics
+        title: "10 - Segmentation and Pose Estimation with Ultralytics YOLO"
       - file: notebooks/07c_object_tracking_with_ultralytics
+        title: "11 - Object Tracking with Ultralytics YOLO"
 
   - caption: "Part 2 – AI Agents"
     chapters:
       - file: notebooks/08_ai_agents_intro
+        title: "12 - Introduction to AI Agents (Placeholder)"
