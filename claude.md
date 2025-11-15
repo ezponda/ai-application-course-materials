@@ -14,25 +14,29 @@ Repository: **ai-application-course-materials**
   - a first introduction to Deep Learning and **CNNs** for images.
 - This course focuses on **practical applications**, not heavy theory.
 
-**Block I – Computer Vision**
+**Part 1 – Computer Vision Applications**
 
-- Real-world Computer Vision applications.
-- Images as data: pixels, resolution, channels.
+- Real-world Computer Vision applications across industries.
+- Images as data: pixels, resolution, channels, color spaces.
 - Practical work with **Pillow** and **OpenCV**.
 - Hands-on recap of **CNNs for vision** with Keras.
-- Advanced applications: **object detection**, **tracking**, and (optionally) **segmentation**.
+- Transfer learning and fine-tuning strategies.
+- Advanced applications with Ultralytics: **object detection**, **segmentation**, **pose estimation**, **tracking**.
 
-**Block II – AI Agents**
+**Part 2 – AI Agents**
 
-- High-level introduction to AI agents.
-- How agents orchestrate tools and models (optionally including CV).
-- Concrete application scenarios.
+- Introduction to AI agents and their architectures.
+- LLMs as reasoning engines.
+- Tool integration and orchestration (including CV models).
+- Memory systems and decision-making.
+- Practical agent implementation with frameworks like LangChain.
+- Real-world application scenarios.
 
 ---
 
 ## 2. Global style rules for target notebooks
 
-These rules apply to all **target course notebooks** in `notebooks/` whose filenames start with `01_`, `03_`, `04_`, `05_`, `06_`, `07_`, `08_`.
+These rules apply to all **target course notebooks** in `notebooks/` (numbered notebooks: `01_`, `02_`, `03_`, `04_`, `05_`, `06_`, `07_`, `08_`).
 
 ### Language and tone
 
@@ -63,14 +67,28 @@ Recommended structure:
    - 3–6 bullet points of key ideas.
    - Optionally 1–2 bullets on how this connects to the rest of the course.
 
-### Exercises and TODOs
+### Exercise and TODO Policy
 
-- **TODO-based exercises are allowed.**
-- It is acceptable for some exercise cells to contain comments like `# TODO: ...` or partially completed code.
-- Prefer patterns where:
-  - incomplete lines are **commented out**, or
-  - it is clearly stated that the cell will error until the student completes the TODOs.
+- **TODO-based exercises are encouraged** for student engagement.
+- Exercises should include:
+  - Clear task descriptions
+  - Hints and guidance
+  - **No complete solutions in comments** (students should figure it out)
+  - Expected outputs or validation checks
+  - Starter code with clear TODO markers
+- Implementation patterns:
+  - Incomplete lines can be **commented out** with `# TODO: complete this line`
+  - Clearly state when a cell will error until TODOs are completed
+  - Use descriptive TODO comments: `# TODO: Apply Gaussian blur with kernel size 5`
 - The **main narrative** (non-exercise sections) must remain runnable from top to bottom.
+- Examples of good TODO exercises:
+  ```python
+  # TODO: Load the image using cv2.imread()
+  # img = ...
+
+  # TODO: Convert from BGR to RGB color space
+  # img_rgb = ...
+  ```
 
 ### Other style details
 
@@ -80,6 +98,7 @@ Recommended structure:
   - big-picture takeaways.
 - Use consistent, descriptive variable names.
 - Add comments that explain **why** something is done, not just how.
+- Include error handling for common issues students might encounter.
 
 ---
 
@@ -115,144 +134,166 @@ These five notebooks come from a previous course block and are **reference mater
 * `notebooks/Object_Detection_YOLO_ultralytics.ipynb`
 * `notebooks/Object_Tracking_Counting.ipynb`
 
-They must **not** be overwritten or deleted. They are used to build the new course notebooks.
+They must **not** be overwritten or deleted. They are used as reference when building new course notebooks.
 
 ### Target course notebooks
 
-Target notebooks are the student-facing materials you should create, refine, and maintain:
+Target notebooks are the student-facing materials (create, refine, and maintain these):
 
-1. `notebooks/01_cv_applications.ipynb` *(planned)*
+#### Part 1: Computer Vision Applications
 
-   * Real-world Computer Vision applications and motivation.
-   * Conceptual overview with illustrative images and examples.
+1. `notebooks/01_cv_applications.ipynb` *(Placeholder)*
+   * Real-world Computer Vision applications across industries
+   * Healthcare, retail, autonomous systems, security
+   * Manufacturing, agriculture, entertainment
+   * Business value and impact of CV solutions
 
-2. `notebooks/03_intro_to_pillow.ipynb` ✅ **COMPLETED**
+2. `notebooks/02_what_is_an_image.ipynb` *(Placeholder)*
+   * Images as data structures
+   * Pixels, resolution, and channels
+   * Color spaces (RGB, Grayscale, HSV)
+   * File formats and storage considerations
 
-   * Image fundamentals: what is an image, pixels, resolution, channels.
-   * Grayscale vs RGB images.
-   * Practical introduction to **Pillow** (PIL):
+3. `notebooks/03_intro_to_pillow.ipynb` ✅ **COMPLETED**
+   * Loading, displaying, and saving images with Pillow
+   * Image attributes (size, mode, format)
+   * Basic transformations (crop, resize, rotate, flip)
+   * Brightness, contrast, color, and sharpness adjustments
+   * Converting between Pillow images and NumPy arrays
 
-     * loading, displaying, and saving images,
-     * image attributes (size, mode, format),
-     * cropping, resizing, rotating, flipping,
-     * brightness/contrast/color/sharpness adjustments,
-     * converting between Pillow images and NumPy arrays.
-   * Consolidates the content originally planned for `02_what_is_an_image.ipynb`.
+4. `notebooks/04_intro_to_opencv.ipynb` ✅ **COMPLETED**
+   * Advanced image processing with OpenCV
+   * BGR vs RGB color space handling
+   * Filtering and edge detection
+   * Feature detection and matching
+   * Thresholding and morphological operations
+   * Document preprocessing exercise
 
-3. `notebooks/04_intro_to_opencv.ipynb` ✅ **COMPLETED**
+5. `notebooks/05_cnn_theory_keras.ipynb` ✅ **COMPLETED**
+   * CNN architecture and components
+   * Convolution, padding, stride concepts
+   * Pooling types (Max, Average, Global)
+   * Building CNNs with Keras Functional API
+   * Training workflow and visualization
+   * Data augmentation techniques
+   * Hands-on exercises with flowers dataset
 
-   * Practical introduction to **OpenCV**:
+6. `notebooks/06_transfer_learning.ipynb` ✅ **COMPLETED**
+   * Transfer learning concepts and applications
+   * Pre-trained models in tf.keras.applications
+   * Feature extraction with frozen backbones
+   * Fine-tuning strategies with low learning rates
+   * Hybrid approaches (custom CNN + pre-trained)
+   * Comparative exercises with different backbones
 
-     * reading and displaying images (BGR vs RGB),
-     * basic geometric transformations (resize, rotate, crop),
-     * image thresholding (global and adaptive),
-     * optional: histogram equalization and CLAHE.
-   * Includes at least one exercise on document/bill preprocessing.
-   * Reuses content from `Introduction_to_CV_with_OpenCV.ipynb`.
+7. `notebooks/07_cv_tasks_theory.ipynb` *(Placeholder)*
+   * Overview of CV tasks (classification to tracking)
+   * Object detection theory and concepts
+   * Understanding YOLO architecture evolution
+   * Evaluation metrics (IoU, mAP, precision-recall)
+   * Trade-offs between accuracy and speed
 
-4. `notebooks/05_cnn_theory_keras.ipynb` ✅ **COMPLETED**
+8. `notebooks/07_intro_to_ultralytics.ipynb` ✅ **COMPLETED**
+   * Introduction to YOLO and Ultralytics ecosystem
+   * YOLO11 model variants (nano to xlarge)
+   * Loading models and running inference
+   * Understanding result objects
+   * Overview of different YOLO tasks
 
-   * Practical introduction to **CNNs and Keras implementation**:
+9. `notebooks/07_object_detection_with_ultralytics.ipynb` ✅ **COMPLETED**
+   * Hands-on object detection with YOLO11
+   * Confidence and IoU threshold tuning
+   * Non-Max Suppression (NMS) concepts
+   * Visualization and annotation
+   * Optional webcam detection
+   * Model comparison exercises
 
-     * why CNNs for images (parameter efficiency, spatial structure),
-     * CNN architecture components (Conv2D, pooling, activation, dense layers),
-     * building CNNs with Keras Functional API,
-     * training and evaluating on the flowers dataset,
-     * data augmentation with Keras layers.
-   * Includes optional exercises for architecture experimentation (TODO-style allowed).
-   * Reuses and simplifies content from `Introduction_to_CNN.ipynb`.
+10. `notebooks/07b_segmentation_and_pose_with_ultralytics.ipynb` ✅ **COMPLETED**
+    * Instance and semantic segmentation with YOLO11
+    * Human pose estimation and keypoint detection
+    * Medical and sports applications
+    * Mask visualization and processing
+    * Practical segmentation exercises
 
-5. `notebooks/06_transfer_learning.ipynb` ✅ **COMPLETED**
+11. `notebooks/07c_object_tracking_with_ultralytics.ipynb` ✅ **COMPLETED**
+    * Multi-object tracking in videos
+    * Track persistence and ID management
+    * Object counting and flow analysis
+    * Real-time tracking applications
+    * Video processing exercises
 
-   * Practical introduction to **Transfer Learning and Fine-tuning**:
+#### Part 2: AI Agents
 
-     * transfer learning concepts and benefits,
-     * pre-trained models from `tf.keras.applications` (e.g., MobileNetV2, EfficientNet),
-     * feature extraction with frozen backbones,
-     * fine-tuning strategies with low learning rates,
-     * comparing training from scratch vs. transfer learning vs. fine-tuning.
-   * May include an optional hybrid model section combining custom CNN features with pre-trained features.
-   * Reuses content from the transfer learning sections of `Introduction_to_CNN.ipynb`.
-
-6. `notebooks/07_intro_to_ultralytics.ipynb` ✅ **COMPLETED**
-
-   * Introduction to **YOLO and Ultralytics ecosystem**:
-
-     * what is YOLO and how it evolved (YOLOv1–YOLO11),
-     * Ultralytics framework overview and unified API,
-     * YOLO11 model variants (nano, small, medium, large, xlarge),
-     * loading models and running first detections,
-     * inspecting results (boxes, confidence, class names),
-     * other YOLO tasks (segmentation, pose, classification).
-   * Reuses:
-
-     * `Object_Detection_YOLO_ultralytics.ipynb`
-   * Downloads example images locally to `images/` with User-Agent headers.
-
-7. `notebooks/07_object_detection_with_ultralytics.ipynb` ✅ **COMPLETED**
-
-   * Hands-on **object detection with YOLO11**:
-
-     * detection on multiple images,
-     * confidence threshold tuning and visualization,
-     * IoU threshold and Non-Max Suppression (NMS),
-     * Intersection over Union (IoU) implementation and visualization,
-     * optional webcam detection.
-   * Includes TODO-based exercises for model comparison.
-   * Reuses:
-
-     * `Object_Detection_YOLO_ultralytics.ipynb`
-     * `Object_Tracking_Counting.ipynb`
-
-8. `notebooks/08_ai_agents_intro.ipynb` *(planned)*
-
-   * High-level introduction to **AI agents** and their applications.
-   * Definitions, architectures, and real-world scenarios.
-   * Written from scratch (no specific source notebook yet).
-
-**Note:**
-`02_what_is_an_image.ipynb` is **not** a target notebook anymore; its content has been merged into `03_intro_to_pillow.ipynb`. Do not create or reference `02_what_is_an_image.ipynb` going forward.
+12. `notebooks/08_ai_agents_intro.ipynb` *(Placeholder)*
+    * AI agents fundamentals and architectures
+    * Agent types (reactive, deliberative, hybrid)
+    * LLMs as reasoning engines
+    * Tool integration and orchestration
+    * Memory systems and decision making
+    * Building agents with LangChain
+    * Integrating CV models as agent tools
+    * Multi-agent collaboration scenarios
 
 ---
 
 ## 5. How assistants and tools should work
 
-When generating or modifying any **target notebook** (`01_...`, `03_...`, `04_...`, `05_...`, `06_...`, `07_...`, `08_...`):
+When generating or modifying any **target notebook**:
 
 1. **Always read `claude.md` first** (this file).
 2. Read `README.md` at the repo root.
-3. Identify and open the relevant **source notebook(s)** under `notebooks/`:
+3. Read `notebooks/README.md` for notebook-specific guidelines.
+4. Identify and open the relevant **source notebook(s)** under `notebooks/`:
 
    * for Pillow basics → `Introduction_to_CV_with_Pillow.ipynb`
    * for OpenCV basics → `Introduction_to_CV_with_OpenCV.ipynb`
    * for CNN recap / transfer learning → `Introduction_to_CNN.ipynb`
    * for detection/tracking → `Object_Detection_YOLO_ultralytics.ipynb`, `Object_Tracking_Counting.ipynb`
 
-4. Design or adjust the target notebook structure:
+5. Design or adjust the target notebook structure:
 
    * reuse the best explanations and code from the source,
    * remove overly long or off-topic sections,
    * ensure the story is clear and practical.
 
-5. Make sure:
+6. Make sure:
 
    * the **main narrative** runs from top to bottom without errors,
+   * exercises are clearly marked with TODO comments,
+   * no complete solutions are provided in exercises,
    * the code uses local files under `images/` / `data/` where needed,
-   * the explanations follow the style rules in Section 2,
-   * exercises are clearly marked (including TODOs, if any).
+   * the explanations follow the style rules in Section 2.
 
-6. **Important:**
+7. **Important:**
 
-   * Do not overwrite or delete the original `Introduction_to_*.ipynb` / `Object_*.ipynb` files.
-   * All new course content for students should be developed in the `01_...` through `08_...` notebooks.
-   * When in doubt about examples, statistics, or images, it is acceptable to **search the web**, but any asset used inside notebooks must be saved locally in `images/` and referenced by relative path.
+   * Do not overwrite or delete the original source notebooks.
+   * All new course content should be in numbered notebooks (`01_` through `08_`).
+   * When searching for examples or images, save assets locally in `images/`.
 
 ---
 
-## 6. Recent updates
+## 6. Course structure summary
 
-* ✅ Consolidated "What is an image?" content into `03_intro_to_pillow.ipynb` (no separate notebook 02).
-* ✅ Refined CNN and transfer learning notebooks (`05_cnn_theory_keras.ipynb`, `06_transfer_learning.ipynb`) with consistent style and helper functions.
-* ✅ Allowed TODO-based exercises, as long as the main narrative remains runnable and exercises are clearly labelled.
-* ✅ Aligned README, `notebooks/README.md`, and this contract with the actual plan for notebooks 01, 03, 04, 05, 06, 07, 08.
-* ✅ Created two Ultralytics YOLO notebooks (`07_intro_to_ultralytics.ipynb`, `07_object_detection_with_ultralytics.ipynb`) with YOLO11 models, image download helpers, and IoU/NMS demonstrations.
+### Part 1: Computer Vision Applications (Notebooks 1-11)
+- **Foundation**: Notebooks 1-2 (concepts)
+- **Tools**: Notebooks 3-4 (Pillow, OpenCV)
+- **Deep Learning**: Notebooks 5-6 (CNNs, Transfer Learning)
+- **Advanced CV**: Notebooks 7-11 (Ultralytics YOLO tasks)
+
+### Part 2: AI Agents (Notebook 12)
+- **AI Agents**: Notebook 12 (comprehensive introduction)
+
+### Status Legend
+- ✅ **COMPLETED**: Notebook is ready for use
+- *(Placeholder)*: Notebook contains outline of future content
+
+---
+
+## 7. Recent updates
+
+* ✅ Created placeholder notebooks for 01, 02, 07_cv_tasks_theory, and 08
+* ✅ Updated course structure to two-part format (CV Applications + AI Agents)
+* ✅ Added notebooks 07b (Segmentation and Pose) and 07c (Object Tracking)
+* ✅ Clarified TODO/exercise policy: hints allowed, no complete solutions
+* ✅ All documentation files aligned with actual notebook structure
+* ✅ Added clickable links in README files using relative markdown paths

@@ -1,110 +1,182 @@
 # Course Notebooks
 
-This folder contains all notebooks for the **"Application of AI"** course.
+This folder contains all notebooks for the **"Application of AI"** Master's course.
 
-## Target course notebooks (student-facing)
+## Course Structure
 
-These notebooks form the main learning path for students:
+The course is organized into two main parts:
 
-### Block I: Computer Vision Applications
+## Part 1: Computer Vision Applications
 
-1. **01_cv_applications.ipynb** *(planned)*
-   - Overview of Computer Vision applications in industry
-   - Motivation and use cases (healthcare, autonomous vehicles, retail, security)
+### Foundation & Theory
 
-2. **03_intro_to_pillow.ipynb**
-   - Image fundamentals (what is an image, pixels, channels, resolution)
-   - Grayscale vs. RGB images
-   - Basic image manipulation with Pillow
-   - Loading, displaying, and saving images
+1. **01_cv_applications.ipynb** *(Placeholder)*
+   - Overview of Computer Vision applications across industries
+   - Healthcare, retail, autonomous systems, security applications
+   - Manufacturing, agriculture, entertainment use cases
+   - Business value and impact assessment
+
+2. **02_what_is_an_image.ipynb** *(Placeholder)*
+   - Images as data structures
+   - Pixels, resolution, and channels
+   - Color spaces (RGB, Grayscale, HSV)
+   - File formats and storage
+
+### Practical Tools
+
+3. **03_intro_to_pillow.ipynb** ✅
+   - Loading, displaying, and saving images with Pillow
    - Image attributes (size, mode, format)
+   - Basic transformations (crop, resize, rotate, flip)
+   - Brightness, contrast, color, and sharpness adjustments
    - Converting between Pillow images and NumPy arrays
-   - **Note:** Includes the "What is an image?" content originally planned for notebook 02.
 
-3. **04_intro_to_opencv.ipynb**
-   - Reading and displaying images with OpenCV
-   - BGR vs RGB and color conversions
-   - Geometric transformations (resize, rotate, crop)
-   - Image thresholding (global and adaptive)
-   - Optional: histogram equalization and CLAHE for low-contrast images
-   - One hands-on exercise on document/bill preprocessing
+4. **04_intro_to_opencv.ipynb** ✅
+   - Advanced image processing with OpenCV
+   - BGR vs RGB color space handling
+   - Filtering and edge detection
+   - Feature detection and matching
+   - Thresholding and morphological operations
+   - Document preprocessing exercise
 
-4. **05_cnn_theory_keras.ipynb**
-   - CNN architecture and theory
-   - Detailed pooling explanations (MaxPool vs AvgPool vs Global Pooling)
-   - Implementation with Keras Functional API on the flowers dataset
-   - Training workflow and visualization (`plot_training_history`)
-   - Data augmentation with Keras layers
-   - Optional exercises for architecture exploration (including TODO-style starter code)
+### Deep Learning for Vision
 
-5. **06_transfer_learning.ipynb**
-   - Transfer learning concepts and when to use them
-   - Pre-trained models overview (MobileNetV2, EfficientNet, ResNet, etc.)
-   - Model-specific preprocessing and input size
-   - Feature extraction with frozen backbone
-   - Fine-tuning with lower learning rates
-   - Optional hybrid model section (custom CNN + pre-trained backbone)
-   - Exercises comparing different backbones and fine-tuning strategies
+5. **05_cnn_theory_keras.ipynb** ✅
+   - CNN architecture and components
+   - Convolution, padding, stride concepts
+   - Pooling types (Max, Average, Global)
+   - Building CNNs with Keras Functional API
+   - Training workflow and visualization
+   - Data augmentation techniques
+   - Hands-on exercises with flowers dataset
 
-6. **07_intro_to_ultralytics.ipynb**
-   - Introduction to YOLO and the Ultralytics ecosystem
-   - YOLO11 model variants (nano, small, medium, large, xlarge)
-   - Loading models and running first detections
-   - Understanding results objects (boxes, confidence, class names)
-   - Other YOLO tasks (segmentation, pose, classification)
+6. **06_transfer_learning.ipynb** ✅
+   - Transfer learning concepts and applications
+   - Pre-trained models in tf.keras.applications
+   - Model-specific preprocessing requirements
+   - Feature extraction with frozen backbones
+   - Fine-tuning strategies
+   - Hybrid approaches (custom CNN + pre-trained)
+   - Comparative exercises with different backbones
 
-7. **07_object_detection_with_ultralytics.ipynb**
+### Advanced Computer Vision with Ultralytics
+
+7. **07_cv_tasks_theory.ipynb** *(Placeholder)*
+   - Overview of CV tasks (classification to tracking)
+   - Object detection theory and concepts
+   - Understanding YOLO architecture evolution
+   - Evaluation metrics (IoU, mAP, precision-recall)
+
+8. **07_intro_to_ultralytics.ipynb** ✅
+   - Introduction to YOLO and Ultralytics ecosystem
+   - YOLO11 model variants (nano to xlarge)
+   - Loading models and running inference
+   - Understanding result objects
+   - Overview of different YOLO tasks
+
+9. **07_object_detection_with_ultralytics.ipynb** ✅
    - Hands-on object detection with YOLO11
-   - Confidence threshold tuning and visualization
-   - IoU threshold and Non-Max Suppression (NMS)
-   - Intersection over Union (IoU) implementation
+   - Confidence and IoU threshold tuning
+   - Non-Max Suppression (NMS) concepts
+   - Visualization and annotation
    - Optional webcam detection
-   - TODO-based exercises for model comparison
+   - Model comparison exercises
 
-### Block II: AI Agents (planned)
+10. **07b_segmentation_and_pose_with_ultralytics.ipynb** ✅
+    - Instance and semantic segmentation with YOLO11
+    - Human pose estimation and keypoint detection
+    - Medical and sports applications
+    - Mask visualization and processing
+    - Practical segmentation exercises
 
-8. **08_ai_agents_intro.ipynb** *(planned)*
-   - High-level introduction to AI agents and their applications
-   - Agent architectures and types (reactive, deliberative, hybrid)
-   - How agents orchestrate tools and models
-   - Example scenarios and use cases
+11. **07c_object_tracking_with_ultralytics.ipynb** ✅
+    - Multi-object tracking in videos
+    - Track persistence and ID management
+    - Object counting and flow analysis
+    - Real-time tracking applications
+    - Video processing exercises
 
-## Source notebooks (reference only, do not modify)
+## Part 2: AI Agents
 
-Legacy notebooks from a previous course block. Use them **only as reference** when improving the target notebooks:
+12. **08_ai_agents_intro.ipynb** *(Placeholder)*
+    - AI agents fundamentals and architectures
+    - Agent types (reactive, deliberative, hybrid)
+    - LLMs as reasoning engines
+    - Tool integration and orchestration
+    - Memory systems and decision making
+    - Building agents with LangChain
+    - Integrating CV models as agent tools
+    - Multi-agent collaboration scenarios
 
-- `Introduction_to_CV_with_Pillow.ipynb`
-- `Introduction_to_CV_with_OpenCV.ipynb`
-- `Introduction_to_CNN.ipynb`
-- `Object_Detection_YOLO_ultralytics.ipynb`
-- `Object_Tracking_Counting.ipynb`
+## Source Notebooks (Reference Only)
 
-## Style Guidelines (summary)
+Legacy notebooks from previous course iterations - **DO NOT MODIFY**:
+
+- `Introduction_to_CV_with_Pillow.ipynb` - Reference for Pillow content
+- `Introduction_to_CV_with_OpenCV.ipynb` - Reference for OpenCV content
+- `Introduction_to_CNN.ipynb` - Reference for CNN theory
+- `Object_Detection_YOLO_ultralytics.ipynb` - Reference for detection
+- `Object_Tracking_Counting.ipynb` - Reference for tracking
+
+## Style Guidelines
 
 All target notebooks follow these conventions:
 
-- Clear section headers with Markdown (`#`, `##`, `###`).
-- Short, focused explanations (3–4 sentences per paragraph).
-- Bullet points instead of long text blocks whenever possible.
-- Complete runnable examples for the **main narrative**.
-- **Exercises may include TODO-style starter code**:
-  - It is acceptable for some exercise cells to require students to fill in code.
-  - Prefer to comment out incomplete lines or clearly label cells that won't run until completed.
-- Inline comments explain the *why*, not just the *what*.
-- For CNN notebooks, define and use a `plot_training_history()` helper for training curves.
-- Images are stored under `../images/` and referenced with relative paths.
+### Structure
+- Clear section headers with Markdown (`#`, `##`, `###`)
+- Introduction → Main Content → Recap format
+- Self-contained notebooks (no dependency on previous notebooks)
+
+### Content
+- Short, focused explanations (3-4 sentences per paragraph)
+- Bullet points preferred over long text blocks
+- Complete, runnable code examples
+- Inline comments explaining the "why" not just "what"
+
+### Exercises
+- TODO-based exercises with clear instructions
+- Hints and guidance provided
+- No complete solutions in comments
+- Expected outputs for verification
+- Starter code with clear markers for student completion
+
+### Technical
+- Images stored in `../images/` with relative paths
+- Use `plot_training_history()` helper for training visualization
+- Model checkpoints and outputs clearly labeled
+- Error handling for common issues
 
 ## Prerequisites
 
 Students should have:
-
-- Basic Python programming knowledge.
-- Understanding of machine learning fundamentals.
-- Completed a previous course covering basic ML and introductory DL/CV.
+- Python 3.8+ programming experience
+- Basic machine learning knowledge
+- Understanding of neural networks fundamentals
+- Familiarity with NumPy and basic data manipulation
 
 ## Running the Notebooks
 
-1. Install dependencies from `requirements.txt`.
-2. Launch Jupyter Notebook or JupyterLab.
-3. Navigate to this `notebooks/` folder.
-4. Run notebooks in logical order (01 → 03 → 04 → 05 → 06 → 07; then 08 when available).
+1. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. Launch Jupyter:
+   ```bash
+   jupyter notebook
+   # or
+   jupyter lab
+   ```
+
+3. Navigate to `notebooks/` folder
+
+4. Follow the numbered sequence:
+   - Part 1: Start with 01-02 (concepts), then 03-04 (tools), 05-06 (deep learning), 07-11 (advanced CV)
+   - Part 2: Complete 08 (AI agents)
+
+## Notes
+
+- Notebooks marked *(Placeholder)* contain outlines of future content
+- Notebooks marked ✅ are complete and ready for use
+- Source notebooks are for reference only when developing new content
+- All notebooks should be tested to run from top to bottom without errors
