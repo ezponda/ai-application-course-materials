@@ -9,7 +9,7 @@ ai-application-course-materials/
 ├── notebooks/     # Jupyter notebooks with code examples and exercises
 ├── images/        # Images and visualizations used in the course
 ├── data/          # Datasets for exercises and projects
-├── claude.md      # Course contract for AI assistants and tooling
+├── CLAUDE.md      # Course contract for AI assistants and tooling
 └── README.md      # This file
 ```
 
@@ -165,7 +165,7 @@ Notebooks contain TODO-based exercises with:
 - **Notebooks**: All course content in `notebooks/`
 - **Images**: Sample images and visualizations in `images/`
 - **Data**: Datasets for exercises in `data/`
-- **Documentation**: Implementation guidelines in `claude.md`
+- **Documentation**: Implementation guidelines in `CLAUDE.md`
 
 ## Note on Placeholders
 

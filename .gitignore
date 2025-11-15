@@ -205,3 +205,62 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# ===================================
+# Project-specific exclusions
+# ===================================
+
+# YOLO/Ultralytics model weights (downloaded automatically)
+*.pt
+*.pth
+*.onnx
+*.torchscript
+*.engine
+*.mlmodel
+*.tflite
+
+# Ultralytics runs and cache
+runs/
+ultralytics/
+
+# Claude Code local settings (keep commands/ for team sharing)
+.claude/settings.local.json
+.claude/statsig/
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Thumbnails
+.thumbnails
+
+# Large media files (if accidentally added)
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*~
+
+# Dataset downloads (should be in data/ but exclude large ones)
+*.zip
+*.tar.gz
+*.tar
+*.h5
+*.hdf5
+
+# TensorFlow/Keras model checkpoints
+*.keras
+checkpoints/
+logs/
+models/*.h5
+
+# Notebook metadata
+.notebook_metadata/

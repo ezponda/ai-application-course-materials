@@ -6,6 +6,61 @@ Repository: **ai-application-course-materials**
 
 ---
 
+## Quick Reference
+
+### Common Commands
+
+```bash
+# Environment setup
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+
+# Launch notebooks
+jupyter notebook
+jupyter lab
+
+# Verify installations
+python -c "import tensorflow as tf; print(f'TensorFlow: {tf.__version__}')"
+python -c "import cv2; print(f'OpenCV: {cv2.__version__}')"
+python -c "from ultralytics import YOLO; print('Ultralytics: OK')"
+python -c "from PIL import Image; print('Pillow: OK')"
+
+# Git workflow
+git status
+git add notebooks/<notebook>.ipynb images/<image>.jpg
+git commit -m "Description of changes"
+git push
+
+# Check notebook syntax (optional)
+python -m json.tool notebooks/<notebook>.ipynb > /dev/null
+
+# Clear notebook outputs before commit (optional)
+jupyter nbconvert --clear-output --inplace notebooks/<notebook>.ipynb
+```
+
+### Core Files
+
+| File | Purpose |
+|------|---------|
+| `CLAUDE.md` | This file - course contract and guidelines |
+| `README.md` | Main repository documentation |
+| `notebooks/README.md` | Notebook-specific documentation |
+| `requirements.txt` | Python dependencies |
+| `images/` | All images used in notebooks |
+| `data/` | Sample datasets (if any) |
+| `.claude/commands/` | Reusable slash command templates |
+
+### Important Warnings
+
+- **Never modify source notebooks** (`Introduction_to_*.ipynb`, `Object_*.ipynb`)
+- **Always use relative paths** for images: `../images/filename.jpg`
+- **YOLO model weights** (`.pt` files) are downloaded automatically; don't commit them
+- **Large images** should be compressed before adding to `images/`
+- **Notebook outputs** can make files very large; consider clearing before commits
+
+---
+
 ## 1. Course goal and audience
 
 - Master's-level course: **Application of AI**.
@@ -240,7 +295,7 @@ Target notebooks are the student-facing materials (create, refine, and maintain 
 
 When generating or modifying any **target notebook**:
 
-1. **Always read `claude.md` first** (this file).
+1. **Always read `CLAUDE.md` first** (this file).
 2. Read `README.md` at the repo root.
 3. Read `notebooks/README.md` for notebook-specific guidelines.
 4. Identify and open the relevant **source notebook(s)** under `notebooks/`:
