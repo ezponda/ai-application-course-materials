@@ -1,0 +1,19 @@
+title: "Application of AI"
+
+only_build_toc_files: true
+
+execute:
+  execute_notebooks: "off"
+
+html:
+  use_repository_button: true
+  use_issues_button: false
+  use_download_button: true
+
+repository:
+  url: https://github.com/ezponda/ai-application-course-materials
+  branch: main
+  path_to_book: ""
+
+launch_buttons:
+  colab_url: "https://colab.research.google.com"

@@ -264,3 +264,6 @@ models/*.h5
 
 # Notebook metadata
 .notebook_metadata/
+
+# Jupyter Book build output
+_build/

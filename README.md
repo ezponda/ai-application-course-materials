@@ -9,6 +9,9 @@ ai-application-course-materials/
 ├── notebooks/     # Jupyter notebooks with code examples and exercises
 ├── images/        # Images and visualizations used in the course
 ├── data/          # Datasets for exercises and projects
+├── _config.yml    # Jupyter Book configuration
+├── _toc.yml       # Table of contents for Jupyter Book
+├── Makefile       # Build automation (execute notebooks, build book)
 ├── CLAUDE.md      # Course contract for AI assistants and tooling
 └── README.md      # This file
 ```
@@ -137,6 +140,43 @@ jupyter notebook
 # or
 jupyter lab
 ```
+
+### Building the Jupyter Book
+
+This repository can be built as a navigable HTML site using Jupyter Book.
+
+1. Install Jupyter Book:
+```bash
+pip install "jupyter-book<2.0"
+# or use the Makefile
+make install
+```
+
+2. Build the book:
+```bash
+jupyter-book build .
+# or
+make build
+```
+
+3. View the generated site:
+```bash
+open _build/html/index.html
+# or start a local server
+make serve
+```
+
+The HTML site will be available at `_build/html/index.html`.
+
+**Available Makefile targets:**
+- `make install` - Install jupyter-book and dependencies
+- `make execute` - Execute all notebooks (re-run cells and save outputs)
+- `make build` - Build the Jupyter Book HTML site
+- `make clean` - Remove build artifacts
+- `make serve` - Start a local server to preview the book
+- `make all` - Execute notebooks and build the book
+
+**Note:** The build uses `execute_notebooks: "off"`, meaning notebooks are not re-executed during build. Run `make execute` first if you want fresh outputs.
 
 ## Learning Path
 

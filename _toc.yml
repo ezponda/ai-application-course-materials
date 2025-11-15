@@ -1,0 +1,21 @@
+format: jb-book
+root: intro
+
+parts:
+  - caption: "Part 1 – Computer Vision"
+    chapters:
+      - file: notebooks/01_cv_applications
+      - file: notebooks/02_what_is_an_image
+      - file: notebooks/03_intro_to_pillow
+      - file: notebooks/04_intro_to_opencv
+      - file: notebooks/05_cnn_theory_keras
+      - file: notebooks/06_transfer_learning
+      - file: notebooks/07_cv_tasks_theory
+      - file: notebooks/07_intro_to_ultralytics
+      - file: notebooks/07_object_detection_with_ultralytics
+      - file: notebooks/07b_segmentation_and_pose_with_ultralytics
+      - file: notebooks/07c_object_tracking_with_ultralytics
+
+  - caption: "Part 2 – AI Agents"
+    chapters:
+      - file: notebooks/08_ai_agents_intro
