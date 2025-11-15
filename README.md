@@ -171,38 +171,6 @@ Notebooks contain TODO-based exercises with:
 
 Notebooks marked as *(Placeholder)* are under development and contain outlines of upcoming content. Completed notebooks are marked with ✅.
 
-## Getting Started
-
-### Prerequisites
-
-- Python 3.8 or higher
-- Basic knowledge of Python programming
-- Understanding of machine learning fundamentals (recommended)
-
-### Installation
-
-1. Clone this repository:
-```bash
-git clone https://github.com/ezponda/ai-application-course-materials.git
-cd ai-application-course-materials
-```
-
-2. Install required dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-3. Launch Jupyter Notebook:
-```bash
-jupyter notebook
-```
-
-## Resources
-
-- Course notebooks are located in the `notebooks/` directory
-- Sample datasets are provided in the `data/` directory
-- Supporting images and visualizations are in the `images/` directory
-
 ## Contributing
 
 This is a course repository. For questions or suggestions, please contact the course instructor.
