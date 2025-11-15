@@ -1,0 +1,1174 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Object Detection with Ultralytics YOLO &#8212; Application of AI</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/07_object_detection_with_ultralytics';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Segmentation and Pose Estimation with Ultralytics YOLO" href="07b_segmentation_and_pose_with_ultralytics.html" />
+    <link rel="prev" title="Introduction to Ultralytics YOLO" href="07_intro_to_ultralytics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Application of AI</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Application of AI
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 1 – Computer Vision</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_cv_applications.html">01 - Computer Vision Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_what_is_an_image.html">02 - What is an Image?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_intro_to_pillow.html">Introduction to Pillow &amp; Image Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_intro_to_opencv.html">Introduction to OpenCV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_cnn_theory_keras.html">CNN Theory and Implementation with Keras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_transfer_learning.html">Transfer Learning and Fine-tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_cv_tasks_theory.html">07 - Computer Vision Tasks: Theory and Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_intro_to_ultralytics.html">Introduction to Ultralytics YOLO</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Object Detection with Ultralytics YOLO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07b_segmentation_and_pose_with_ultralytics.html">Segmentation and Pose Estimation with Ultralytics YOLO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07c_object_tracking_with_ultralytics.html">Object Tracking with Ultralytics YOLO</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 2 – AI Agents</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="08_ai_agents_intro.html">08 - Introduction to AI Agents</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ezponda/ai-application-course-materials/blob/main/notebooks/07_object_detection_with_ultralytics.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/ezponda/ai-application-course-materials" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/07_object_detection_with_ultralytics.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Object Detection with Ultralytics YOLO</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-and-model-loading">Setup and Model Loading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-recap-what-is-object-detection">Quick Recap: What is Object Detection?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-detector-outputs">What the Detector Outputs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coco-dataset">COCO Dataset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detection-on-multiple-images">Detection on Multiple Images</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-and-iou-thresholds">Confidence and IoU Thresholds</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#varying-confidence-threshold">Varying Confidence Threshold</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#varying-iou-threshold">Varying IoU Threshold</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intersection-over-union-iou">Intersection over Union (IoU)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-formula">The Formula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-iou-matters">Why IoU Matters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-max-suppression-nms">Non-Max Suppression (NMS)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-nms-works-conceptual">How NMS Works (Conceptual)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-toy-data">Example (Toy Data)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nms-in-ultralytics-yolo">NMS in Ultralytics YOLO</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-webcam-detection">Optional: Webcam Detection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-and-exercises">Recap and Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-count-detections-per-class">Exercise 1: Count Detections per Class</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-compare-model-variants">Exercise 2: Compare Model Variants</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-count-people-across-images">Exercise 3: Count People Across Images</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="object-detection-with-ultralytics-yolo">
+<h1>Object Detection with Ultralytics YOLO<a class="headerlink" href="#object-detection-with-ultralytics-yolo" title="Link to this heading">#</a></h1>
+<p>In this notebook we put Ultralytics YOLO11 into practice. We will detect objects in several images, explore confidence and IoU thresholds, and build intuition for Intersection over Union (IoU) and Non-Max Suppression (NMS) without going too deep into theory.</p>
+<p>By the end of this notebook, you’ll understand how to:</p>
+<ul class="simple">
+<li><p>Run detection on multiple images</p></li>
+<li><p>Tune confidence and IoU thresholds</p></li>
+<li><p>Understand what IoU measures and why it matters</p></li>
+<li><p>Grasp the concept of Non-Max Suppression</p></li>
+</ul>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#Setup-and-Model-Loading"><span class="xref myst">Setup and Model Loading</span></a></p></li>
+<li><p><a class="reference internal" href="#Quick-Recap-What-is-Object-Detection"><span class="xref myst">Quick Recap: What is Object Detection?</span></a></p></li>
+<li><p><a class="reference internal" href="#Detection-on-Multiple-Images"><span class="xref myst">Detection on Multiple Images</span></a></p></li>
+<li><p><a class="reference internal" href="#Confidence-and-IoU-Thresholds"><span class="xref myst">Confidence and IoU Thresholds</span></a></p></li>
+<li><p><a class="reference internal" href="#Intersection-over-Union-IoU"><span class="xref myst">Intersection over Union (IoU)</span></a></p></li>
+<li><p><a class="reference internal" href="#Non-Max-Suppression-NMS"><span class="xref myst">Non-Max Suppression (NMS)</span></a></p></li>
+<li><p><a class="reference internal" href="#Optional-Webcam-Detection"><span class="xref myst">Optional: Webcam Detection</span></a></p></li>
+<li><p><a class="reference internal" href="#Recap-and-Exercises"><span class="xref myst">Recap and Exercises</span></a></p></li>
+</ol>
+</section>
+<section id="setup-and-model-loading">
+<h2>Setup and Model Loading<a class="headerlink" href="#setup-and-model-loading" title="Link to this heading">#</a></h2>
+<p>Let’s import the necessary libraries and load our YOLO11 detection model.</p>
+<blockquote>
+<div><p><strong>Note:</strong> If the images in <code class="docutils literal notranslate"><span class="pre">../images/</span></code> are missing, run <code class="docutils literal notranslate"><span class="pre">07_intro_to_ultralytics.ipynb</span></code> first to download them.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Optional: install Ultralytics and OpenCV in fresh environments (e.g. Colab)</span>
+<span class="c1"># %pip install ultralytics opencv-python</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ultralytics</span><span class="w"> </span><span class="kn">import</span> <span class="n">YOLO</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="c1"># Load YOLO11 nano model for detection</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">YOLO</span><span class="p">(</span><span class="s2">&quot;yolo11n.pt&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model loaded: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">model_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="quick-recap-what-is-object-detection">
+<h2>Quick Recap: What is Object Detection?<a class="headerlink" href="#quick-recap-what-is-object-detection" title="Link to this heading">#</a></h2>
+<p>Object detection goes beyond image classification. Instead of just saying “this image contains a dog,” detection tells you:</p>
+<ul class="simple">
+<li><p><strong>Where</strong> each object is (bounding box coordinates)</p></li>
+<li><p><strong>What</strong> each object is (class label)</p></li>
+<li><p><strong>How confident</strong> the model is (confidence score)</p></li>
+</ul>
+<section id="what-the-detector-outputs">
+<h3>What the Detector Outputs<a class="headerlink" href="#what-the-detector-outputs" title="Link to this heading">#</a></h3>
+<p>For each detected object:</p>
+<ul class="simple">
+<li><p><strong>Bounding box</strong>: [x1, y1, x2, y2] coordinates defining the rectangle</p></li>
+<li><p><strong>Class label</strong>: The type of object (e.g., “person”, “car”, “dog”)</p></li>
+<li><p><strong>Confidence score</strong>: Probability that the detection is correct (0 to 1)</p></li>
+</ul>
+</section>
+<section id="coco-dataset">
+<h3>COCO Dataset<a class="headerlink" href="#coco-dataset" title="Link to this heading">#</a></h3>
+<p>Our model is pre-trained on the <a class="reference external" href="https://cocodataset.org/">COCO dataset</a>, which contains 80 common object categories including people, vehicles, animals, and everyday objects.</p>
+</section>
+</section>
+<section id="detection-on-multiple-images">
+<h2>Detection on Multiple Images<a class="headerlink" href="#detection-on-multiple-images" title="Link to this heading">#</a></h2>
+<p>Let’s run detection on several images to see YOLO in action. We’ll use the images downloaded in the previous notebook.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># List of local image paths</span>
+<span class="n">image_paths</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;../images/yolo_dog_cat.jpg&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;../images/yolo_beach_scene.jpg&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;../images/yolo_traffic.jpg&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;../images/yolo_phones_on_table.jpg&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;../images/yolo_einstein_head.jpg&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># Run detection on each image</span>
+<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">image_paths</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2"> not found. Run 07_intro_to_ultralytics.ipynb first.&quot;</span><span class="p">)</span>
+        <span class="k">continue</span>
+    
+    <span class="n">img_bgr</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">img_rgb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img_bgr</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+    
+    <span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">img_rgb</span><span class="p">)</span>
+    <span class="n">annotated</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+    
+    <span class="c1"># Count detections</span>
+    <span class="n">num_detections</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">boxes</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">annotated</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">num_detections</span><span class="si">}</span><span class="s2"> objects detected&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Observations:</strong></p>
+<ul class="simple">
+<li><p><strong>Dogs and cats</strong>: Pets detected with high confidence</p></li>
+<li><p><strong>Beach scene</strong>: People, sports equipment, personal items</p></li>
+<li><p><strong>Traffic</strong>: Vehicles, pedestrians, traffic infrastructure</p></li>
+<li><p><strong>Phones</strong>: Electronic devices, sometimes mistaken for similar objects</p></li>
+<li><p><strong>Einstein portrait</strong>: Person detection (historical photos work too!)</p></li>
+</ul>
+</section>
+<section id="confidence-and-iou-thresholds">
+<h2>Confidence and IoU Thresholds<a class="headerlink" href="#confidence-and-iou-thresholds" title="Link to this heading">#</a></h2>
+<p>When running inference, two key parameters control the output:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">conf</span></code></strong> (confidence threshold): Minimum confidence score for a detection to be kept</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">iou</span></code></strong> (IoU threshold for NMS): Controls how overlapping boxes are filtered</p></li>
+</ul>
+<p>Let’s see how these affect detection results.</p>
+<section id="varying-confidence-threshold">
+<h3>Varying Confidence Threshold<a class="headerlink" href="#varying-confidence-threshold" title="Link to this heading">#</a></h3>
+<p>The confidence threshold filters out weak detections. Let’s see its effect:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load a test image</span>
+<span class="n">img_bgr</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s2">&quot;../images/yolo_traffic.jpg&quot;</span><span class="p">)</span>
+<span class="n">img_rgb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img_bgr</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+
+<span class="c1"># Test different confidence thresholds</span>
+<span class="n">conf_values</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">conf</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">conf_values</span><span class="p">):</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">img_rgb</span><span class="p">,</span> <span class="n">conf</span><span class="o">=</span><span class="n">conf</span><span class="p">)</span>
+    <span class="n">num_det</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">boxes</span><span class="p">)</span> <span class="k">if</span> <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">boxes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">0</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">())</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;conf=</span><span class="si">{</span><span class="n">conf</span><span class="si">}</span><span class="s2">, detections=</span><span class="si">{</span><span class="n">num_det</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Effect of Confidence Threshold&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Key insights:</strong></p>
+<ul class="simple">
+<li><p><strong>Lower <code class="docutils literal notranslate"><span class="pre">conf</span></code> (e.g., 0.1)</strong>: More detections, including uncertain ones (more false positives)</p></li>
+<li><p><strong>Higher <code class="docutils literal notranslate"><span class="pre">conf</span></code> (e.g., 0.75)</strong>: Fewer detections, only high-confidence ones (more false negatives)</p></li>
+<li><p><strong>Default <code class="docutils literal notranslate"><span class="pre">conf=0.25</span></code></strong>: Good balance for most applications</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Performance note:</strong> For this course, <code class="docutils literal notranslate"><span class="pre">yolo11n.pt</span></code> (nano) is usually sufficient on CPU. Larger models like <code class="docutils literal notranslate"><span class="pre">yolo11m.pt</span></code>, <code class="docutils literal notranslate"><span class="pre">yolo11l.pt</span></code>, or <code class="docutils literal notranslate"><span class="pre">yolo11x.pt</span></code> provide higher accuracy but are slower on CPU and benefit significantly from GPU acceleration.</p>
+</div></blockquote>
+</section>
+<section id="varying-iou-threshold">
+<h3>Varying IoU Threshold<a class="headerlink" href="#varying-iou-threshold" title="Link to this heading">#</a></h3>
+<p>The IoU threshold controls Non-Max Suppression (NMS), which removes duplicate detections of the same object:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test different IoU thresholds for NMS</span>
+<span class="n">iou_values</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">iou</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">iou_values</span><span class="p">):</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">img_rgb</span><span class="p">,</span> <span class="n">conf</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">iou</span><span class="o">=</span><span class="n">iou</span><span class="p">)</span>
+    <span class="n">num_det</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">boxes</span><span class="p">)</span> <span class="k">if</span> <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">boxes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">0</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">())</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;iou=</span><span class="si">{</span><span class="n">iou</span><span class="si">}</span><span class="s2">, detections=</span><span class="si">{</span><span class="n">num_det</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Effect of IoU Threshold (NMS)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Key insights:</strong></p>
+<ul class="simple">
+<li><p><strong>Lower <code class="docutils literal notranslate"><span class="pre">iou</span></code> (e.g., 0.3)</strong>: Stricter NMS, removes more overlapping boxes</p></li>
+<li><p><strong>Higher <code class="docutils literal notranslate"><span class="pre">iou</span></code> (e.g., 0.7)</strong>: Relaxed NMS, keeps more overlapping boxes</p></li>
+<li><p><strong>Default <code class="docutils literal notranslate"><span class="pre">iou=0.7</span></code></strong>: Allows nearby but distinct objects to be detected</p></li>
+</ul>
+</section>
+</section>
+<section id="intersection-over-union-iou">
+<h2>Intersection over Union (IoU)<a class="headerlink" href="#intersection-over-union-iou" title="Link to this heading">#</a></h2>
+<p>IoU (also called Jaccard Index) is a fundamental metric in object detection. It measures how much two bounding boxes overlap.</p>
+<section id="the-formula">
+<h3>The Formula<a class="headerlink" href="#the-formula" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[\text{IoU} = \frac{\text{Area of Intersection}}{\text{Area of Union}}\]</div>
+<ul class="simple">
+<li><p><strong>IoU = 1.0</strong>: Perfect overlap (identical boxes)</p></li>
+<li><p><strong>IoU = 0.0</strong>: No overlap at all</p></li>
+<li><p><strong>IoU ≈ 0.5</strong>: Moderate overlap</p></li>
+</ul>
+<p>Let’s implement and visualize IoU:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute_iou</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">box2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute Intersection over Union between two boxes.</span>
+<span class="sd">    Box format: [x1, y1, x2, y2]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Calculate intersection coordinates</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">box1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">box2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">box1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">box2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">box1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">box2</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">y2</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">box1</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">box2</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+    
+    <span class="c1"># Calculate intersection area</span>
+    <span class="n">inter_w</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span><span class="p">)</span>
+    <span class="n">inter_h</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span><span class="p">)</span>
+    <span class="n">inter_area</span> <span class="o">=</span> <span class="n">inter_w</span> <span class="o">*</span> <span class="n">inter_h</span>
+    
+    <span class="c1"># Calculate union area</span>
+    <span class="n">area1</span> <span class="o">=</span> <span class="p">(</span><span class="n">box1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">box1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">box1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">box1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">area2</span> <span class="o">=</span> <span class="p">(</span><span class="n">box2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">box2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">box2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">box2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">union_area</span> <span class="o">=</span> <span class="n">area1</span> <span class="o">+</span> <span class="n">area2</span> <span class="o">-</span> <span class="n">inter_area</span>
+    
+    <span class="c1"># Return IoU</span>
+    <span class="k">return</span> <span class="n">inter_area</span> <span class="o">/</span> <span class="n">union_area</span> <span class="k">if</span> <span class="n">union_area</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">visualize_iou</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">box2</span><span class="p">,</span> <span class="n">img_size</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Visualize two boxes and their IoU on a blank image.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Create blank image</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">img_size</span><span class="p">,</span> <span class="n">img_size</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span> <span class="o">*</span> <span class="mi">255</span>
+    
+    <span class="c1"># Draw boxes (Red for box1, Blue for box2)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">box1</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">box1</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">box1</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">box1</span><span class="p">[</span><span class="mi">3</span><span class="p">])),</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">box2</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">box2</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">box2</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">box2</span><span class="p">[</span><span class="mi">3</span><span class="p">])),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+    
+    <span class="c1"># Calculate IoU</span>
+    <span class="n">iou</span> <span class="o">=</span> <span class="n">compute_iou</span><span class="p">(</span><span class="n">box1</span><span class="p">,</span> <span class="n">box2</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">img</span><span class="p">,</span> <span class="n">iou</span>
+
+<span class="c1"># Example 1: High overlap</span>
+<span class="n">box1_high</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">120</span><span class="p">]</span>
+<span class="n">box2_high</span> <span class="o">=</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">140</span><span class="p">]</span>
+
+<span class="c1"># Example 2: Low overlap</span>
+<span class="n">box1_low</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">80</span><span class="p">]</span>
+<span class="n">box2_low</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">]</span>
+
+<span class="c1"># Example 3: Moderate overlap</span>
+<span class="n">box1_med</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">130</span><span class="p">]</span>
+<span class="n">box2_med</span> <span class="o">=</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">140</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">),</span> <span class="n">title</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> 
+                                <span class="p">[(</span><span class="n">box1_high</span><span class="p">,</span> <span class="n">box2_high</span><span class="p">),</span> <span class="p">(</span><span class="n">box1_med</span><span class="p">,</span> <span class="n">box2_med</span><span class="p">),</span> <span class="p">(</span><span class="n">box1_low</span><span class="p">,</span> <span class="n">box2_low</span><span class="p">)],</span>
+                                <span class="p">[</span><span class="s2">&quot;High Overlap&quot;</span><span class="p">,</span> <span class="s2">&quot;Moderate Overlap&quot;</span><span class="p">,</span> <span class="s2">&quot;Low Overlap&quot;</span><span class="p">]):</span>
+    <span class="n">img</span><span class="p">,</span> <span class="n">iou</span> <span class="o">=</span> <span class="n">visualize_iou</span><span class="p">(</span><span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="se">\n</span><span class="s2">IoU = </span><span class="si">{</span><span class="n">iou</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;IoU Examples (Red and Blue boxes)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="why-iou-matters">
+<h3>Why IoU Matters<a class="headerlink" href="#why-iou-matters" title="Link to this heading">#</a></h3>
+<p>IoU is used in two critical ways:</p>
+<ol class="arabic simple">
+<li><p><strong>Evaluation</strong>: Compare predicted boxes to ground truth boxes. An IoU &gt; 0.5 is typically considered a correct detection.</p></li>
+<li><p><strong>Non-Max Suppression</strong>: When multiple boxes detect the same object, IoU determines which duplicates to remove.</p></li>
+</ol>
+</section>
+</section>
+<section id="non-max-suppression-nms">
+<h2>Non-Max Suppression (NMS)<a class="headerlink" href="#non-max-suppression-nms" title="Link to this heading">#</a></h2>
+<p>Object detection models often produce multiple overlapping boxes for the same object. Non-Max Suppression (NMS) removes these duplicates.</p>
+<section id="how-nms-works-conceptual">
+<h3>How NMS Works (Conceptual)<a class="headerlink" href="#how-nms-works-conceptual" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Sort</strong> all detections by confidence score (highest first)</p></li>
+<li><p><strong>Select</strong> the box with highest confidence</p></li>
+<li><p><strong>Remove</strong> all other boxes that have IoU &gt; threshold with the selected box</p></li>
+<li><p><strong>Repeat</strong> until no boxes remain</p></li>
+</ol>
+</section>
+<section id="example-toy-data">
+<h3>Example (Toy Data)<a class="headerlink" href="#example-toy-data" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simulate multiple overlapping detections for the same object</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Simulated overlapping detections:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+
+<span class="n">fake_boxes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="s2">&quot;conf&quot;</span><span class="p">:</span> <span class="mf">0.95</span><span class="p">},</span>  <span class="c1"># Highest confidence</span>
+    <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">105</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">205</span><span class="p">,</span> <span class="mi">198</span><span class="p">],</span> <span class="s2">&quot;conf&quot;</span><span class="p">:</span> <span class="mf">0.82</span><span class="p">},</span>   <span class="c1"># Overlaps with box 1</span>
+    <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">110</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="mi">202</span><span class="p">],</span> <span class="s2">&quot;conf&quot;</span><span class="p">:</span> <span class="mf">0.78</span><span class="p">},</span>  <span class="c1"># Overlaps with box 1</span>
+    <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="s2">&quot;conf&quot;</span><span class="p">:</span> <span class="mf">0.90</span><span class="p">},</span>  <span class="c1"># Different object</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">det</span> <span class="ow">in</span> <span class="n">fake_boxes</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Box </span><span class="si">{</span><span class="n">det</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">: conf=</span><span class="si">{</span><span class="n">det</span><span class="p">[</span><span class="s1">&#39;conf&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, coords=</span><span class="si">{</span><span class="n">det</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Visualize the overlapping boxes</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Left plot: Before NMS (all boxes)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">img_before</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">300</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span> <span class="o">*</span> <span class="mi">240</span>  <span class="c1"># Light gray background</span>
+
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">165</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>  <span class="c1"># Red, Green, Blue, Orange</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">det</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fake_boxes</span><span class="p">):</span>
+    <span class="n">box</span> <span class="o">=</span> <span class="n">det</span><span class="p">[</span><span class="s2">&quot;box&quot;</span><span class="p">]</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img_before</span><span class="p">,</span> <span class="p">(</span><span class="n">box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">box</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="n">box</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">box</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="n">color</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="c1"># Add label with confidence</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Box </span><span class="si">{</span><span class="n">det</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">det</span><span class="p">[</span><span class="s1">&#39;conf&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span><span class="n">img_before</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="p">(</span><span class="n">box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">box</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">10</span><span class="p">),</span> 
+                <span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img_before</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;BEFORE NMS: 4 overlapping detections&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+<span class="c1"># Right plot: After NMS (only kept boxes)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">img_after</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">300</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span> <span class="o">*</span> <span class="mi">240</span>
+
+<span class="c1"># Box 1 (highest conf, kept) and Box 4 (different object, kept)</span>
+<span class="n">kept_boxes</span> <span class="o">=</span> <span class="p">[</span><span class="n">fake_boxes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">fake_boxes</span><span class="p">[</span><span class="mi">3</span><span class="p">]]</span>  <span class="c1"># Box 1 and Box 4</span>
+<span class="n">kept_colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">colors</span><span class="p">[</span><span class="mi">3</span><span class="p">]]</span>
+
+<span class="k">for</span> <span class="n">det</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">kept_boxes</span><span class="p">,</span> <span class="n">kept_colors</span><span class="p">):</span>
+    <span class="n">box</span> <span class="o">=</span> <span class="n">det</span><span class="p">[</span><span class="s2">&quot;box&quot;</span><span class="p">]</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img_after</span><span class="p">,</span> <span class="p">(</span><span class="n">box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">box</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="p">(</span><span class="n">box</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">box</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="n">color</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Box </span><span class="si">{</span><span class="n">det</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">det</span><span class="p">[</span><span class="s1">&#39;conf&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span><span class="n">img_after</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="p">(</span><span class="n">box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">box</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">10</span><span class="p">),</span> 
+                <span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img_after</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;AFTER NMS: 2 boxes kept (duplicates removed)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Non-Max Suppression Example&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Applying NMS with IoU threshold = 0.5:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+
+<span class="c1"># Calculate IoUs between box 1 and others</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">fake_boxes</span><span class="p">)):</span>
+    <span class="n">iou</span> <span class="o">=</span> <span class="n">compute_iou</span><span class="p">(</span><span class="n">fake_boxes</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;box&quot;</span><span class="p">],</span> <span class="n">fake_boxes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;box&quot;</span><span class="p">])</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;REMOVE&quot;</span> <span class="k">if</span> <span class="n">iou</span> <span class="o">&gt;</span> <span class="mf">0.5</span> <span class="k">else</span> <span class="s2">&quot;KEEP&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Box 1 vs Box </span><span class="si">{</span><span class="n">fake_boxes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">: IoU=</span><span class="si">{</span><span class="n">iou</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> → </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Result: Keep Box 1 (highest conf) and Box 4 (different object)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Remove Boxes 2 and 3 (duplicates of Box 1)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="nms-in-ultralytics-yolo">
+<h3>NMS in Ultralytics YOLO<a class="headerlink" href="#nms-in-ultralytics-yolo" title="Link to this heading">#</a></h3>
+<p>Ultralytics applies NMS <strong>internally</strong> during inference. You control it with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">conf</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">iou</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">conf=0.25</span></code>: Discard detections with confidence &lt; 0.25 <strong>before</strong> NMS</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">iou=0.7</span></code>: Remove overlapping boxes with IoU &gt; 0.7 <strong>during</strong> NMS</p></li>
+</ul>
+<p>Lower IoU threshold → more aggressive removal of overlapping boxes.</p>
+</section>
+</section>
+<section id="optional-webcam-detection">
+<h2>Optional: Webcam Detection<a class="headerlink" href="#optional-webcam-detection" title="Link to this heading">#</a></h2>
+<p>If you have a webcam, you can try real-time detection. This may not work in all environments (hosted notebooks, remote servers, etc.).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Optional: Real-time webcam detection</span>
+<span class="c1"># Uncomment the code below to try it</span>
+
+<span class="c1"># import cv2</span>
+<span class="c1"># from ultralytics import YOLO</span>
+
+<span class="c1"># model = YOLO(&quot;yolo11n.pt&quot;)</span>
+<span class="c1"># cap = cv2.VideoCapture(0)  # Default webcam</span>
+
+<span class="c1"># print(&quot;Press &#39;q&#39; to quit&quot;)</span>
+
+<span class="c1"># while True:</span>
+<span class="c1">#     ret, frame = cap.read()</span>
+<span class="c1">#     if not ret:</span>
+<span class="c1">#         break</span>
+<span class="c1">#     </span>
+<span class="c1">#     # Run detection</span>
+<span class="c1">#     results = model(frame, verbose=False)</span>
+<span class="c1">#     annotated = results[0].plot()</span>
+<span class="c1">#     </span>
+<span class="c1">#     # Display</span>
+<span class="c1">#     cv2.imshow(&quot;YOLO11 Webcam Detection&quot;, annotated)</span>
+<span class="c1">#     </span>
+<span class="c1">#     # Exit on &#39;q&#39;</span>
+<span class="c1">#     if cv2.waitKey(1) &amp; 0xFF == ord(&#39;q&#39;):</span>
+<span class="c1">#         break</span>
+
+<span class="c1"># cap.release()</span>
+<span class="c1"># cv2.destroyAllWindows()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Webcam code is commented out. Uncomment to try real-time detection.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Note: This requires a local environment with webcam access.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="recap-and-exercises">
+<h2>Recap and Exercises<a class="headerlink" href="#recap-and-exercises" title="Link to this heading">#</a></h2>
+<section id="key-takeaways">
+<h3>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Object detection</strong> locates objects with bounding boxes, class labels, and confidence scores</p></li>
+<li><p><strong>Confidence threshold</strong> (<code class="docutils literal notranslate"><span class="pre">conf</span></code>): Filters out weak detections before NMS</p></li>
+<li><p><strong>IoU threshold</strong> (<code class="docutils literal notranslate"><span class="pre">iou</span></code>): Controls how aggressively NMS removes overlapping boxes</p></li>
+<li><p><strong>IoU formula</strong>: Intersection area / Union area (measures box overlap)</p></li>
+<li><p><strong>NMS</strong>: Removes duplicate detections by keeping only the highest-confidence box for overlapping detections</p></li>
+<li><p><strong>Trade-offs</strong>: Lower <code class="docutils literal notranslate"><span class="pre">conf</span></code> → more detections (more false positives); Lower <code class="docutils literal notranslate"><span class="pre">iou</span></code> → stricter duplicate removal</p></li>
+<li><p><strong>Pixel-level segmentation and human pose estimation</strong>: See <code class="docutils literal notranslate"><span class="pre">07b_segmentation_and_pose_with_ultralytics.ipynb</span></code> for masks and keypoints</p></li>
+</ul>
+</section>
+<section id="exercise-1-count-detections-per-class">
+<h3>Exercise 1: Count Detections per Class<a class="headerlink" href="#exercise-1-count-detections-per-class" title="Link to this heading">#</a></h3>
+<p>Create a function that counts how many objects of each class were detected in an image.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Exercise 1: Count detections per class</span>
+<span class="c1"># Best practice: Load the model once and reuse it for multiple images</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">count_detections_per_class</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Count how many objects of each class are detected.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        image_path: Path to the image file</span>
+<span class="sd">        model: Pre-loaded YOLO model instance (reuse for efficiency)</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary: {class_name: count}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: Load image and run detection</span>
+    <span class="c1"># Hint: Use cv2.imread() and cv2.cvtColor() to load and convert to RGB</span>
+    <span class="c1"># Hint: Call model(img_rgb) to get results</span>
+    
+    <span class="c1"># TODO: Count objects per class</span>
+    <span class="c1"># Hint: Loop over results[0].boxes</span>
+    <span class="c1"># Hint: Use int(box.cls) to get class ID, r.names[cls_id] to get class name</span>
+    <span class="c1"># Hint: Store counts in a dictionary</span>
+    
+    <span class="c1"># TODO: Print results</span>
+    <span class="c1"># Hint: Print image name and counts for each class</span>
+    
+    <span class="c1"># TODO: Return the dictionary of counts</span>
+    <span class="k">pass</span>  <span class="c1"># Remove this when you complete the TODO</span>
+
+<span class="c1"># Test the function - load model once, reuse for multiple calls</span>
+<span class="c1"># model = YOLO(&quot;yolo11n.pt&quot;)</span>
+<span class="c1"># count_detections_per_class(&quot;../images/yolo_traffic.jpg&quot;, model)</span>
+<span class="c1"># count_detections_per_class(&quot;../images/yolo_beach_scene.jpg&quot;, model)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-2-compare-model-variants">
+<h3>Exercise 2: Compare Model Variants<a class="headerlink" href="#exercise-2-compare-model-variants" title="Link to this heading">#</a></h3>
+<p>Compare <code class="docutils literal notranslate"><span class="pre">yolo11n.pt</span></code>, <code class="docutils literal notranslate"><span class="pre">yolo11s.pt</span></code>, and <code class="docutils literal notranslate"><span class="pre">yolo11m.pt</span></code> on the same image. Measure inference time and count detections.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Exercise 2: Compare model variants</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">compare_models</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">model_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;yolo11n.pt&quot;</span><span class="p">,</span> <span class="s2">&quot;yolo11s.pt&quot;</span><span class="p">,</span> <span class="s2">&quot;yolo11m.pt&quot;</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compare different YOLO11 models on the same image.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: Load image once (outside the loop)</span>
+    <span class="c1"># Hint: Use cv2.imread() and cv2.cvtColor()</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Comparing models on </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;Model&#39;</span><span class="si">:</span><span class="s2">&lt;15</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;Detections&#39;</span><span class="si">:</span><span class="s2">&lt;12</span><span class="si">}</span><span class="s2"> | </span><span class="si">{</span><span class="s1">&#39;Inference Time (ms)&#39;</span><span class="si">:</span><span class="s2">&lt;20</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="n">model_names</span><span class="p">:</span>
+        <span class="c1"># TODO: Load model</span>
+        <span class="c1"># Hint: model = YOLO(model_name)</span>
+        
+        <span class="c1"># TODO: Measure inference time</span>
+        <span class="c1"># Hint: Use time.time() before and after model inference</span>
+        <span class="c1"># Hint: Multiply by 1000 to convert to milliseconds</span>
+        
+        <span class="c1"># TODO: Count detections</span>
+        <span class="c1"># Hint: len(results[0].boxes) gives the number of detections</span>
+        
+        <span class="c1"># TODO: Print results in the table format</span>
+        <span class="c1"># Hint: Use f-string formatting with :&lt;15, :&lt;12, etc.</span>
+        <span class="k">pass</span>  <span class="c1"># Remove this when you complete the TODO</span>
+
+<span class="c1"># Test the function</span>
+<span class="c1"># compare_models(&quot;../images/yolo_traffic.jpg&quot;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-3-count-people-across-images">
+<h3>Exercise 3: Count People Across Images<a class="headerlink" href="#exercise-3-count-people-across-images" title="Link to this heading">#</a></h3>
+<p>Count the total number of “person” detections across multiple images.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Exercise 3: Count people across multiple images</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">count_people_in_images</span><span class="p">(</span><span class="n">image_paths</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Count total number of &#39;person&#39; detections across all images.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: Initialize model and counter</span>
+    <span class="c1"># Hint: Load model once before the loop</span>
+    <span class="c1"># Hint: Initialize total_people = 0</span>
+    
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">image_paths</span><span class="p">:</span>
+        <span class="c1"># TODO: Load and detect</span>
+        <span class="c1"># Hint: Read image, convert to RGB, run model</span>
+        
+        <span class="c1"># TODO: Count people in this image</span>
+        <span class="c1"># Hint: Loop over boxes and check if r.names[int(box.cls)] == &quot;person&quot;</span>
+        <span class="c1"># Hint: Increment a counter for each person found</span>
+        
+        <span class="c1"># TODO: Add to total and print per-image count</span>
+        <span class="k">pass</span>  <span class="c1"># Remove this when you complete the TODO</span>
+    
+    <span class="c1"># TODO: Print total across all images</span>
+    <span class="c1"># Hint: Return the total count</span>
+    <span class="k">pass</span>
+
+<span class="c1"># Test the function</span>
+<span class="c1"># images = [</span>
+<span class="c1">#     &quot;../images/yolo_beach_scene.jpg&quot;,</span>
+<span class="c1">#     &quot;../images/yolo_traffic.jpg&quot;,</span>
+<span class="c1">#     &quot;../images/yolo_einstein_head.jpg&quot;,</span>
+<span class="c1"># ]</span>
+<span class="c1"># count_people_in_images(images)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="07_intro_to_ultralytics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introduction to Ultralytics YOLO</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="07b_segmentation_and_pose_with_ultralytics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Segmentation and Pose Estimation with Ultralytics YOLO</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-and-model-loading">Setup and Model Loading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-recap-what-is-object-detection">Quick Recap: What is Object Detection?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-detector-outputs">What the Detector Outputs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coco-dataset">COCO Dataset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detection-on-multiple-images">Detection on Multiple Images</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence-and-iou-thresholds">Confidence and IoU Thresholds</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#varying-confidence-threshold">Varying Confidence Threshold</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#varying-iou-threshold">Varying IoU Threshold</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intersection-over-union-iou">Intersection over Union (IoU)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-formula">The Formula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-iou-matters">Why IoU Matters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-max-suppression-nms">Non-Max Suppression (NMS)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-nms-works-conceptual">How NMS Works (Conceptual)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-toy-data">Example (Toy Data)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nms-in-ultralytics-yolo">NMS in Ultralytics YOLO</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-webcam-detection">Optional: Webcam Detection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-and-exercises">Recap and Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-count-detections-per-class">Exercise 1: Count Detections per Class</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-compare-model-variants">Exercise 2: Compare Model Variants</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3-count-people-across-images">Exercise 3: Count People Across Images</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

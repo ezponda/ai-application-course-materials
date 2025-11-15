@@ -1,0 +1,1120 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Object Tracking with Ultralytics YOLO &#8212; Application of AI</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/07c_object_tracking_with_ultralytics';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="08 - Introduction to AI Agents" href="08_ai_agents_intro.html" />
+    <link rel="prev" title="Segmentation and Pose Estimation with Ultralytics YOLO" href="07b_segmentation_and_pose_with_ultralytics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Application of AI</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Application of AI
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 1 – Computer Vision</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_cv_applications.html">01 - Computer Vision Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_what_is_an_image.html">02 - What is an Image?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_intro_to_pillow.html">Introduction to Pillow &amp; Image Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_intro_to_opencv.html">Introduction to OpenCV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_cnn_theory_keras.html">CNN Theory and Implementation with Keras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_transfer_learning.html">Transfer Learning and Fine-tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_cv_tasks_theory.html">07 - Computer Vision Tasks: Theory and Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_intro_to_ultralytics.html">Introduction to Ultralytics YOLO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_object_detection_with_ultralytics.html">Object Detection with Ultralytics YOLO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07b_segmentation_and_pose_with_ultralytics.html">Segmentation and Pose Estimation with Ultralytics YOLO</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Object Tracking with Ultralytics YOLO</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 2 – AI Agents</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="08_ai_agents_intro.html">08 - Introduction to AI Agents</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ezponda/ai-application-course-materials/blob/main/notebooks/07c_object_tracking_with_ultralytics.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/ezponda/ai-application-course-materials" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/07c_object_tracking_with_ultralytics.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Object Tracking with Ultralytics YOLO</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-and-imports">Setup and Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-tracking-vs-object-detection">Object Tracking vs Object Detection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-by-detection-paradigm">Tracking-by-Detection Paradigm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges-in-object-tracking">Challenges in Object Tracking</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-with-ultralytics-yolo">Tracking with Ultralytics YOLO</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-algorithms-in-ultralytics">Tracking Algorithms in Ultralytics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#track-ids-and-common-challenges">Track IDs and Common Challenges</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-track-ids">What are Track IDs?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-track-ids">Accessing Track IDs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-issues">Common Issues</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#video-tracking-demo">Video Tracking Demo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-webcam-tracking">Optional: Webcam Tracking</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#counting-objects-with-a-region-of-interest-roi">Counting Objects with a Region of Interest (ROI)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-an-roi">Why Use an ROI?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises-unique-ids-and-lane-wise-counts">Exercises: Unique IDs and Lane-wise Counts</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-count-unique-trucks">Exercise 1: Count Unique Trucks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-lane-wise-truck-counts">Exercise 2: Lane-wise Truck Counts</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">Recap</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="object-tracking-with-ultralytics-yolo">
+<h1>Object Tracking with Ultralytics YOLO<a class="headerlink" href="#object-tracking-with-ultralytics-yolo" title="Link to this heading">#</a></h1>
+<p>In this notebook we extend object detection to <strong>object tracking</strong> using Ultralytics YOLO11. We will see how to follow objects across frames, understand track IDs, and implement simple object counting in a traffic video.</p>
+<blockquote>
+<div><p><strong>Note:</strong> We use the Ultralytics YOLO family (v3–v11 and newer). In this notebook we demonstrate with YOLO11 models.</p>
+</div></blockquote>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#Setup-and-Imports"><span class="xref myst">Setup and Imports</span></a></p></li>
+<li><p><a class="reference internal" href="#Object-Tracking-vs-Object-Detection"><span class="xref myst">Object Tracking vs Object Detection</span></a></p></li>
+<li><p><a class="reference internal" href="#Tracking-with-Ultralytics-YOLO"><span class="xref myst">Tracking with Ultralytics YOLO</span></a></p></li>
+<li><p><a class="reference internal" href="#Track-IDs-and-Common-Challenges"><span class="xref myst">Track IDs and Common Challenges</span></a></p></li>
+<li><p><a class="reference internal" href="#Video-Tracking-Demo"><span class="xref myst">Video Tracking Demo</span></a></p></li>
+<li><p><a class="reference internal" href="#Counting-Objects-with-a-Region-of-Interest-(ROI)"><span class="xref myst">Counting Objects with a Region of Interest (ROI)</span></a></p></li>
+<li><p><a class="reference internal" href="#Exercises-Unique-IDs-and-Lane-wise-Counts"><span class="xref myst">Exercises: Unique IDs and Lane-wise Counts</span></a></p></li>
+<li><p><a class="reference internal" href="#Recap"><span class="xref myst">Recap</span></a></p></li>
+</ol>
+</section>
+<section id="setup-and-imports">
+<h2>Setup and Imports<a class="headerlink" href="#setup-and-imports" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Optional: install in fresh environments</span>
+<span class="c1"># %pip install ultralytics opencv-python</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ultralytics</span><span class="w"> </span><span class="kn">import</span> <span class="n">YOLO</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="c1"># Fix for potential library conflicts on some systems</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;KMP_DUPLICATE_LIB_OK&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;TRUE&#39;</span>
+
+<span class="c1"># Load YOLO11 model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">YOLO</span><span class="p">(</span><span class="s2">&quot;yolo11n.pt&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model loaded: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">model_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Helper function for displaying frames</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">show_frame</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">roi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">window_name</span><span class="o">=</span><span class="s2">&quot;YOLO Tracking&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Display an image frame with optional ROI rectangle.</span>
+<span class="sd">    Works in both Colab and local environments.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">roi</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">roi</span>
+        <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">),</span> <span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Colab environment</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">google.colab.patches</span><span class="w"> </span><span class="kn">import</span> <span class="n">cv2_imshow</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">clear_output</span>
+        <span class="n">clear_output</span><span class="p">(</span><span class="n">wait</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">cv2_imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="c1"># Local environment</span>
+        <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">window_name</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="object-tracking-vs-object-detection">
+<h2>Object Tracking vs Object Detection<a class="headerlink" href="#object-tracking-vs-object-detection" title="Link to this heading">#</a></h2>
+<p><strong>Object detection</strong> identifies and localizes objects in a single image frame, outputting bounding boxes and class labels. Each frame is processed independently.</p>
+<p><strong>Object tracking</strong> extends detection by maintaining consistent identifiers for each object across multiple frames. This allows us to follow individual objects over time, which is essential for:</p>
+<ul class="simple">
+<li><p>Counting vehicles passing through a road</p></li>
+<li><p>Monitoring customer flow in retail stores</p></li>
+<li><p>Analyzing player movements in sports</p></li>
+<li><p>Surveillance and security applications</p></li>
+</ul>
+<section id="tracking-by-detection-paradigm">
+<h3>Tracking-by-Detection Paradigm<a class="headerlink" href="#tracking-by-detection-paradigm" title="Link to this heading">#</a></h3>
+<p>Modern tracking systems like Ultralytics YOLO use a <strong>tracking-by-detection</strong> approach:</p>
+<ol class="arabic simple">
+<li><p>An object detector runs on each frame independently</p></li>
+<li><p>A tracking algorithm associates detections across consecutive frames</p></li>
+<li><p>Each object receives a persistent ID that follows it through the video</p></li>
+</ol>
+<p>This is different from classical single-object trackers that use correlation filters or template matching to follow one specific target, or optical flow methods that track pixel movements between frames.</p>
+</section>
+<section id="challenges-in-object-tracking">
+<h3>Challenges in Object Tracking<a class="headerlink" href="#challenges-in-object-tracking" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Occlusion</strong>: Objects may temporarily disappear behind other objects</p></li>
+<li><p><strong>Objects entering/leaving</strong>: New objects appear, others exit the frame</p></li>
+<li><p><strong>ID switches</strong>: The tracker may incorrectly swap IDs between similar objects</p></li>
+<li><p><strong>Missed detections</strong>: Objects may not be detected in some frames</p></li>
+<li><p><strong>Appearance changes</strong>: Lighting, angle, or scale changes can confuse the tracker</p></li>
+</ul>
+</section>
+</section>
+<section id="tracking-with-ultralytics-yolo">
+<h2>Tracking with Ultralytics YOLO<a class="headerlink" href="#tracking-with-ultralytics-yolo" title="Link to this heading">#</a></h2>
+<p>Ultralytics provides built-in tracking capabilities. Instead of <code class="docutils literal notranslate"><span class="pre">model(image)</span></code>, we use:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">persist</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Key parameters:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">persist=True</span></code></strong>: Maintain track history across frames</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">tracker=&quot;botsort.yaml&quot;</span></code></strong>: Use BoT-SORT tracker (default)</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">tracker=&quot;bytetrack.yaml&quot;</span></code></strong>: Use ByteTrack tracker</p></li>
+</ul>
+<section id="tracking-algorithms-in-ultralytics">
+<h3>Tracking Algorithms in Ultralytics<a class="headerlink" href="#tracking-algorithms-in-ultralytics" title="Link to this heading">#</a></h3>
+<p>Ultralytics supports several tracking algorithms that differ in how they associate detections across frames:</p>
+<p><strong>SORT / DeepSORT</strong></p>
+<ul class="simple">
+<li><p>Uses Kalman filter to predict object positions and Hungarian algorithm for assignment</p></li>
+<li><p>Simple, fast, and works well when detections are stable</p></li>
+<li><p>DeepSORT adds appearance features (re-identification) for better association</p></li>
+</ul>
+<p><strong>ByteTrack</strong></p>
+<ul class="simple">
+<li><p>Uses both high-confidence and low-confidence detections</p></li>
+<li><p>Low-score detections help maintain tracks during partial occlusions</p></li>
+<li><p>Particularly effective in crowded scenes with many overlapping objects</p></li>
+</ul>
+<p><strong>BoT-SORT</strong> (default in Ultralytics)</p>
+<ul class="simple">
+<li><p>Combines motion prediction with appearance features</p></li>
+<li><p>More robust to occlusions and short-term disappearances</p></li>
+<li><p>Good balance between speed and accuracy</p></li>
+</ul>
+<p>Example with different trackers:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Default BoT-SORT</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">persist</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tracker</span><span class="o">=</span><span class="s2">&quot;botsort.yaml&quot;</span><span class="p">)</span>
+
+<span class="c1"># ByteTrack for dense scenes</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">persist</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tracker</span><span class="o">=</span><span class="s2">&quot;bytetrack.yaml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s start with a single frame from our traffic video.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Traffic video URL</span>
+<span class="n">traffic_url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/ezponda/intro_deep_learning/raw/main/images/road_traffic_video_for_object_recognition_short.mp4&quot;</span>
+
+<span class="c1"># Extract one frame for demonstration</span>
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">traffic_url</span><span class="p">)</span>
+<span class="n">success</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">success</span><span class="p">:</span>
+    <span class="n">frame_rgb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">frame_rgb</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Sample frame from traffic video&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Failed to read video. Check the URL or network connection.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run tracking on the single frame</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">persist</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Display annotated frame</span>
+<span class="n">annotated</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">annotated_rgb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">annotated</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">annotated_rgb</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;First tracking result (with track IDs)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Inspect the tracking results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tracking results structure:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Classes detected: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">boxes</span><span class="o">.</span><span class="n">cls</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Track IDs: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">boxes</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">result</span><span class="o">.</span><span class="n">boxes</span><span class="o">.</span><span class="n">id</span><span class="w"> </span><span class="ow">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="kc">None</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;None&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Class names: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">names</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># List detections with their track IDs</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Detected objects:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">cls_id</span><span class="p">,</span> <span class="n">track_id</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">boxes</span><span class="o">.</span><span class="n">cls</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">boxes</span><span class="o">.</span><span class="n">id</span><span class="p">)):</span>
+    <span class="n">cls_name</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">names</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">cls_id</span><span class="p">)]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">cls_name</span><span class="si">}</span><span class="s2"> (Track ID: </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">track_id</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="track-ids-and-common-challenges">
+<h2>Track IDs and Common Challenges<a class="headerlink" href="#track-ids-and-common-challenges" title="Link to this heading">#</a></h2>
+<section id="what-are-track-ids">
+<h3>What are Track IDs?<a class="headerlink" href="#what-are-track-ids" title="Link to this heading">#</a></h3>
+<p>Each detected object receives a unique <strong>track ID</strong> that persists across frames. This ID allows us to:</p>
+<ul class="simple">
+<li><p>Count unique objects (not just total detections)</p></li>
+<li><p>Measure how long an object stays in view</p></li>
+<li><p>Analyze movement patterns and trajectories</p></li>
+</ul>
+</section>
+<section id="accessing-track-ids">
+<h3>Accessing Track IDs<a class="headerlink" href="#accessing-track-ids" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="o">.</span><span class="n">boxes</span><span class="o">.</span><span class="n">id</span>  <span class="c1"># Tensor of track IDs (one per detection)</span>
+<span class="n">result</span><span class="o">.</span><span class="n">boxes</span><span class="o">.</span><span class="n">cls</span>  <span class="c1"># Class indices</span>
+<span class="n">result</span><span class="o">.</span><span class="n">boxes</span><span class="o">.</span><span class="n">xyxy</span>  <span class="c1"># Bounding box coordinates</span>
+</pre></div>
+</div>
+</section>
+<section id="common-issues">
+<h3>Common Issues<a class="headerlink" href="#common-issues" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>ID switches</strong>: When two objects cross paths, the tracker may swap their IDs</p></li>
+<li><p><strong>Lost tracks</strong>: If an object disappears for too long, it may get a new ID when it reappears</p></li>
+<li><p><strong>Fragmented tracks</strong>: Same object might have multiple IDs if detection is intermittent</p></li>
+</ul>
+<p>These issues are inherent to tracking algorithms and can be mitigated by tuning parameters or using more sophisticated trackers.</p>
+</section>
+</section>
+<section id="video-tracking-demo">
+<h2>Video Tracking Demo<a class="headerlink" href="#video-tracking-demo" title="Link to this heading">#</a></h2>
+<p>Let’s run tracking on the entire traffic video. The loop processes each frame, maintains track history, and displays the results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Full video tracking loop</span>
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">traffic_url</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running video tracking... Press &#39;q&#39; to stop early.&quot;</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="n">cap</span><span class="o">.</span><span class="n">isOpened</span><span class="p">():</span>
+    <span class="n">success</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span><span class="p">:</span>
+        <span class="k">break</span>
+    
+    <span class="c1"># Run tracking with persistence</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">persist</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="c1"># Visualize results</span>
+    <span class="n">annotated</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+    <span class="n">show_frame</span><span class="p">(</span><span class="n">annotated</span><span class="p">)</span>
+    
+    <span class="c1"># Exit on &#39;q&#39; key</span>
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+        <span class="k">break</span>
+
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Video tracking completed.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="optional-webcam-tracking">
+<h3>Optional: Webcam Tracking<a class="headerlink" href="#optional-webcam-tracking" title="Link to this heading">#</a></h3>
+<p>If you have a webcam, you can try real-time tracking. This works in local environments but not in hosted notebooks like Colab.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Optional: Webcam tracking (uncomment to use)</span>
+<span class="c1"># Requires local environment with webcam access</span>
+
+<span class="c1"># cap = cv2.VideoCapture(0)  # 0 = default webcam</span>
+<span class="c1"># print(&quot;Webcam tracking... Press &#39;q&#39; to stop.&quot;)</span>
+<span class="c1">#</span>
+<span class="c1"># while cap.isOpened():</span>
+<span class="c1">#     ret, frame = cap.read()</span>
+<span class="c1">#     if not ret:</span>
+<span class="c1">#         break</span>
+<span class="c1">#     </span>
+<span class="c1">#     results = model.track(frame, persist=True, verbose=False)</span>
+<span class="c1">#     annotated = results[0].plot()</span>
+<span class="c1">#     </span>
+<span class="c1">#     cv2.imshow(&quot;Webcam Tracking&quot;, annotated)</span>
+<span class="c1">#     if cv2.waitKey(1) &amp; 0xFF == ord(&#39;q&#39;):</span>
+<span class="c1">#         break</span>
+<span class="c1">#</span>
+<span class="c1"># cap.release()</span>
+<span class="c1"># cv2.destroyAllWindows()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Webcam code is commented out. Uncomment to try real-time tracking.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="counting-objects-with-a-region-of-interest-roi">
+<h2>Counting Objects with a Region of Interest (ROI)<a class="headerlink" href="#counting-objects-with-a-region-of-interest-roi" title="Link to this heading">#</a></h2>
+<p>A common use case for tracking is counting objects that pass through a specific area. We define a <strong>Region of Interest (ROI)</strong> as a rectangle and count unique objects whose centers fall within it.</p>
+<section id="why-use-an-roi">
+<h3>Why Use an ROI?<a class="headerlink" href="#why-use-an-roi" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Count vehicles crossing a specific road section</p></li>
+<li><p>Monitor entries/exits at a gate or door</p></li>
+<li><p>Focus on relevant areas while ignoring distractions</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SimpleObjectCounter</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Count unique objects passing through a region of interest.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">roi</span><span class="p">,</span> <span class="n">class_names</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            roi: Tuple (x1, y1, x2, y2) defining the rectangular region</span>
+<span class="sd">            class_names: List of class names to count, or None for all classes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">roi</span> <span class="o">=</span> <span class="n">roi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">class_names</span> <span class="o">=</span> <span class="n">class_names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unique_objects</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># {class_name: set of track_ids}</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_in_roi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if box center is within ROI.&quot;&quot;&quot;</span>
+        <span class="n">x_center</span> <span class="o">=</span> <span class="p">(</span><span class="n">box</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">box</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">y_center</span> <span class="o">=</span> <span class="p">(</span><span class="n">box</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">box</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">roi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">x_center</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">roi</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="ow">and</span> 
+                <span class="bp">self</span><span class="o">.</span><span class="n">roi</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">y_center</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">roi</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update counts based on tracking results.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">boxes</span><span class="o">.</span><span class="n">id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">boxes</span><span class="p">)):</span>
+            <span class="n">box</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">boxes</span><span class="o">.</span><span class="n">xyxy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="n">track_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">boxes</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">cls_name</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">names</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">boxes</span><span class="o">.</span><span class="n">cls</span><span class="p">[</span><span class="n">i</span><span class="p">])]</span>
+            
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_in_roi</span><span class="p">(</span><span class="n">box</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">class_names</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">cls_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">class_names</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">cls_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">unique_objects</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">unique_objects</span><span class="p">[</span><span class="n">cls_name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">unique_objects</span><span class="p">[</span><span class="n">cls_name</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">track_id</span><span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_counts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return dictionary of counts per class.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span> <span class="k">for</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">ids</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">unique_objects</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define ROI and classes to count</span>
+<span class="n">roi</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">350</span><span class="p">)</span>  <span class="c1"># (x1, y1, x2, y2)</span>
+<span class="n">classes_to_count</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;truck&#39;</span><span class="p">,</span> <span class="s1">&#39;car&#39;</span><span class="p">,</span> <span class="s1">&#39;bus&#39;</span><span class="p">]</span>
+
+<span class="n">counter</span> <span class="o">=</span> <span class="n">SimpleObjectCounter</span><span class="p">(</span><span class="n">roi</span><span class="p">,</span> <span class="n">classes_to_count</span><span class="p">)</span>
+
+<span class="c1"># Run tracking with counting</span>
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">traffic_url</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Counting objects in ROI: </span><span class="si">{</span><span class="n">roi</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Classes: </span><span class="si">{</span><span class="n">classes_to_count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running... Press &#39;q&#39; to stop early.&quot;</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="n">cap</span><span class="o">.</span><span class="n">isOpened</span><span class="p">():</span>
+    <span class="n">success</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span><span class="p">:</span>
+        <span class="k">break</span>
+    
+    <span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">persist</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="c1"># Update counter</span>
+    <span class="n">counter</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    
+    <span class="c1"># Display with ROI</span>
+    <span class="n">annotated</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+    
+    <span class="c1"># Add count overlay</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">counter</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span>
+    <span class="n">y_pos</span> <span class="o">=</span> <span class="mi">30</span>
+    <span class="k">for</span> <span class="n">cls_name</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cls_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">cv2</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span><span class="n">annotated</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">y_pos</span><span class="p">),</span> 
+                    <span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">y_pos</span> <span class="o">+=</span> <span class="mi">30</span>
+    
+    <span class="n">show_frame</span><span class="p">(</span><span class="n">annotated</span><span class="p">,</span> <span class="n">roi</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+        <span class="k">break</span>
+
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Final counts:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">cls_name</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counter</span><span class="o">.</span><span class="n">get_counts</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">cls_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> unique objects&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercises-unique-ids-and-lane-wise-counts">
+<h2>Exercises: Unique IDs and Lane-wise Counts<a class="headerlink" href="#exercises-unique-ids-and-lane-wise-counts" title="Link to this heading">#</a></h2>
+<section id="exercise-1-count-unique-trucks">
+<h3>Exercise 1: Count Unique Trucks<a class="headerlink" href="#exercise-1-count-unique-trucks" title="Link to this heading">#</a></h3>
+<p>Count the number of <strong>unique trucks</strong> (by track ID) that appear anywhere in the video.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Exercise 1: Count unique trucks in the video</span>
+
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">traffic_url</span><span class="p">)</span>
+<span class="n">unique_truck_ids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Counting unique trucks... Press &#39;q&#39; to stop early.&quot;</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="n">cap</span><span class="o">.</span><span class="n">isOpened</span><span class="p">():</span>
+    <span class="n">success</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span><span class="p">:</span>
+        <span class="k">break</span>
+    
+    <span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">persist</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="c1"># TODO: Loop over detections and add truck track IDs to unique_truck_ids</span>
+    <span class="c1"># Hint: Use result.names to map class IDs to names (e.g., &#39;truck&#39;)</span>
+    <span class="c1"># Hint: Use result.boxes.id to get track IDs</span>
+    <span class="c1"># Hint: Check if result.boxes.id is not None before accessing it</span>
+    
+    <span class="k">pass</span>  <span class="c1"># Your code here</span>
+    
+    <span class="n">annotated</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+    <span class="n">show_frame</span><span class="p">(</span><span class="n">annotated</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span> <span class="o">==</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">):</span>
+        <span class="k">break</span>
+
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Total unique trucks: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">unique_truck_ids</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-2-lane-wise-truck-counts">
+<h3>Exercise 2: Lane-wise Truck Counts<a class="headerlink" href="#exercise-2-lane-wise-truck-counts" title="Link to this heading">#</a></h3>
+<p>Count trucks passing through two different lanes (left and right) by defining two separate ROIs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># First, visualize the last frame to help define ROIs</span>
+<span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">traffic_url</span><span class="p">)</span>
+<span class="n">last_frame</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">while</span> <span class="n">cap</span><span class="o">.</span><span class="n">isOpened</span><span class="p">():</span>
+    <span class="n">success</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="n">last_frame</span> <span class="o">=</span> <span class="n">frame</span>
+<span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">last_frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">last_frame</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Reference frame for defining lane ROIs&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;on&quot;</span><span class="p">)</span>  <span class="c1"># Keep axis to see coordinates</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Frame size: </span><span class="si">{</span><span class="n">last_frame</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> x </span><span class="si">{</span><span class="n">last_frame</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Exercise 2: Count trucks per lane</span>
+
+<span class="c1"># TODO: Define ROIs for left and right lanes based on the reference frame above</span>
+<span class="c1"># Hint: ROI format is (x1, y1, x2, y2) where (x1, y1) is top-left corner</span>
+<span class="n">left_lane_roi</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Replace with actual coordinates</span>
+<span class="n">right_lane_roi</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Replace with actual coordinates</span>
+
+<span class="c1"># TODO: Create two SimpleObjectCounter instances, one for each lane</span>
+<span class="c1"># Hint: SimpleObjectCounter(roi, [&#39;truck&#39;])</span>
+<span class="n">left_counter</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Your counter here</span>
+<span class="n">right_counter</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Your counter here</span>
+
+<span class="c1"># TODO: Run tracking loop and update both counters</span>
+<span class="c1"># Hint: Call counter.update(result) for each counter</span>
+<span class="c1"># Hint: Draw both ROIs on the annotated frame using cv2.rectangle</span>
+
+<span class="k">pass</span>  <span class="c1"># Your tracking loop here</span>
+
+<span class="c1"># TODO: Print final counts</span>
+<span class="c1"># Hint: Use counter.get_counts().get(&#39;truck&#39;, 0) to get truck count</span>
+<span class="c1"># Calculate and print: left lane trucks, right lane trucks, difference</span>
+
+<span class="k">pass</span>  <span class="c1"># Your print statements here</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="recap">
+<h2>Recap<a class="headerlink" href="#recap" title="Link to this heading">#</a></h2>
+<section id="key-takeaways">
+<h3>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Object tracking</strong> extends detection by maintaining consistent IDs across frames</p></li>
+<li><p><strong>Tracking-by-detection</strong> runs a detector on each frame and associates detections over time</p></li>
+<li><p><strong>Track IDs</strong> (<code class="docutils literal notranslate"><span class="pre">result.boxes.id</span></code>) uniquely identify each object throughout a video</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">model.track(...,</span> <span class="pre">persist=True)</span></code></strong> maintains tracking history between calls</p></li>
+<li><p><strong>Tracking algorithms</strong> (BoT-SORT, ByteTrack) differ in how they handle occlusions and associations</p></li>
+<li><p><strong>Region of Interest (ROI)</strong> allows focused counting in specific image areas</p></li>
+<li><p><strong>Unique object counting</strong> uses track IDs to avoid double-counting the same object</p></li>
+<li><p><strong>Common challenges</strong>: Occlusion, ID switches, missed detections, objects entering/leaving the scene</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="07b_segmentation_and_pose_with_ultralytics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Segmentation and Pose Estimation with Ultralytics YOLO</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="08_ai_agents_intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">08 - Introduction to AI Agents</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-and-imports">Setup and Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#object-tracking-vs-object-detection">Object Tracking vs Object Detection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-by-detection-paradigm">Tracking-by-Detection Paradigm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#challenges-in-object-tracking">Challenges in Object Tracking</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-with-ultralytics-yolo">Tracking with Ultralytics YOLO</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tracking-algorithms-in-ultralytics">Tracking Algorithms in Ultralytics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#track-ids-and-common-challenges">Track IDs and Common Challenges</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-are-track-ids">What are Track IDs?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#accessing-track-ids">Accessing Track IDs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-issues">Common Issues</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#video-tracking-demo">Video Tracking Demo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-webcam-tracking">Optional: Webcam Tracking</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#counting-objects-with-a-region-of-interest-roi">Counting Objects with a Region of Interest (ROI)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-an-roi">Why Use an ROI?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises-unique-ids-and-lane-wise-counts">Exercises: Unique IDs and Lane-wise Counts</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1-count-unique-trucks">Exercise 1: Count Unique Trucks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-lane-wise-truck-counts">Exercise 2: Lane-wise Truck Counts</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">Recap</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

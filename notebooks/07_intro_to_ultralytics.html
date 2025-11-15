@@ -1,0 +1,1051 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Introduction to Ultralytics YOLO &#8212; Application of AI</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/07_intro_to_ultralytics';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Object Detection with Ultralytics YOLO" href="07_object_detection_with_ultralytics.html" />
+    <link rel="prev" title="07 - Computer Vision Tasks: Theory and Concepts" href="07_cv_tasks_theory.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Application of AI</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Application of AI
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 1 – Computer Vision</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_cv_applications.html">01 - Computer Vision Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_what_is_an_image.html">02 - What is an Image?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_intro_to_pillow.html">Introduction to Pillow &amp; Image Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_intro_to_opencv.html">Introduction to OpenCV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_cnn_theory_keras.html">CNN Theory and Implementation with Keras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_transfer_learning.html">Transfer Learning and Fine-tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_cv_tasks_theory.html">07 - Computer Vision Tasks: Theory and Concepts</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to Ultralytics YOLO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_object_detection_with_ultralytics.html">Object Detection with Ultralytics YOLO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07b_segmentation_and_pose_with_ultralytics.html">Segmentation and Pose Estimation with Ultralytics YOLO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07c_object_tracking_with_ultralytics.html">Object Tracking with Ultralytics YOLO</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 2 – AI Agents</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="08_ai_agents_intro.html">08 - Introduction to AI Agents</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ezponda/ai-application-course-materials/blob/main/notebooks/07_intro_to_ultralytics.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/ezponda/ai-application-course-materials" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/07_intro_to_ultralytics.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction to Ultralytics YOLO</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-and-imports">Setup and Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-example-images">Download Example Images</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#available-images">Available Images</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evolution-of-the-yolo-family">Evolution of the YOLO Family</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ultralytics-framework-overview">Ultralytics Framework Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-tasks">Supported Tasks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-a-yolo11-detection-model">Loading a YOLO11 Detection Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolo11-model-variants">YOLO11 Model Variants</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-detection-on-a-single-image">First Detection on a Single Image</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspecting-the-results-object">Inspecting the Results Object</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-yolo-tasks">Other YOLO Tasks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-specific-models">Task-Specific Models</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-and-exercises">Recap and Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-count-unique-classes">Exercise 2: Count Unique Classes</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-ultralytics-yolo">
+<h1>Introduction to Ultralytics YOLO<a class="headerlink" href="#introduction-to-ultralytics-yolo" title="Link to this heading">#</a></h1>
+<p>Ultralytics provides state-of-the-art object detection models through the YOLO (You Only Look Once) family. YOLO models are known for their speed and accuracy, making them suitable for real-time object detection tasks in applications like autonomous driving, surveillance, retail, and robotics.</p>
+<p>In this notebook we take a high-level look at the Ultralytics ecosystem and run our first detections with modern YOLO models. We use YOLO11 as our primary example, but the concepts apply to the broader YOLO family.</p>
+<blockquote>
+<div><p><strong>Note:</strong> Ultralytics YOLO is a family of models (YOLOv3–YOLO11 and beyond). In this course we use YOLO11 models (e.g., <code class="docutils literal notranslate"><span class="pre">yolo11n.pt</span></code>) as a concrete example.</p>
+</div></blockquote>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#Setup-and-Imports"><span class="xref myst">Setup and Imports</span></a></p></li>
+<li><p><a class="reference internal" href="#Example-Images"><span class="xref myst">Example Images</span></a></p></li>
+<li><p><a class="reference internal" href="#What-is-YOLO?"><span class="xref myst">What is YOLO?</span></a></p></li>
+<li><p><a class="reference internal" href="#Evolution-of-the-YOLO-Family"><span class="xref myst">Evolution of the YOLO Family</span></a></p></li>
+<li><p><a class="reference internal" href="#Ultralytics-Framework-Overview"><span class="xref myst">Ultralytics Framework Overview</span></a></p></li>
+<li><p><a class="reference internal" href="#Loading-a-YOLO11-Detection-Model"><span class="xref myst">Loading a YOLO11 Detection Model</span></a></p></li>
+<li><p><a class="reference internal" href="#First-Detection-on-a-Single-Image"><span class="xref myst">First Detection on a Single Image</span></a></p></li>
+<li><p><a class="reference internal" href="#Inspecting-the-Results-Object"><span class="xref myst">Inspecting the Results Object</span></a></p></li>
+<li><p><a class="reference internal" href="#Other-YOLO-Tasks"><span class="xref myst">Other YOLO Tasks</span></a></p></li>
+<li><p><a class="reference internal" href="#Recap-and-Exercises"><span class="xref myst">Recap and Exercises</span></a></p></li>
+</ol>
+</section>
+<section id="setup-and-imports">
+<h2>Setup and Imports<a class="headerlink" href="#setup-and-imports" title="Link to this heading">#</a></h2>
+<p>First, let’s set up the environment and import the necessary libraries.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Optional: install Ultralytics and OpenCV in fresh environments (e.g. Colab)</span>
+<span class="c1"># %pip install ultralytics opencv-python</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ultralytics</span><span class="w"> </span><span class="kn">import</span> <span class="n">YOLO</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="download-example-images">
+<h2>Download Example Images<a class="headerlink" href="#download-example-images" title="Link to this heading">#</a></h2>
+<p>This section downloads the example images used throughout the Ultralytics notebooks. Images are saved locally in <code class="docutils literal notranslate"><span class="pre">../images/</span></code> so they only need to be downloaded once.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ssl</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">download_images</span><span class="p">(</span><span class="n">image_urls</span><span class="p">,</span> <span class="n">target_dir</span><span class="o">=</span><span class="s2">&quot;../images&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Download images from URLs to a local directory.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        image_urls: List of (url, filename) tuples</span>
+<span class="sd">        target_dir: Target directory for saving images</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        List of local file paths</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">target_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1"># Set up opener with User-Agent to avoid 403 errors</span>
+    <span class="n">opener</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">build_opener</span><span class="p">()</span>
+    <span class="n">opener</span><span class="o">.</span><span class="n">addheaders</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;User-Agent&#39;</span><span class="p">,</span> <span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36&#39;</span><span class="p">)]</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">install_opener</span><span class="p">(</span><span class="n">opener</span><span class="p">)</span>
+    
+    <span class="c1"># Handle SSL certificate issues</span>
+    <span class="n">ssl</span><span class="o">.</span><span class="n">_create_default_https_context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">_create_unverified_context</span>
+    
+    <span class="n">downloaded_paths</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">url</span><span class="p">,</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">image_urls</span><span class="p">:</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">target_dir</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+            <span class="n">size_mb</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> already exists (</span><span class="si">{</span><span class="n">size_mb</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MB)&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Downloading </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+                <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">file_path</span><span class="p">)</span>
+                <span class="n">size_mb</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ (</span><span class="si">{</span><span class="n">size_mb</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> MB)&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✗ Failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+        
+        <span class="n">downloaded_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">downloaded_paths</span>
+
+<span class="c1"># Define all example images for the Ultralytics notebooks</span>
+<span class="n">image_urls</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># Object detection examples</span>
+    <span class="p">(</span><span class="s1">&#39;https://akm-img-a-in.tosshub.com/indiatoday/images/story/201812/dogs_and_cats.jpeg?TAxD19DTCFE7WiSYLUdTu446cfW4AbuW&amp;size=770:433&#39;</span><span class="p">,</span> <span class="s1">&#39;yolo_dog_cat.jpg&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;https://i.ibb.co/R7pRTLy/beach-no-axis.png&#39;</span><span class="p">,</span> <span class="s1">&#39;yolo_beach_scene.jpg&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;https://i.ibb.co/jL1kZRF/phones.png&#39;</span><span class="p">,</span> <span class="s1">&#39;yolo_phones_on_table.jpg&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;https://i.ytimg.com/vi/1ZupwFOhjl4/maxresdefault.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;yolo_traffic.jpg&#39;</span><span class="p">),</span>
+    <span class="c1"># Segmentation example</span>
+    <span class="p">(</span><span class="s1">&#39;https://upload.wikimedia.org/wikipedia/commons/d/d3/Albert_Einstein_Head.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;yolo_einstein_head.jpg&#39;</span><span class="p">),</span>
+    <span class="c1"># Pose estimation examples</span>
+    <span class="p">(</span><span class="s1">&#39;https://images.unsplash.com/photo-1561049501-e1f96bdd98fd?q=80&amp;w=2778&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&#39;</span><span class="p">,</span> <span class="s1">&#39;yolo_yoga_1.jpg&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;https://images.unsplash.com/photo-1545205597-3d9d02c29597?q=80&amp;w=2940&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&#39;</span><span class="p">,</span> <span class="s1">&#39;yolo_yoga_2.jpg&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="c1"># Download all images</span>
+<span class="n">downloaded_paths</span> <span class="o">=</span> <span class="n">download_images</span><span class="p">(</span><span class="n">image_urls</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Total images available: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">downloaded_paths</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="available-images">
+<h3>Available Images<a class="headerlink" href="#available-images" title="Link to this heading">#</a></h3>
+<p>Let’s verify that all images are available:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># List all downloaded YOLO images</span>
+<span class="n">image_dir</span> <span class="o">=</span> <span class="s2">&quot;../images&quot;</span>
+<span class="n">yolo_images</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">image_dir</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;yolo_&quot;</span><span class="p">)])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available YOLO example images:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">45</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">yolo_images</span><span class="p">:</span>
+    <span class="n">img_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">image_dir</span><span class="p">,</span> <span class="n">img</span><span class="p">)</span>
+    <span class="n">size_mb</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">img_path</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">img</span><span class="si">:</span><span class="s2">&lt;30</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">size_mb</span><span class="si">:</span><span class="s2">&gt;6.2f</span><span class="si">}</span><span class="s2"> MB&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">45</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">yolo_images</span><span class="p">)</span><span class="si">}</span><span class="s2"> images&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Preview a few sample images</span>
+<span class="n">sample_images</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;yolo_beach_scene.jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;yolo_traffic.jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;yolo_dog_cat.jpg&quot;</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">img_name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">sample_images</span><span class="p">):</span>
+    <span class="n">img_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">image_dir</span><span class="p">,</span> <span class="n">img_name</span><span class="p">)</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">img_path</span><span class="p">)</span>
+    <span class="n">img_rgb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img_rgb</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">img_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;yolo_&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Sample Images for Object Detection&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="evolution-of-the-yolo-family">
+<h2>Evolution of the YOLO Family<a class="headerlink" href="#evolution-of-the-yolo-family" title="Link to this heading">#</a></h2>
+<p>YOLO has evolved significantly since its introduction:</p>
+<ul class="simple">
+<li><p><strong>YOLOv1–YOLOv3</strong> (2016–2018): Established real-time detection. YOLOv3 introduced multi-scale prediction.</p></li>
+<li><p><strong>YOLOv4</strong> (2020): Improved training techniques (Bag of Specials/Freebies), better small object detection.</p></li>
+<li><p><strong>YOLOv5</strong> (2020): First Ultralytics version, PyTorch-based, easy training and deployment.</p></li>
+<li><p><strong>YOLOv6–YOLOv7</strong> (2022): Various improvements in architecture and efficiency.</p></li>
+<li><p><strong>YOLOv8</strong> (2023): Ultralytics flagship, anchor-free detection, improved accuracy.</p></li>
+<li><p><strong>YOLOv9–YOLOv10</strong> (2024): Further architectural improvements.</p></li>
+<li><p><strong>YOLO11</strong> (2024): Current generation we use in this course.</p></li>
+</ul>
+<p>Each version brings improvements in speed, accuracy, or ease of use. <strong>Ultralytics wraps these model families into a unified, user-friendly Python API</strong> that you will use throughout the rest of this course. This means you can switch between model versions or tasks (detection, segmentation, pose) with minimal code changes.</p>
+</section>
+<section id="ultralytics-framework-overview">
+<h2>Ultralytics Framework Overview<a class="headerlink" href="#ultralytics-framework-overview" title="Link to this heading">#</a></h2>
+<p>The Ultralytics framework provides a consistent API for working with YOLO models:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ultralytics</span><span class="w"> </span><span class="kn">import</span> <span class="n">YOLO</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">YOLO</span><span class="p">(</span><span class="s2">&quot;model_file.pt&quot;</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="supported-tasks">
+<h3>Supported Tasks<a class="headerlink" href="#supported-tasks" title="Link to this heading">#</a></h3>
+<p>The same API works for different computer vision tasks:</p>
+<ul class="simple">
+<li><p><strong>Object Detection</strong>: Locate and classify objects with bounding boxes</p></li>
+<li><p><strong>Instance Segmentation</strong>: Detect objects and their precise pixel masks</p></li>
+<li><p><strong>Image Classification</strong>: Classify entire images into categories</p></li>
+<li><p><strong>Pose Estimation</strong>: Detect human figures and key body points</p></li>
+<li><p><strong>Oriented Bounding Boxes (OBB)</strong>: Rotated boxes for angled objects</p></li>
+<li><p><strong>Object Tracking</strong>: Track objects across video frames</p></li>
+</ul>
+</section>
+<section id="key-features">
+<h3>Key Features<a class="headerlink" href="#key-features" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Pre-trained models ready to use</p></li>
+<li><p>Simple training and fine-tuning</p></li>
+<li><p>Export to various formats (ONNX, TensorRT, CoreML, etc.)</p></li>
+<li><p>Extensive documentation and community support</p></li>
+</ul>
+</section>
+</section>
+<section id="loading-a-yolo11-detection-model">
+<h2>Loading a YOLO11 Detection Model<a class="headerlink" href="#loading-a-yolo11-detection-model" title="Link to this heading">#</a></h2>
+<p>Let’s load a YOLO11 detection model. Ultralytics provides different model sizes optimized for various use cases.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load YOLO11 nano model - fast and lightweight</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">YOLO</span><span class="p">(</span><span class="s2">&quot;yolo11n.pt&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model loaded: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">model_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="yolo11-model-variants">
+<h3>YOLO11 Model Variants<a class="headerlink" href="#yolo11-model-variants" title="Link to this heading">#</a></h3>
+<p>YOLO11 comes in different sizes, each balancing speed and accuracy:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Model</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Speed</p></th>
+<th class="head"><p>Accuracy</p></th>
+<th class="head"><p>Best For</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">yolo11n.pt</span></code></p></td>
+<td><p>Nano</p></td>
+<td><p>Fastest</p></td>
+<td><p>Good</p></td>
+<td><p>Edge devices, mobile, real-time apps</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">yolo11s.pt</span></code></p></td>
+<td><p>Small</p></td>
+<td><p>Fast</p></td>
+<td><p>Better</p></td>
+<td><p>Balanced performance</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">yolo11m.pt</span></code></p></td>
+<td><p>Medium</p></td>
+<td><p>Moderate</p></td>
+<td><p>High</p></td>
+<td><p>General-purpose detection</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">yolo11l.pt</span></code></p></td>
+<td><p>Large</p></td>
+<td><p>Slower</p></td>
+<td><p>Higher</p></td>
+<td><p>Accuracy-focused applications</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">yolo11x.pt</span></code></p></td>
+<td><p>Extra Large</p></td>
+<td><p>Slowest</p></td>
+<td><p>Highest</p></td>
+<td><p>Maximum accuracy, offline processing</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The trade-off is simple:</p>
+<ul class="simple">
+<li><p><strong>Smaller models</strong> → faster inference, lower accuracy, less memory</p></li>
+<li><p><strong>Larger models</strong> → slower inference, higher accuracy, more memory</p></li>
+</ul>
+</section>
+</section>
+<section id="first-detection-on-a-single-image">
+<h2>First Detection on a Single Image<a class="headerlink" href="#first-detection-on-a-single-image" title="Link to this heading">#</a></h2>
+<p>Let’s run our first object detection on a traffic scene image.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load image using local path</span>
+<span class="n">image_path</span> <span class="o">=</span> <span class="s2">&quot;../images/yolo_traffic.jpg&quot;</span>
+
+<span class="n">img_bgr</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
+<span class="n">img_rgb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img_bgr</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img_rgb</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original image&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run detection - pass the RGB image to the model</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">img_rgb</span><span class="p">)</span>
+
+<span class="c1"># Get annotated image with bounding boxes</span>
+<span class="n">annotated</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">annotated</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;YOLO11 detections&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>What we see:</strong></p>
+<ul class="simple">
+<li><p>Bounding boxes around detected objects (cars, trucks, buses, traffic lights, etc.)</p></li>
+<li><p>Class labels showing what each object is</p></li>
+<li><p>Confidence scores indicating model certainty</p></li>
+<li><p>Multiple objects detected in a single pass</p></li>
+</ul>
+</section>
+<section id="inspecting-the-results-object">
+<h2>Inspecting the Results Object<a class="headerlink" href="#inspecting-the-results-object" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">results</span></code> object contains detailed information about the detections. Let’s explore its structure.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the first (and only) result</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Show available class names (COCO dataset classes)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available classes (first 10):&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">names</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="mi">10</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2"> → </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Total COCO classes: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">names</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># List all detected objects with their confidence scores</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Detected objects:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">box</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">boxes</span><span class="p">):</span>
+    <span class="n">cls_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="n">cls</span><span class="p">)</span>  <span class="c1"># Class ID (integer)</span>
+    <span class="n">conf</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="n">conf</span><span class="p">)</span>  <span class="c1"># Confidence score (0-1)</span>
+    <span class="n">class_name</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">names</span><span class="p">[</span><span class="n">cls_id</span><span class="p">]</span>  <span class="c1"># Human-readable class name</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">class_name</span><span class="si">:</span><span class="s2">15</span><span class="si">}</span><span class="s2"> (confidence: </span><span class="si">{</span><span class="n">conf</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total detections: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">boxes</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Inspect bounding box coordinates</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;First bounding box details:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Format: xyxy (x1, y1, x2, y2)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Coordinates: </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">boxes</span><span class="o">.</span><span class="n">xyxy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Coordinate meaning:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  x1, y1 = top-left corner&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  x2, y2 = bottom-right corner&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="other-yolo-tasks">
+<h2>Other YOLO Tasks<a class="headerlink" href="#other-yolo-tasks" title="Link to this heading">#</a></h2>
+<p>Beyond object detection, Ultralytics YOLO supports several other computer vision tasks. The model file suffix indicates the task type.</p>
+<section id="task-specific-models">
+<h3>Task-Specific Models<a class="headerlink" href="#task-specific-models" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Task</p></th>
+<th class="head"><p>Model File</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Detection</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">yolo11n.pt</span></code></p></td>
+<td><p>Bounding boxes around objects</p></td>
+</tr>
+<tr class="row-odd"><td><p>Segmentation</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">yolo11n-seg.pt</span></code></p></td>
+<td><p>Pixel-level object masks</p></td>
+</tr>
+<tr class="row-even"><td><p>Classification</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">yolo11n-cls.pt</span></code></p></td>
+<td><p>Image-level classification</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pose</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">yolo11n-pose.pt</span></code></p></td>
+<td><p>Human keypoint detection</p></td>
+</tr>
+<tr class="row-even"><td><p>OBB</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">yolo11n-obb.pt</span></code></p></td>
+<td><p>Oriented (rotated) bounding boxes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Let’s try a quick segmentation example:</p>
+</section>
+</section>
+<section id="recap-and-exercises">
+<h2>Recap and Exercises<a class="headerlink" href="#recap-and-exercises" title="Link to this heading">#</a></h2>
+<section id="key-takeaways">
+<h3>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>YOLO</strong> (You Only Look Once) is a real-time object detection system that processes entire images in a single pass</p></li>
+<li><p><strong>Ultralytics</strong> provides a unified, easy-to-use API for YOLO models</p></li>
+<li><p><strong>Loading a model</strong> is simple: <code class="docutils literal notranslate"><span class="pre">model</span> <span class="pre">=</span> <span class="pre">YOLO(&quot;yolo11n.pt&quot;)</span></code></p></li>
+<li><p><strong>Running detection</strong>: <code class="docutils literal notranslate"><span class="pre">results</span> <span class="pre">=</span> <span class="pre">model(image)</span></code> returns detailed results</p></li>
+<li><p><strong>Inspecting results</strong>: Access bounding boxes (<code class="docutils literal notranslate"><span class="pre">.boxes.xyxy</span></code>), confidence (<code class="docutils literal notranslate"><span class="pre">.boxes.conf</span></code>), and class names (<code class="docutils literal notranslate"><span class="pre">.names</span></code>)</p></li>
+<li><p><strong>Multiple tasks</strong>: Same API supports detection, segmentation, pose estimation, and more</p></li>
+<li><p><strong>Model variants</strong>: Choose between nano (fast) to xlarge (accurate) based on your needs</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Exercise 1: Compare different model sizes</span>
+
+<span class="n">image_path</span> <span class="o">=</span> <span class="s2">&quot;../images/yolo_traffic.jpg&quot;</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
+<span class="n">img_rgb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+
+<span class="n">model_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;yolo11n.pt&quot;</span><span class="p">,</span> <span class="s2">&quot;yolo11s.pt&quot;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="n">model_names</span><span class="p">:</span>
+    <span class="c1"># TODO: Load the model</span>
+    <span class="c1"># Hint: Use YOLO(model_name)</span>
+    
+    <span class="c1"># TODO: Measure inference time</span>
+    <span class="c1"># Hint: Use time.time() before and after model inference</span>
+    <span class="c1"># Hint: Convert to milliseconds by multiplying by 1000</span>
+    
+    <span class="c1"># TODO: Count detections</span>
+    <span class="c1"># Hint: len(results[0].boxes) gives the count</span>
+    
+    <span class="c1"># TODO: Print results</span>
+    <span class="c1"># Hint: Print model name, detection count, and inference time</span>
+    
+    <span class="k">pass</span>  <span class="c1"># Remove this line when you complete the TODO</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-2-count-unique-classes">
+<h3>Exercise 2: Count Unique Classes<a class="headerlink" href="#exercise-2-count-unique-classes" title="Link to this heading">#</a></h3>
+<p>Choose another image and count how many different object classes appear in the predictions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Exercise 2: Count unique classes in detections</span>
+
+<span class="n">image_path</span> <span class="o">=</span> <span class="s2">&quot;../images/yolo_beach_scene.jpg&quot;</span>
+
+<span class="c1"># TODO: Load and run detection</span>
+<span class="c1"># Hint: Use cv2.imread(), cv2.cvtColor(), YOLO(), and model(img_rgb)</span>
+
+<span class="c1"># TODO: Get unique class names</span>
+<span class="c1"># Hint: Create a set to store unique names</span>
+<span class="c1"># Hint: Loop over results[0].boxes</span>
+<span class="c1"># Hint: Use int(box.cls) to get class ID, then r.names[cls_id] for name</span>
+
+<span class="c1"># TODO: Print results</span>
+<span class="c1"># Hint: Print the count and list of unique class names</span>
+
+<span class="k">pass</span>  <span class="c1"># Remove this line when you complete the TODO</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="07_cv_tasks_theory.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">07 - Computer Vision Tasks: Theory and Concepts</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="07_object_detection_with_ultralytics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Object Detection with Ultralytics YOLO</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-and-imports">Setup and Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-example-images">Download Example Images</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#available-images">Available Images</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evolution-of-the-yolo-family">Evolution of the YOLO Family</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ultralytics-framework-overview">Ultralytics Framework Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supported-tasks">Supported Tasks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-a-yolo11-detection-model">Loading a YOLO11 Detection Model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#yolo11-model-variants">YOLO11 Model Variants</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-detection-on-a-single-image">First Detection on a Single Image</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspecting-the-results-object">Inspecting the Results Object</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-yolo-tasks">Other YOLO Tasks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-specific-models">Task-Specific Models</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-and-exercises">Recap and Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2-count-unique-classes">Exercise 2: Count Unique Classes</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

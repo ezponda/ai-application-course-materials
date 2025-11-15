@@ -1,0 +1,1413 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Introduction to Pillow &amp; Image Fundamentals &#8212; Application of AI</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/03_intro_to_pillow';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Introduction to OpenCV" href="04_intro_to_opencv.html" />
+    <link rel="prev" title="02 - What is an Image?" href="02_what_is_an_image.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Application of AI</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Application of AI
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 1 – Computer Vision</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_cv_applications.html">01 - Computer Vision Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_what_is_an_image.html">02 - What is an Image?</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to Pillow &amp; Image Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_intro_to_opencv.html">Introduction to OpenCV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_cnn_theory_keras.html">CNN Theory and Implementation with Keras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_transfer_learning.html">Transfer Learning and Fine-tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_cv_tasks_theory.html">07 - Computer Vision Tasks: Theory and Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_intro_to_ultralytics.html">Introduction to Ultralytics YOLO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_object_detection_with_ultralytics.html">Object Detection with Ultralytics YOLO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07b_segmentation_and_pose_with_ultralytics.html">Segmentation and Pose Estimation with Ultralytics YOLO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07c_object_tracking_with_ultralytics.html">Object Tracking with Ultralytics YOLO</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 2 – AI Agents</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="08_ai_agents_intro.html">08 - Introduction to AI Agents</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ezponda/ai-application-course-materials/blob/main/notebooks/03_intro_to_pillow.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/ezponda/ai-application-course-materials" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/03_intro_to_pillow.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction to Pillow & Image Fundamentals</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-and-setup">Installation and Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-object-in-pillow">Image Object in Pillow</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-attributes-of-an-image-object">Key Attributes of an Image Object</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-between-pillow-and-numpy">Converting Between Pillow and NumPy</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#displaying-images">Displaying Images</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rgb-images-and-grayscale-conversion">RGB Images and Grayscale Conversion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-rgb-images">Understanding RGB Images</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-to-grayscale">Converting to Grayscale</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-image-manipulation">Basic Image Manipulation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transposing-and-flipping">Transposing and Flipping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rotating-by-arbitrary-angles">Rotating by Arbitrary Angles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cropping-an-image">Cropping an Image</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resizing-an-image">Resizing an Image</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-combining-operations">Example: Combining Operations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-enhancements">Image Enhancements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contrast-enhancement">Contrast Enhancement</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brightness-enhancement">Brightness Enhancement</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#color-balance-enhancement">Color Balance Enhancement</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sharpness-enhancement">Sharpness Enhancement</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-interactive-enhancements-with-ipywidgets">Optional: Interactive Enhancements with ipywidgets</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">Recap</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-pillow-image-fundamentals">
+<h1>Introduction to Pillow &amp; Image Fundamentals<a class="headerlink" href="#introduction-to-pillow-image-fundamentals" title="Link to this heading">#</a></h1>
+<p><a class="reference external" href="https://pillow.readthedocs.io/en/stable/">Pillow</a> is an open-source Python Imaging Library that adds powerful image processing capabilities to Python. It is the modern, actively maintained fork of the original Python Imaging Library (PIL).</p>
+<p>This notebook covers two main topics:</p>
+<ol class="arabic simple">
+<li><p><strong>What is an image?</strong> – Understanding images as data (pixels, resolution, RGB vs grayscale)</p></li>
+<li><p><strong>Practical image manipulation with Pillow</strong> – Loading, displaying, transforming, and enhancing images</p></li>
+</ol>
+<p>You will learn basic operations like rotating, cropping, and resizing images, as well as adjusting properties like brightness, contrast, color, and sharpness.</p>
+<blockquote>
+<div><p><strong>Note:</strong> This notebook consolidates content originally planned for a separate “What is an image?” notebook, providing a cohesive introduction to both image fundamentals and the Pillow library.</p>
+</div></blockquote>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#Installation-and-Setup"><span class="xref myst">Installation and Setup</span></a></p></li>
+<li><p><a class="reference internal" href="#Image-Object-in-Pillow"><span class="xref myst">Image Object in Pillow</span></a></p></li>
+<li><p><a class="reference internal" href="#Displaying-Images"><span class="xref myst">Displaying Images</span></a></p></li>
+<li><p><a class="reference internal" href="#RGB-Images-and-Grayscale-Conversion"><span class="xref myst">RGB Images and Grayscale Conversion</span></a></p></li>
+<li><p><a class="reference internal" href="#Basic-Image-Manipulation"><span class="xref myst">Basic Image Manipulation</span></a></p></li>
+<li><p><a class="reference internal" href="#Image-Enhancements"><span class="xref myst">Image Enhancements</span></a></p></li>
+<li><p><a class="reference internal" href="#Optional:-Interactive-Enhancements-with-ipywidgets"><span class="xref myst">Optional: Interactive Widgets</span></a></p></li>
+</ol>
+</section>
+<section id="installation-and-setup">
+<h2>Installation and Setup<a class="headerlink" href="#installation-and-setup" title="Link to this heading">#</a></h2>
+<p>First, let’s install and import the necessary libraries.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install Pillow if not already available</span>
+<span class="c1"># This is mainly for environments like Google Colab or fresh local Python installations</span>
+<span class="c1"># In managed environments (JupyterHub, conda environments), Pillow may already be installed</span>
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>Pillow
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageEnhance</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Configure matplotlib for inline display</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="image-object-in-pillow">
+<h2>Image Object in Pillow<a class="headerlink" href="#image-object-in-pillow" title="Link to this heading">#</a></h2>
+<p>Images in Pillow are represented as <code class="docutils literal notranslate"><span class="pre">Image</span></code> objects. These objects provide attributes and methods for accessing image data and performing operations.</p>
+<p>Let’s load a sample image and explore its properties.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load an image from the local images folder</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;../images/pillow_sample.png&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Image loaded successfully!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Image loaded successfully!
+</pre></div>
+</div>
+</div>
+</div>
+<section id="key-attributes-of-an-image-object">
+<h3>Key Attributes of an Image Object<a class="headerlink" href="#key-attributes-of-an-image-object" title="Link to this heading">#</a></h3>
+<p>An <code class="docutils literal notranslate"><span class="pre">Image</span></code> object has several important attributes:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">format</span></code></strong>: The format of the source file (e.g., PNG, JPEG, BMP)</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">size</span></code></strong>: A tuple (width, height) representing the image dimensions in pixels</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">mode</span></code></strong>: The pixel format and depth:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">'L'</span></code> for grayscale (8-bit pixels)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'RGB'</span></code> for true color (3 × 8-bit pixels)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'RGBA'</span></code> for true color with transparency</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'CMYK'</span></code> for pre-press images</p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">info</span></code></strong>: A dictionary containing metadata (e.g., DPI, EXIF data)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Format:&#39;</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Size:&#39;</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="s1">&#39;(width × height in pixels)&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mode:&#39;</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">mode</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Info:&#39;</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">info</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Format: PNG
+Size: (512, 512) (width × height in pixels)
+Mode: RGB
+Info: {}
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="converting-between-pillow-and-numpy">
+<h3>Converting Between Pillow and NumPy<a class="headerlink" href="#converting-between-pillow-and-numpy" title="Link to this heading">#</a></h3>
+<p>Pillow images can be easily converted to NumPy arrays and vice versa. This is useful for numerical operations and integration with machine learning frameworks.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert the Pillow image to a NumPy array</span>
+<span class="n">image_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+<span class="c1"># Display the shape: (height, width, channels)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Array shape:&#39;</span><span class="p">,</span> <span class="n">image_array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data type:&#39;</span><span class="p">,</span> <span class="n">image_array</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Value range:&#39;</span><span class="p">,</span> <span class="n">image_array</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="s1">&#39;to&#39;</span><span class="p">,</span> <span class="n">image_array</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Array shape: (512, 512, 3)
+Data type: uint8
+Value range: 0 to 255
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># View a small portion of the array (top-left 3×3 pixels)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Top-left 3×3 pixels (RGB values):&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">image_array</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Top-left 3×3 pixels (RGB values):
+[[[  0   0 128]
+  [  0   0 129]
+  [  0   0 131]]
+
+ [[  0   0 128]
+  [  0   0 129]
+  [  0   0 131]]
+
+ [[  0   0 128]
+  [  0   0 129]
+  [  0   0 131]]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert the NumPy array back to a Pillow Image object</span>
+<span class="n">new_image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">image_array</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Successfully converted back to Pillow Image&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;New image size:&#39;</span><span class="p">,</span> <span class="n">new_image</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully converted back to Pillow Image
+New image size: (512, 512)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="displaying-images">
+<h2>Displaying Images<a class="headerlink" href="#displaying-images" title="Link to this heading">#</a></h2>
+<p>There are two common ways to display images in Python:</p>
+<ol class="arabic simple">
+<li><p><strong>Pillow’s <code class="docutils literal notranslate"><span class="pre">.show()</span></code> method</strong>: Opens the image in your system’s default image viewer</p></li>
+<li><p><strong>Matplotlib</strong>: Displays the image inline in Jupyter notebooks (recommended for interactive work)</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Option 1: Using Pillow&#39;s show() method</span>
+<span class="c1"># Uncomment the line below to open the image in your system&#39;s default viewer</span>
+<span class="c1"># image.show()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Option 2: Using Matplotlib (recommended for notebooks)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>  <span class="c1"># Turn off axis numbers and labels</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sample Image&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b141ddf563799ddd284737eb5c181446ee0464b951dba9ccf79a7f29eb33105c.png" src="../_images/b141ddf563799ddd284737eb5c181446ee0464b951dba9ccf79a7f29eb33105c.png" />
+</div>
+</div>
+</section>
+<section id="rgb-images-and-grayscale-conversion">
+<h2>RGB Images and Grayscale Conversion<a class="headerlink" href="#rgb-images-and-grayscale-conversion" title="Link to this heading">#</a></h2>
+<section id="understanding-rgb-images">
+<h3>Understanding RGB Images<a class="headerlink" href="#understanding-rgb-images" title="Link to this heading">#</a></h3>
+<p>An RGB image is composed of three color channels: <strong>Red</strong>, <strong>Green</strong>, and <strong>Blue</strong>. Each pixel has three values (typically 0-255) representing the intensity of each color.</p>
+<p>Let’s split the image into its individual color channels and visualize them.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Split the image into R, G, B channels</span>
+<span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Image mode:&#39;</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">mode</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Each channel is a grayscale image with mode:&#39;</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">mode</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Image mode: RGB
+Each channel is a grayscale image with mode: L
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualize the three color channels</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Red Channel&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Greens&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Green Channel&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Blue Channel&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/47c37616f5bccfb467079a90b6908153f49440e615a7e1eed6aadf7b78cf2dd8.png" src="../_images/47c37616f5bccfb467079a90b6908153f49440e615a7e1eed6aadf7b78cf2dd8.png" />
+</div>
+</div>
+<p><strong>What we observe:</strong></p>
+<ul class="simple">
+<li><p>The <strong>red channel</strong> shows bright values where red color is prominent</p></li>
+<li><p>The <strong>green channel</strong> highlights areas with green tones</p></li>
+<li><p>The <strong>blue channel</strong> emphasizes blue regions</p></li>
+<li><p>Brighter pixels in each channel indicate higher intensity of that color component</p></li>
+</ul>
+</section>
+<section id="converting-to-grayscale">
+<h3>Converting to Grayscale<a class="headerlink" href="#converting-to-grayscale" title="Link to this heading">#</a></h3>
+<p>Grayscale images contain only shades of gray (no color information). Each pixel is represented by a single value indicating luminance (light intensity) from 0 (black) to 255 (white).</p>
+<p>The conversion uses a weighted sum of RGB components:</p>
+<div class="math notranslate nohighlight">
+\[\text{Gray} = 0.299 \times R + 0.587 \times G + 0.114 \times B\]</div>
+<p>These weights approximate human perception, where we are most sensitive to green light.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert to grayscale using Pillow&#39;s convert method</span>
+<span class="n">gray_image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s1">&#39;L&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Original mode:&#39;</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">mode</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Grayscale mode:&#39;</span><span class="p">,</span> <span class="n">gray_image</span><span class="o">.</span><span class="n">mode</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Original size:&#39;</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Grayscale size:&#39;</span><span class="p">,</span> <span class="n">gray_image</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original mode: RGB
+Grayscale mode: L
+Original size: (512, 512)
+Grayscale size: (512, 512)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Display the grayscale image</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">gray_image</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Grayscale Image&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/187e6694a10a412abb33695e44e06ab2265628a5994236fce775f15c5f54d3e9.png" src="../_images/187e6694a10a412abb33695e44e06ab2265628a5994236fce775f15c5f54d3e9.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="basic-image-manipulation">
+<h2>Basic Image Manipulation<a class="headerlink" href="#basic-image-manipulation" title="Link to this heading">#</a></h2>
+<p>Pillow provides various methods for basic image transformations. These operations are essential for data preprocessing, augmentation, and computer vision tasks.</p>
+<section id="transposing-and-flipping">
+<h3>Transposing and Flipping<a class="headerlink" href="#transposing-and-flipping" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">.transpose()</span></code> method allows flipping and rotating images. Common operations include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Image.FLIP_LEFT_RIGHT</span></code>: Horizontal flip (mirror)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Image.FLIP_TOP_BOTTOM</span></code>: Vertical flip</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Image.ROTATE_90</span></code>: Rotate 90° counterclockwise</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Image.ROTATE_180</span></code>: Rotate 180°</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Image.ROTATE_270</span></code>: Rotate 270° counterclockwise (90° clockwise)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Image.TRANSPOSE</span></code>: Transpose (flip over main diagonal)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Image.TRANSVERSE</span></code>: Transverse (flip over secondary diagonal)</p></li>
+</ul>
+<p><strong>When are these useful?</strong></p>
+<ul class="simple">
+<li><p>Data augmentation in machine learning to increase dataset diversity</p></li>
+<li><p>Correcting image orientation</p></li>
+<li><p>Creating symmetrical patterns</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Apply different transpositions and rotations</span>
+<span class="n">flipped_lr</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">FLIP_LEFT_RIGHT</span><span class="p">)</span>
+<span class="n">flipped_tb</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">FLIP_TOP_BOTTOM</span><span class="p">)</span>
+<span class="n">rotated_90</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">ROTATE_90</span><span class="p">)</span>
+<span class="n">rotated_180</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">ROTATE_180</span><span class="p">)</span>
+<span class="n">rotated_270</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">ROTATE_270</span><span class="p">)</span>
+<span class="n">transposed</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">TRANSPOSE</span><span class="p">)</span>
+<span class="n">transversed</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">TRANSVERSE</span><span class="p">)</span>
+
+<span class="c1"># Visualize all transformations</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Original&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">flipped_lr</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Flip Left-Right&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">flipped_tb</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Flip Top-Bottom&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rotated_90</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Rotate 90°&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rotated_180</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Rotate 180°&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rotated_270</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Rotate 270°&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">transposed</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Transpose&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">transversed</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Transverse&quot;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">axs</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/d9ed8cfe03f3a970dae2d78c82ee102cc943e10e0ae0cd71f1295a39bf532374.png" src="../_images/d9ed8cfe03f3a970dae2d78c82ee102cc943e10e0ae0cd71f1295a39bf532374.png" />
+</div>
+</div>
+</section>
+<section id="rotating-by-arbitrary-angles">
+<h3>Rotating by Arbitrary Angles<a class="headerlink" href="#rotating-by-arbitrary-angles" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">.rotate()</span></code> method allows rotation by any angle (in degrees, counterclockwise).</p>
+<p><strong>Practical uses:</strong></p>
+<ul class="simple">
+<li><p>Correcting tilted images</p></li>
+<li><p>Data augmentation with various rotation angles</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Rotate by 45 degrees</span>
+<span class="n">rotated_image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">rotated_image</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Rotated 45°&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b00bfc2b376b6d985077b2926fcc9ede1dd3448fb56a4899f8b1afe04a726129.png" src="../_images/b00bfc2b376b6d985077b2926fcc9ede1dd3448fb56a4899f8b1afe04a726129.png" />
+</div>
+</div>
+</section>
+<section id="cropping-an-image">
+<h3>Cropping an Image<a class="headerlink" href="#cropping-an-image" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">.crop()</span></code> method extracts a rectangular region from an image. It takes a tuple <code class="docutils literal notranslate"><span class="pre">(left,</span> <span class="pre">upper,</span> <span class="pre">right,</span> <span class="pre">lower)</span></code> defining the box coordinates:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">left</span></code>: x-coordinate of the left edge</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">upper</span></code>: y-coordinate of the top edge</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">right</span></code>: x-coordinate of the right edge</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lower</span></code>: y-coordinate of the bottom edge</p></li>
+</ul>
+<p>Coordinates are relative to the top-left corner (0, 0).</p>
+<p><strong>Practical uses:</strong></p>
+<ul class="simple">
+<li><p>Extracting regions of interest</p></li>
+<li><p>Removing unwanted borders</p></li>
+<li><p>Preparing images for models that require specific input sizes</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">patches</span>
+
+<span class="c1"># Define the crop region</span>
+<span class="n">crop_box</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+
+<span class="c1"># Visualize the crop region on the original image</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+<span class="c1"># Draw a red rectangle showing the crop region</span>
+<span class="n">rect</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">crop_box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">crop_box</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> 
+    <span class="n">crop_box</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">crop_box</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> 
+    <span class="n">crop_box</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">crop_box</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> 
+    <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> 
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> 
+    <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Crop Region (Red Rectangle)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ae75398bca0fb3ecc7c59930856883a995cb126d3f2670e91eb8b0665651230d.png" src="../_images/ae75398bca0fb3ecc7c59930856883a995cb126d3f2670e91eb8b0665651230d.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Perform the crop</span>
+<span class="n">cropped_image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">crop</span><span class="p">(</span><span class="n">crop_box</span><span class="p">)</span>
+
+<span class="c1"># Display the cropped result</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cropped_image</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Cropped Image&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Original size: </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cropped size: </span><span class="si">{</span><span class="n">cropped_image</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/3d37405755ce6f8ee8fa48bccc63c59f0715a9ec3c84efe20f3cdc70ce20ce04.png" src="../_images/3d37405755ce6f8ee8fa48bccc63c59f0715a9ec3c84efe20f3cdc70ce20ce04.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original size: (512, 512)
+Cropped size: (200, 200)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="resizing-an-image">
+<h3>Resizing an Image<a class="headerlink" href="#resizing-an-image" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">.resize()</span></code> method changes the image dimensions. It accepts:</p>
+<ol class="arabic simple">
+<li><p><strong>size</strong>: A tuple <code class="docutils literal notranslate"><span class="pre">(width,</span> <span class="pre">height)</span></code> for the new dimensions</p></li>
+<li><p><strong>resample</strong> (optional): The resampling filter, which affects quality:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Image.NEAREST</span></code>: Fastest, lowest quality (nearest neighbor)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Image.BILINEAR</span></code>: Linear interpolation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Image.BICUBIC</span></code>: Cubic interpolation (better quality)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Image.LANCZOS</span></code>: Highest quality, best for downsampling</p></li>
+</ul>
+</li>
+</ol>
+<p><strong>Practical uses:</strong></p>
+<ul class="simple">
+<li><p>Preparing images for neural networks (fixed input size)</p></li>
+<li><p>Creating thumbnails</p></li>
+<li><p>Reducing computational requirements</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Resize to 200×200 using LANCZOS (high quality)</span>
+<span class="n">resized_image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">LANCZOS</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Original size: </span><span class="si">{</span><span class="n">image</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Resized size: </span><span class="si">{</span><span class="n">resized_image</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Original size: (512, 512)
+Resized size: (200, 200)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compare different resampling methods</span>
+<span class="n">nearest</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">NEAREST</span><span class="p">)</span>
+<span class="n">bilinear</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">BILINEAR</span><span class="p">)</span>
+<span class="n">bicubic</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">BICUBIC</span><span class="p">)</span>
+<span class="n">lanczos</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">LANCZOS</span><span class="p">)</span>
+
+<span class="c1"># Visualize the differences</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">nearest</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;NEAREST (Fastest)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">bilinear</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;BILINEAR&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">bicubic</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;BICUBIC&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">lanczos</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;LANCZOS (Highest Quality)&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/36814c56f78e8256f686f771cadb402608b679c3bcdaa9ea36e563cb0c6bf32d.png" src="../_images/36814c56f78e8256f686f771cadb402608b679c3bcdaa9ea36e563cb0c6bf32d.png" />
+</div>
+</div>
+</section>
+<section id="example-combining-operations">
+<h3>Example: Combining Operations<a class="headerlink" href="#example-combining-operations" title="Link to this heading">#</a></h3>
+<p>Let’s combine multiple operations in sequence. For instance, we can crop a region and then resize it back to the original size.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save the original size</span>
+<span class="n">original_size</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span>
+
+<span class="c1"># Crop a region</span>
+<span class="n">crop_box</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+<span class="n">cropped</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">crop</span><span class="p">(</span><span class="n">crop_box</span><span class="p">)</span>
+
+<span class="c1"># Resize back to original dimensions (zooms in on the cropped region)</span>
+<span class="n">zoomed_image</span> <span class="o">=</span> <span class="n">cropped</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">original_size</span><span class="p">,</span> <span class="n">Image</span><span class="o">.</span><span class="n">LANCZOS</span><span class="p">)</span>
+
+<span class="c1"># Display side by side</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Original Image&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">zoomed_image</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Cropped + Resized (Zoomed)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b6d7605ce8182b9d0289fec6e0b25c72b75e0df53985bee26930c52fd13367a9.png" src="../_images/b6d7605ce8182b9d0289fec6e0b25c72b75e0df53985bee26930c52fd13367a9.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="image-enhancements">
+<h2>Image Enhancements<a class="headerlink" href="#image-enhancements" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ImageEnhance</span></code> module in Pillow provides methods for adjusting common image properties like brightness, contrast, color saturation, and sharpness. These adjustments are useful for image preprocessing and correction.</p>
+<section id="contrast-enhancement">
+<h3>Contrast Enhancement<a class="headerlink" href="#contrast-enhancement" title="Link to this heading">#</a></h3>
+<p>Contrast refers to the difference between light and dark areas in an image. High contrast images have distinct differences, while low contrast images appear washed out.</p>
+<p><strong>Factor interpretation:</strong></p>
+<ul class="simple">
+<li><p>Factor &gt; 1: increases contrast</p></li>
+<li><p>Factor = 1: no change</p></li>
+<li><p>Factor &lt; 1: decreases contrast</p></li>
+<li><p>Factor = 0: produces a gray image</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Demonstrate contrast enhancement</span>
+<span class="n">contrast_factors</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]</span>
+<span class="n">contrast_images</span> <span class="o">=</span> <span class="p">[</span><span class="n">ImageEnhance</span><span class="o">.</span><span class="n">Contrast</span><span class="p">(</span><span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">enhance</span><span class="p">(</span><span class="n">factor</span><span class="p">)</span> <span class="k">for</span> <span class="n">factor</span> <span class="ow">in</span> <span class="n">contrast_factors</span><span class="p">]</span>
+
+<span class="c1"># Visualize</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Original Image&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">contrast_image</span><span class="p">,</span> <span class="n">factor</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">contrast_images</span><span class="p">,</span> <span class="n">contrast_factors</span><span class="p">)):</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">contrast_image</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Contrast Factor: </span><span class="si">{</span><span class="n">factor</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/883ed38c0e2bc3e2147c92d2765d9a58099f51c2c4466baa425991820af6e97e.png" src="../_images/883ed38c0e2bc3e2147c92d2765d9a58099f51c2c4466baa425991820af6e97e.png" />
+</div>
+</div>
+</section>
+<section id="brightness-enhancement">
+<h3>Brightness Enhancement<a class="headerlink" href="#brightness-enhancement" title="Link to this heading">#</a></h3>
+<p>Brightness controls the overall light intensity of an image.</p>
+<p><strong>Factor interpretation:</strong></p>
+<ul class="simple">
+<li><p>Factor &gt; 1: brightens the image</p></li>
+<li><p>Factor = 1: no change</p></li>
+<li><p>Factor &lt; 1: darkens the image</p></li>
+<li><p>Factor = 0: produces a black image</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Demonstrate brightness enhancement</span>
+<span class="n">bright_factors</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]</span>
+<span class="n">bright_images</span> <span class="o">=</span> <span class="p">[</span><span class="n">ImageEnhance</span><span class="o">.</span><span class="n">Brightness</span><span class="p">(</span><span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">enhance</span><span class="p">(</span><span class="n">factor</span><span class="p">)</span> <span class="k">for</span> <span class="n">factor</span> <span class="ow">in</span> <span class="n">bright_factors</span><span class="p">]</span>
+
+<span class="c1"># Visualize</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Original Image&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">bright_image</span><span class="p">,</span> <span class="n">factor</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">bright_images</span><span class="p">,</span> <span class="n">bright_factors</span><span class="p">)):</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">bright_image</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Brightness Factor: </span><span class="si">{</span><span class="n">factor</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/14f83bc6c6c170cb814cd1a79b8ea12ca689f7bef831b3f665f266b9c395e9f9.png" src="../_images/14f83bc6c6c170cb814cd1a79b8ea12ca689f7bef831b3f665f266b9c395e9f9.png" />
+</div>
+</div>
+</section>
+<section id="color-balance-enhancement">
+<h3>Color Balance Enhancement<a class="headerlink" href="#color-balance-enhancement" title="Link to this heading">#</a></h3>
+<p>Color balance adjusts the intensity and tone of colors in the image.</p>
+<p><strong>Factor interpretation:</strong></p>
+<ul class="simple">
+<li><p>Factor = 0: produces a black and white image</p></li>
+<li><p>Factor &lt; 1: reduces color saturation</p></li>
+<li><p>Factor = 1: no change</p></li>
+<li><p>Factor &gt; 1: increases color saturation</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Demonstrate color enhancement</span>
+<span class="n">color_factors</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]</span>
+<span class="n">color_images</span> <span class="o">=</span> <span class="p">[</span><span class="n">ImageEnhance</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">enhance</span><span class="p">(</span><span class="n">factor</span><span class="p">)</span> <span class="k">for</span> <span class="n">factor</span> <span class="ow">in</span> <span class="n">color_factors</span><span class="p">]</span>
+
+<span class="c1"># Visualize</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Original Image&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">color_image</span><span class="p">,</span> <span class="n">factor</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">color_images</span><span class="p">,</span> <span class="n">color_factors</span><span class="p">)):</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">color_image</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Color Factor: </span><span class="si">{</span><span class="n">factor</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/de3339e6afa3ee1509c03432009f55a7599b93f1bc3467988ff9afe7d8e6937b.png" src="../_images/de3339e6afa3ee1509c03432009f55a7599b93f1bc3467988ff9afe7d8e6937b.png" />
+</div>
+</div>
+</section>
+<section id="sharpness-enhancement">
+<h3>Sharpness Enhancement<a class="headerlink" href="#sharpness-enhancement" title="Link to this heading">#</a></h3>
+<p>Sharpness enhancement increases the clarity and definition of edges and fine details.</p>
+<p><strong>Factor interpretation:</strong></p>
+<ul class="simple">
+<li><p>Factor &gt; 1: increases sharpness (emphasizes edges)</p></li>
+<li><p>Factor = 1: no change</p></li>
+<li><p>Factor &lt; 1: decreases sharpness (blurs the image)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Demonstrate sharpness enhancement</span>
+<span class="n">sharp_factors</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]</span>
+<span class="n">sharp_images</span> <span class="o">=</span> <span class="p">[</span><span class="n">ImageEnhance</span><span class="o">.</span><span class="n">Sharpness</span><span class="p">(</span><span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">enhance</span><span class="p">(</span><span class="n">factor</span><span class="p">)</span> <span class="k">for</span> <span class="n">factor</span> <span class="ow">in</span> <span class="n">sharp_factors</span><span class="p">]</span>
+
+<span class="c1"># Visualize</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Original Image&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">sharp_image</span><span class="p">,</span> <span class="n">factor</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">sharp_images</span><span class="p">,</span> <span class="n">sharp_factors</span><span class="p">)):</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">sharp_image</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Sharpness Factor: </span><span class="si">{</span><span class="n">factor</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/37a4196535114ec937aec491a9dc60fadfc0d0ad47900b0a4e4fd8e02ed44215.png" src="../_images/37a4196535114ec937aec491a9dc60fadfc0d0ad47900b0a4e4fd8e02ed44215.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="optional-interactive-enhancements-with-ipywidgets">
+<h2>Optional: Interactive Enhancements with ipywidgets<a class="headerlink" href="#optional-interactive-enhancements-with-ipywidgets" title="Link to this heading">#</a></h2>
+<p>This section demonstrates an interactive tool to experiment with multiple enhancement parameters simultaneously. This requires the <code class="docutils literal notranslate"><span class="pre">ipywidgets</span></code> library to be installed.</p>
+<p><strong>Note:</strong> This is an optional exploration tool for visual experimentation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">ipywidgets</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">widgets</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">interactive_enhancements</span><span class="p">(</span><span class="n">brightness</span><span class="p">,</span> <span class="n">contrast</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">sharpness</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Apply all enhancements and display the result.&quot;&quot;&quot;</span>
+    <span class="c1"># Start with the original image</span>
+    <span class="n">enhanced_image</span> <span class="o">=</span> <span class="n">image</span>
+    
+    <span class="c1"># Apply enhancements sequentially</span>
+    <span class="n">enhanced_image</span> <span class="o">=</span> <span class="n">ImageEnhance</span><span class="o">.</span><span class="n">Brightness</span><span class="p">(</span><span class="n">enhanced_image</span><span class="p">)</span><span class="o">.</span><span class="n">enhance</span><span class="p">(</span><span class="n">brightness</span><span class="p">)</span>
+    <span class="n">enhanced_image</span> <span class="o">=</span> <span class="n">ImageEnhance</span><span class="o">.</span><span class="n">Contrast</span><span class="p">(</span><span class="n">enhanced_image</span><span class="p">)</span><span class="o">.</span><span class="n">enhance</span><span class="p">(</span><span class="n">contrast</span><span class="p">)</span>
+    <span class="n">enhanced_image</span> <span class="o">=</span> <span class="n">ImageEnhance</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">enhanced_image</span><span class="p">)</span><span class="o">.</span><span class="n">enhance</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+    <span class="n">enhanced_image</span> <span class="o">=</span> <span class="n">ImageEnhance</span><span class="o">.</span><span class="n">Sharpness</span><span class="p">(</span><span class="n">enhanced_image</span><span class="p">)</span><span class="o">.</span><span class="n">enhance</span><span class="p">(</span><span class="n">sharpness</span><span class="p">)</span>
+    
+    <span class="c1"># Display the result</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">enhanced_image</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;B:</span><span class="si">{</span><span class="n">brightness</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> C:</span><span class="si">{</span><span class="n">contrast</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> Col:</span><span class="si">{</span><span class="n">color</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> S:</span><span class="si">{</span><span class="n">sharpness</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Create sliders for each enhancement</span>
+<span class="n">brightness_slider</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span>
+    <span class="nb">min</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Brightness:&#39;</span>
+<span class="p">)</span>
+<span class="n">contrast_slider</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span>
+    <span class="nb">min</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Contrast:&#39;</span>
+<span class="p">)</span>
+<span class="n">color_slider</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span>
+    <span class="nb">min</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Color:&#39;</span>
+<span class="p">)</span>
+<span class="n">sharpness_slider</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span>
+    <span class="nb">min</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Sharpness:&#39;</span>
+<span class="p">)</span>
+
+<span class="c1"># Create interactive interface</span>
+<span class="n">widgets</span><span class="o">.</span><span class="n">interactive</span><span class="p">(</span>
+    <span class="n">interactive_enhancements</span><span class="p">,</span> 
+    <span class="n">brightness</span><span class="o">=</span><span class="n">brightness_slider</span><span class="p">,</span> 
+    <span class="n">contrast</span><span class="o">=</span><span class="n">contrast_slider</span><span class="p">,</span> 
+    <span class="n">color</span><span class="o">=</span><span class="n">color_slider</span><span class="p">,</span> 
+    <span class="n">sharpness</span><span class="o">=</span><span class="n">sharpness_slider</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "89df88ceb092470f9ca24ec4bc38b572", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+</section>
+<section id="recap">
+<h2>Recap<a class="headerlink" href="#recap" title="Link to this heading">#</a></h2>
+<p>This notebook covered the fundamentals of image manipulation using Pillow:</p>
+<p><strong>Image Representation:</strong></p>
+<ul class="simple">
+<li><p>Pillow uses <code class="docutils literal notranslate"><span class="pre">Image</span></code> objects with attributes like <code class="docutils literal notranslate"><span class="pre">size</span></code>, <code class="docutils literal notranslate"><span class="pre">mode</span></code>, and <code class="docutils literal notranslate"><span class="pre">format</span></code></p></li>
+<li><p>RGB images contain three color channels (Red, Green, Blue) with values 0-255</p></li>
+<li><p>Grayscale images use a single channel representing luminance</p></li>
+<li><p>Images can be converted to/from NumPy arrays for numerical operations</p></li>
+</ul>
+<p><strong>Basic Transformations:</strong></p>
+<ul class="simple">
+<li><p>Rotating, flipping, and transposing for orientation changes</p></li>
+<li><p>Cropping to extract regions of interest</p></li>
+<li><p>Resizing with different quality filters (NEAREST, BILINEAR, BICUBIC, LANCZOS)</p></li>
+</ul>
+<p><strong>Image Enhancements:</strong></p>
+<ul class="simple">
+<li><p><strong>Brightness</strong>: adjusts overall light intensity</p></li>
+<li><p><strong>Contrast</strong>: controls the difference between light and dark areas</p></li>
+<li><p><strong>Color</strong>: modifies color saturation</p></li>
+<li><p><strong>Sharpness</strong>: enhances edge definition and detail</p></li>
+</ul>
+<p>These operations are commonly used for image preprocessing, data augmentation, and basic image correction in computer vision applications.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02_what_is_an_image.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">02 - What is an Image?</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="04_intro_to_opencv.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Introduction to OpenCV</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-and-setup">Installation and Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-object-in-pillow">Image Object in Pillow</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-attributes-of-an-image-object">Key Attributes of an Image Object</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-between-pillow-and-numpy">Converting Between Pillow and NumPy</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#displaying-images">Displaying Images</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rgb-images-and-grayscale-conversion">RGB Images and Grayscale Conversion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-rgb-images">Understanding RGB Images</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-to-grayscale">Converting to Grayscale</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-image-manipulation">Basic Image Manipulation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transposing-and-flipping">Transposing and Flipping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rotating-by-arbitrary-angles">Rotating by Arbitrary Angles</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cropping-an-image">Cropping an Image</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resizing-an-image">Resizing an Image</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-combining-operations">Example: Combining Operations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-enhancements">Image Enhancements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contrast-enhancement">Contrast Enhancement</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brightness-enhancement">Brightness Enhancement</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#color-balance-enhancement">Color Balance Enhancement</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sharpness-enhancement">Sharpness Enhancement</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-interactive-enhancements-with-ipywidgets">Optional: Interactive Enhancements with ipywidgets</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">Recap</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1080 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Segmentation and Pose Estimation with Ultralytics YOLO &#8212; Application of AI</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/07b_segmentation_and_pose_with_ultralytics';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Object Tracking with Ultralytics YOLO" href="07c_object_tracking_with_ultralytics.html" />
+    <link rel="prev" title="Object Detection with Ultralytics YOLO" href="07_object_detection_with_ultralytics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Application of AI</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Application of AI
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 1 – Computer Vision</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01_cv_applications.html">01 - Computer Vision Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02_what_is_an_image.html">02 - What is an Image?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03_intro_to_pillow.html">Introduction to Pillow &amp; Image Fundamentals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04_intro_to_opencv.html">Introduction to OpenCV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05_cnn_theory_keras.html">CNN Theory and Implementation with Keras</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06_transfer_learning.html">Transfer Learning and Fine-tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_cv_tasks_theory.html">07 - Computer Vision Tasks: Theory and Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_intro_to_ultralytics.html">Introduction to Ultralytics YOLO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07_object_detection_with_ultralytics.html">Object Detection with Ultralytics YOLO</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Segmentation and Pose Estimation with Ultralytics YOLO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07c_object_tracking_with_ultralytics.html">Object Tracking with Ultralytics YOLO</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 2 – AI Agents</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="08_ai_agents_intro.html">08 - Introduction to AI Agents</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/ezponda/ai-application-course-materials/blob/main/notebooks/07b_segmentation_and_pose_with_ultralytics.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/ezponda/ai-application-course-materials" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/07b_segmentation_and_pose_with_ultralytics.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Segmentation and Pose Estimation with Ultralytics YOLO</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-and-models">Setup and Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-instance-segmentation">What Is Instance Segmentation?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detection-vs-segmentation">Detection vs. Segmentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-vs-instance-segmentation">Semantic vs. Instance Segmentation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation-with-yolo11">Segmentation with YOLO11</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-masks-and-pixel-operations">Binary Masks and Pixel Operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-pixelate-a-person-using-a-segmentation-mask">Exercise: Pixelate a Person Using a Segmentation Mask</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-pose-estimation">What Is Pose Estimation?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-model-outputs">What the Model Outputs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications">Applications</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pose-estimation-with-yolo11">Pose Estimation with YOLO11</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-explore-keypoints-on-yoga-images">Exercise: Explore Keypoints on Yoga Images</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">Recap</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="segmentation-and-pose-estimation-with-ultralytics-yolo">
+<h1>Segmentation and Pose Estimation with Ultralytics YOLO<a class="headerlink" href="#segmentation-and-pose-estimation-with-ultralytics-yolo" title="Link to this heading">#</a></h1>
+<p>In this notebook we go beyond bounding boxes and explore two advanced vision tasks supported by Ultralytics YOLO models:</p>
+<ul class="simple">
+<li><p><strong>Instance segmentation</strong> (pixel-level object masks)</p></li>
+<li><p><strong>Pose estimation</strong> (keypoints on human bodies)</p></li>
+</ul>
+<p>We will use the same YOLO11 family of models and the example images downloaded in the Ultralytics introduction notebook.</p>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#Setup-and-Models"><span class="xref myst">Setup and Models</span></a></p></li>
+<li><p><a class="reference internal" href="#What-Is-Instance-Segmentation?"><span class="xref myst">What Is Instance Segmentation?</span></a></p></li>
+<li><p><a class="reference internal" href="#Segmentation-with-YOLO11"><span class="xref myst">Segmentation with YOLO11</span></a></p></li>
+<li><p><a class="reference internal" href="#Binary-Masks-and-Pixel-Operations"><span class="xref myst">Binary Masks and Pixel Operations</span></a></p></li>
+<li><p><a class="reference internal" href="#Exercise-Pixelate-a-Person-Using-a-Segmentation-Mask"><span class="xref myst">Exercise: Pixelate a Person Using a Segmentation Mask</span></a></p></li>
+<li><p><a class="reference internal" href="#What-Is-Pose-Estimation?"><span class="xref myst">What Is Pose Estimation?</span></a></p></li>
+<li><p><a class="reference internal" href="#Pose-Estimation-with-YOLO11"><span class="xref myst">Pose Estimation with YOLO11</span></a></p></li>
+<li><p><a class="reference internal" href="#Exercise-Explore-Keypoints-on-Yoga-Images"><span class="xref myst">Exercise: Explore Keypoints on Yoga Images</span></a></p></li>
+<li><p><a class="reference internal" href="#Recap"><span class="xref myst">Recap</span></a></p></li>
+</ol>
+</section>
+<section id="setup-and-models">
+<h2>Setup and Models<a class="headerlink" href="#setup-and-models" title="Link to this heading">#</a></h2>
+<p>Let’s import the necessary libraries. Make sure to run <code class="docutils literal notranslate"><span class="pre">07_intro_to_ultralytics.ipynb</span></code> first to download the example images.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ultralytics</span><span class="w"> </span><span class="kn">import</span> <span class="n">YOLO</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="c1"># Check that images are available</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;../images&quot;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: ../images/ not found. Run 07_intro_to_ultralytics.ipynb first to download example images.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Images directory found. Ready to proceed.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="what-is-instance-segmentation">
+<h2>What Is Instance Segmentation?<a class="headerlink" href="#what-is-instance-segmentation" title="Link to this heading">#</a></h2>
+<p>Instance segmentation combines object detection with semantic segmentation. Instead of just drawing a bounding box around an object, it identifies the exact pixels that belong to each object instance.</p>
+<section id="detection-vs-segmentation">
+<h3>Detection vs. Segmentation<a class="headerlink" href="#detection-vs-segmentation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Object Detection</strong>: Outputs bounding boxes (rectangles) around objects</p>
+<ul>
+<li><p>Fast and efficient</p></li>
+<li><p>Good for counting and localization</p></li>
+<li><p>Less precise (includes background pixels)</p></li>
+</ul>
+</li>
+<li><p><strong>Instance Segmentation</strong>: Outputs pixel-level masks for each object</p>
+<ul>
+<li><p>More computationally expensive</p></li>
+<li><p>Precise object boundaries</p></li>
+<li><p>Useful for applications requiring exact shapes (medical imaging, video editing)</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="semantic-vs-instance-segmentation">
+<h3>Semantic vs. Instance Segmentation<a class="headerlink" href="#semantic-vs-instance-segmentation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Semantic Segmentation</strong>: Labels every pixel with a class (all cars are “car”)</p></li>
+<li><p><strong>Instance Segmentation</strong>: Distinguishes between different instances of the same class (car #1, car #2, etc.)</p></li>
+</ul>
+<p>YOLO models with the <code class="docutils literal notranslate"><span class="pre">-seg</span></code> suffix perform instance segmentation.</p>
+</section>
+</section>
+<section id="segmentation-with-yolo11">
+<h2>Segmentation with YOLO11<a class="headerlink" href="#segmentation-with-yolo11" title="Link to this heading">#</a></h2>
+<p>Let’s load a segmentation model and run it on one of our example images.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load YOLO11 segmentation model (nano version)</span>
+<span class="n">seg_model</span> <span class="o">=</span> <span class="n">YOLO</span><span class="p">(</span><span class="s2">&quot;yolo11n-seg.pt&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Segmentation model loaded: </span><span class="si">{</span><span class="n">seg_model</span><span class="o">.</span><span class="n">model_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run segmentation on a traffic image</span>
+<span class="n">image_path</span> <span class="o">=</span> <span class="s2">&quot;../images/yolo_traffic.jpg&quot;</span>
+<span class="n">img_bgr</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
+<span class="n">img_rgb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img_bgr</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">seg_model</span><span class="p">(</span><span class="n">img_rgb</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">annotated</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">annotated</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;YOLO11 Instance Segmentation&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>What we see:</strong></p>
+<ul class="simple">
+<li><p>Colored masks showing the exact shape of each object</p></li>
+<li><p>Different colors for different instances (even of the same class)</p></li>
+<li><p>Bounding boxes and class labels overlaid on the masks</p></li>
+<li><p>Much more precise than simple rectangles</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Inspect the segmentation results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Segmentation results structure:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Number of detected objects: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">boxes</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Masks available: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">masks</span><span class="w"> </span><span class="ow">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="kc">None</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">masks</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Number of masks: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">masks</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Mask data shape: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">masks</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># List detected objects</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Detected objects:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">box</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">boxes</span><span class="p">):</span>
+    <span class="n">cls_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="n">cls</span><span class="p">)</span>
+    <span class="n">cls_name</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">names</span><span class="p">[</span><span class="n">cls_id</span><span class="p">]</span>
+    <span class="n">conf</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="n">conf</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">cls_name</span><span class="si">}</span><span class="s2"> (conf: </span><span class="si">{</span><span class="n">conf</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="binary-masks-and-pixel-operations">
+<h2>Binary Masks and Pixel Operations<a class="headerlink" href="#binary-masks-and-pixel-operations" title="Link to this heading">#</a></h2>
+<p>A <strong>binary mask</strong> is a 2D array where pixels are either <code class="docutils literal notranslate"><span class="pre">True</span></code> (object) or <code class="docutils literal notranslate"><span class="pre">False</span></code> (background). We can use masks to:</p>
+<ul class="simple">
+<li><p>Extract only the object (remove background)</p></li>
+<li><p>Blur or pixelate specific regions</p></li>
+<li><p>Anonymize faces or people for privacy</p></li>
+<li><p>Replace backgrounds in images</p></li>
+</ul>
+<p>Let’s create a helper function to extract boolean masks from YOLO segmentation results.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ultralytics.engine.results</span><span class="w"> </span><span class="kn">import</span> <span class="n">Results</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_segmentation_mask</span><span class="p">(</span><span class="n">detection_result</span><span class="p">:</span> <span class="n">Results</span><span class="p">,</span> <span class="n">object_index</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract a boolean mask for one detected instance from YOLO segmentation results.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        detection_result: YOLO Results object containing segmentation data</span>
+<span class="sd">        object_index: Index of the object to extract (0 for first detection)</span>
+<span class="sd">    </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Binary mask as a boolean NumPy array (True for object pixels, False for background)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Verify the inputs</span>
+    <span class="k">if</span> <span class="n">detection_result</span><span class="o">.</span><span class="n">masks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No segmentation masks found in detection results&quot;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">object_index</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">detection_result</span><span class="o">.</span><span class="n">masks</span><span class="o">.</span><span class="n">xy</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Object index </span><span class="si">{</span><span class="n">object_index</span><span class="si">}</span><span class="s2"> is out of range. &quot;</span>
+                         <span class="sa">f</span><span class="s2">&quot;Only </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">detection_result</span><span class="o">.</span><span class="n">masks</span><span class="o">.</span><span class="n">xy</span><span class="p">)</span><span class="si">}</span><span class="s2"> objects detected.&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Get original image dimensions</span>
+    <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">detection_result</span><span class="o">.</span><span class="n">orig_img</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+    
+    <span class="c1"># Create an empty mask with the original image dimensions</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+    
+    <span class="c1"># Get the contour points from the detection result</span>
+    <span class="c1"># This can be either a single polygon (2D array) or a list of polygons</span>
+    <span class="n">polygon_data</span> <span class="o">=</span> <span class="n">detection_result</span><span class="o">.</span><span class="n">masks</span><span class="o">.</span><span class="n">xy</span><span class="p">[</span><span class="n">object_index</span><span class="p">]</span>
+    
+    <span class="c1"># Handle both cases: single polygon or list of polygons</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">polygon_data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">polygon_data</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="c1"># Single polygon: shape (N, 2)</span>
+        <span class="n">contours</span> <span class="o">=</span> <span class="p">[</span><span class="n">polygon_data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">polygon_data</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="c1"># List of polygons</span>
+        <span class="n">contours</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">polygon_data</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Fallback: treat as single polygon</span>
+        <span class="n">contours</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">polygon_data</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
+    
+    <span class="c1"># Fill all polygons into the mask</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">fillPoly</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">contours</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+    
+    <span class="c1"># Convert to boolean mask</span>
+    <span class="n">binary_mask</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">binary_mask</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Demonstrate extracting and visualizing a mask</span>
+<span class="c1"># Use Einstein image for a clearer example</span>
+<span class="n">einstein_path</span> <span class="o">=</span> <span class="s2">&quot;../images/yolo_einstein_head.jpg&quot;</span>
+<span class="n">einstein_bgr</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">einstein_path</span><span class="p">)</span>
+<span class="n">einstein_rgb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">einstein_bgr</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+
+<span class="c1"># Run segmentation</span>
+<span class="n">einstein_results</span> <span class="o">=</span> <span class="n">seg_model</span><span class="p">(</span><span class="n">einstein_rgb</span><span class="p">,</span> <span class="n">conf</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">einstein_result</span> <span class="o">=</span> <span class="n">einstein_results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Show default visualization</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">einstein_rgb</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original Image&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">einstein_result</span><span class="o">.</span><span class="n">plot</span><span class="p">())</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Segmentation Result&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Number of objects detected: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">einstein_result</span><span class="o">.</span><span class="n">boxes</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract and visualize the binary mask</span>
+<span class="k">if</span> <span class="n">einstein_result</span><span class="o">.</span><span class="n">masks</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">einstein_result</span><span class="o">.</span><span class="n">masks</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="c1"># Extract mask for the first detected object</span>
+    <span class="n">binary_mask</span> <span class="o">=</span> <span class="n">extract_segmentation_mask</span><span class="p">(</span><span class="n">einstein_result</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    
+    <span class="c1"># Visualize the mask</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    
+    <span class="c1"># Original image</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">einstein_rgb</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Original Image&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Binary mask</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">binary_mask</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Binary Mask&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Masked image (object only)</span>
+    <span class="n">masked_img</span> <span class="o">=</span> <span class="n">einstein_rgb</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">masked_img</span><span class="p">[</span><span class="o">~</span><span class="n">binary_mask</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Set background to black</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">masked_img</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Extracted Object&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No masks detected. Try with a different image or lower confidence threshold.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Demonstrate mask overlay: tint the detected object in red</span>
+<span class="k">if</span> <span class="n">einstein_result</span><span class="o">.</span><span class="n">masks</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">einstein_result</span><span class="o">.</span><span class="n">masks</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">overlay</span> <span class="o">=</span> <span class="n">einstein_rgb</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">overlay</span><span class="p">[</span><span class="n">binary_mask</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># Set object pixels to red</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">einstein_rgb</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">overlay</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Object Highlighted (Red Overlay)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-pixelate-a-person-using-a-segmentation-mask">
+<h2>Exercise: Pixelate a Person Using a Segmentation Mask<a class="headerlink" href="#exercise-pixelate-a-person-using-a-segmentation-mask" title="Link to this heading">#</a></h2>
+<p>In this exercise, you will:</p>
+<ol class="arabic simple">
+<li><p>Detect a person in an image</p></li>
+<li><p>Build a binary mask for that person</p></li>
+<li><p>Pixelate either the person or the background</p></li>
+</ol>
+<p>This technique is commonly used for <strong>privacy protection</strong> and <strong>data anonymization</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Exercise: Pixelate a person using a segmentation mask</span>
+
+<span class="c1"># Load an image with people (beach scene or traffic)</span>
+<span class="n">image_path</span> <span class="o">=</span> <span class="s2">&quot;../images/yolo_beach_scene.jpg&quot;</span>
+<span class="n">img_bgr</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
+<span class="n">img_rgb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img_bgr</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+
+<span class="c1"># Run segmentation</span>
+<span class="n">seg_model</span> <span class="o">=</span> <span class="n">YOLO</span><span class="p">(</span><span class="s2">&quot;yolo11n-seg.pt&quot;</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">seg_model</span><span class="p">(</span><span class="n">img_rgb</span><span class="p">,</span> <span class="n">conf</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># TODO: Find the class ID for &#39;person&#39; in result.names</span>
+<span class="c1"># Hint: result.names is a dictionary like {0: &#39;person&#39;, 1: &#39;bicycle&#39;, ...}</span>
+<span class="c1"># Hint: Loop through result.names.items() and check for &#39;person&#39;</span>
+
+<span class="c1"># TODO: Find the first detection that corresponds to a person</span>
+<span class="c1"># Hint: Loop through result.boxes and check if int(box.cls) matches the person class ID</span>
+
+<span class="c1"># TODO: Build a binary mask for that person</span>
+<span class="c1"># Hint: Use extract_segmentation_mask(result, object_index=person_index)</span>
+
+<span class="c1"># TODO: Create pixelated variants</span>
+<span class="c1"># Hint: You&#39;ll need a pixelate() function (define one or use cv2.resize with INTER_NEAREST)</span>
+<span class="c1"># Hint: Use boolean indexing with the mask: result_img[person_mask] = pixelated[person_mask]</span>
+
+<span class="c1"># TODO: Plot results in a 2x2 grid showing:</span>
+<span class="c1"># - Original image</span>
+<span class="c1"># - Fully pixelated</span>
+<span class="c1"># - Pixelated background (clear person)</span>
+<span class="c1"># - Pixelated person (clear background)</span>
+
+<span class="k">pass</span>  <span class="c1"># Remove this line when you complete the TODOs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Use cases for mask-based pixelation:</strong></p>
+<ul class="simple">
+<li><p><strong>Privacy protection</strong>: Anonymize faces or people in public datasets</p></li>
+<li><p><strong>Content moderation</strong>: Blur sensitive content automatically</p></li>
+<li><p><strong>Data compliance</strong>: Meet GDPR or other privacy regulations</p></li>
+<li><p><strong>Creative effects</strong>: Highlight subjects by blurring backgrounds</p></li>
+</ul>
+</section>
+<section id="what-is-pose-estimation">
+<h2>What Is Pose Estimation?<a class="headerlink" href="#what-is-pose-estimation" title="Link to this heading">#</a></h2>
+<p>Pose estimation detects human figures and identifies key body points (keypoints). These keypoints typically include:</p>
+<ul class="simple">
+<li><p><strong>Face</strong>: Nose, eyes, ears</p></li>
+<li><p><strong>Upper body</strong>: Shoulders, elbows, wrists</p></li>
+<li><p><strong>Lower body</strong>: Hips, knees, ankles</p></li>
+</ul>
+<section id="what-the-model-outputs">
+<h3>What the Model Outputs<a class="headerlink" href="#what-the-model-outputs" title="Link to this heading">#</a></h3>
+<p>For each detected person:</p>
+<ul class="simple">
+<li><p><strong>Bounding box</strong>: Location of the person</p></li>
+<li><p><strong>Keypoints</strong>: (x, y) coordinates for each body point</p></li>
+<li><p><strong>Confidence</strong>: How certain the model is about each keypoint</p></li>
+</ul>
+</section>
+<section id="applications">
+<h3>Applications<a class="headerlink" href="#applications" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Fitness tracking</strong>: Analyze exercise form</p></li>
+<li><p><strong>Sports analytics</strong>: Track athlete movements</p></li>
+<li><p><strong>Human-computer interaction</strong>: Gesture recognition</p></li>
+<li><p><strong>Animation</strong>: Motion capture for games and movies</p></li>
+<li><p><strong>Surveillance</strong>: Detect abnormal behavior</p></li>
+</ul>
+</section>
+</section>
+<section id="pose-estimation-with-yolo11">
+<h2>Pose Estimation with YOLO11<a class="headerlink" href="#pose-estimation-with-yolo11" title="Link to this heading">#</a></h2>
+<p>Let’s load a pose estimation model and run it on yoga images.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load YOLO11 pose estimation model</span>
+<span class="n">pose_model</span> <span class="o">=</span> <span class="n">YOLO</span><span class="p">(</span><span class="s2">&quot;yolo11n-pose.pt&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pose model loaded: </span><span class="si">{</span><span class="n">pose_model</span><span class="o">.</span><span class="n">model_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run pose estimation on yoga images</span>
+<span class="n">yoga_images</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;../images/yolo_yoga_1.jpg&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;../images/yolo_yoga_2.jpg&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">yoga_images</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2"> not found. Run 07_intro_to_ultralytics.ipynb first.&quot;</span><span class="p">)</span>
+        <span class="k">continue</span>
+    
+    <span class="n">img_bgr</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">img_rgb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img_bgr</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+    
+    <span class="n">results</span> <span class="o">=</span> <span class="n">pose_model</span><span class="p">(</span><span class="n">img_rgb</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">plot</span><span class="p">())</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pose Estimation: </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>What we see:</strong></p>
+<ul class="simple">
+<li><p>Keypoints drawn as circles on body joints</p></li>
+<li><p>Lines (skeleton) connecting related keypoints</p></li>
+<li><p>Different colors for different body parts</p></li>
+<li><p>Bounding boxes around detected people</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Inspect the keypoints structure</span>
+<span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">keypoints</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Keypoints data structure:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Shape: </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">keypoints</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Interpretation: (num_people, num_keypoints, coordinates)&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Coordinates: [x, y, confidence] for each keypoint&quot;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">keypoints</span><span class="o">.</span><span class="n">conf</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Keypoint confidences shape: </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">keypoints</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Interpretation: (num_people, num_keypoints)&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Show confidence for first person</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">keypoints</span><span class="o">.</span><span class="n">conf</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">first_person_conf</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">keypoints</span><span class="o">.</span><span class="n">conf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">First person keypoint confidences:&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Mean: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">first_person_conf</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Min: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">first_person_conf</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Max: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">first_person_conf</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No keypoints detected.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="exercise-explore-keypoints-on-yoga-images">
+<h3>Exercise: Explore Keypoints on Yoga Images<a class="headerlink" href="#exercise-explore-keypoints-on-yoga-images" title="Link to this heading">#</a></h3>
+<p>Analyze keypoint detection results by computing statistics on the model’s confidence for each person.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Exercise: Analyze keypoints on yoga images</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">summarize_pose_results</span><span class="p">(</span><span class="n">result</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print a short summary of pose estimation results:</span>
+<span class="sd">    - Number of people detected</span>
+<span class="sd">    - Average keypoint confidence per person</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">keypoints</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No keypoints found.&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+    
+    <span class="c1"># TODO: Extract keypoint confidence tensor</span>
+    <span class="c1"># Hint: result.keypoints.conf has shape (num_people, num_keypoints)</span>
+    
+    <span class="c1"># TODO: Compute average confidence per person</span>
+    <span class="c1"># Hint: Use .mean(axis=1) to average across keypoints for each person</span>
+    <span class="c1"># Hint: Convert to numpy with .cpu().numpy()</span>
+    
+    <span class="c1"># TODO: Print a short summary</span>
+    <span class="c1"># Hint: Print the number of people and average confidence for each</span>
+    
+    <span class="k">pass</span>  <span class="c1"># Remove this line when you complete the TODOs</span>
+
+<span class="c1"># Test on yoga images</span>
+<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">yoga_images</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="k">continue</span>
+    
+    <span class="n">img_bgr</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">img_rgb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">img_bgr</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span>
+    
+    <span class="n">results</span> <span class="o">=</span> <span class="n">pose_model</span><span class="p">(</span><span class="n">img_rgb</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="si">}</span><span class="s2"> ===&quot;</span><span class="p">)</span>
+    <span class="n">summarize_pose_results</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="recap">
+<h2>Recap<a class="headerlink" href="#recap" title="Link to this heading">#</a></h2>
+<section id="key-takeaways">
+<h3>Key Takeaways<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Instance Segmentation</strong> provides pixel-level masks for each object, not just bounding boxes</p></li>
+<li><p><strong>Binary masks</strong> (0/1 arrays) can be used to isolate objects, blur regions, or anonymize content</p></li>
+<li><p><strong>Pose Estimation</strong> detects human keypoints (joints) and their connections (skeleton)</p></li>
+<li><p><strong>Keypoint confidence</strong> tells us how certain the model is about each body joint</p></li>
+<li><p><strong>Ultralytics API</strong> is consistent: <code class="docutils literal notranslate"><span class="pre">YOLO(&quot;yolo11n-seg.pt&quot;)</span></code> for segmentation, <code class="docutils literal notranslate"><span class="pre">YOLO(&quot;yolo11n-pose.pt&quot;)</span></code> for pose</p></li>
+<li><p><strong>Applications</strong>: Privacy protection, content moderation, fitness tracking, sports analytics, motion capture</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="07_object_detection_with_ultralytics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Object Detection with Ultralytics YOLO</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="07c_object_tracking_with_ultralytics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Object Tracking with Ultralytics YOLO</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-and-models">Setup and Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-instance-segmentation">What Is Instance Segmentation?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detection-vs-segmentation">Detection vs. Segmentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-vs-instance-segmentation">Semantic vs. Instance Segmentation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation-with-yolo11">Segmentation with YOLO11</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#binary-masks-and-pixel-operations">Binary Masks and Pixel Operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-pixelate-a-person-using-a-segmentation-mask">Exercise: Pixelate a Person Using a Segmentation Mask</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-pose-estimation">What Is Pose Estimation?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-model-outputs">What the Model Outputs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications">Applications</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pose-estimation-with-yolo11">Pose Estimation with YOLO11</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-explore-keypoints-on-yoga-images">Exercise: Explore Keypoints on Yoga Images</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">Recap</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
