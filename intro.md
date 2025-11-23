@@ -51,10 +51,29 @@ This part introduces the emerging field of AI agents:
 
 ## Getting Started
 
-1. Clone the repository and install dependencies
-2. Work through the notebooks in order
-3. Complete the TODO exercises to reinforce learning
-4. Experiment with your own images and use cases
+### How to Run These Notebooks
+
+You have several options for working with the course materials:
+
+**Option 1: Google Colab (Easiest)**
+- Click the notebook you want in the sidebar, then use the rocket icon (🚀) at the top to launch in Colab
+- No local setup required; runs in your browser with free GPU access
+- Images load directly from the GitHub repository
+
+**Option 2: Local Environment**
+- Clone the repository: `git clone https://github.com/ezponda/ai-application-course-materials.git`
+- Install dependencies: `pip install -r requirements.txt`
+- Launch Jupyter: `jupyter notebook` or `jupyter lab`
+
+**Option 3: Download Individual Notebooks**
+- Use the download button (⬇️) at the top of any notebook page to get the `.ipynb` file
+- Upload to your preferred environment (Colab, local Jupyter, etc.)
+
+### Learning Path
+
+1. Work through the notebooks in order (sidebar navigation)
+2. Complete the TODO exercises to reinforce learning
+3. Experiment with your own images and use cases
 
 Each notebook is self-contained with explanations, code examples, and exercises. Notebooks marked with ✅ are complete, while *(Placeholder)* notebooks contain outlines for upcoming content.
 
