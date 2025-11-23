@@ -5,9 +5,9 @@ parts:
   - caption: "Part 1 – Computer Vision"
     chapters:
       - file: notebooks/01_cv_applications
-        title: "01 - Computer Vision Applications (Placeholder)"
+        title: "01 - Computer Vision Applications"
       - file: notebooks/02_what_is_an_image
-        title: "02 - What is an Image? (Placeholder)"
+        title: "02 - What is an Image?"
       - file: notebooks/03_intro_to_pillow
         title: "03 - Introduction to Pillow & Image Fundamentals"
       - file: notebooks/04_intro_to_opencv
