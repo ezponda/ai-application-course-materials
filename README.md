@@ -34,17 +34,17 @@ The course is divided into two comprehensive parts:
 
 ### Foundation & Theory
 
-1. **[Computer Vision Applications](notebooks/01_cv_applications.ipynb)** *(Placeholder)*
+1. **[Computer Vision Applications](notebooks/01_cv_applications.ipynb)** ✅
    - Real-world CV applications across industries
    - Healthcare, retail, autonomous systems, security
    - Manufacturing, agriculture, entertainment
    - Business value and impact of CV solutions
 
-2. **[What is an Image?](notebooks/02_what_is_an_image.ipynb)** *(Placeholder)*
+2. **[What is an Image?](notebooks/02_what_is_an_image.ipynb)** ✅
    - Images as data: pixels, resolution, channels
-   - Color spaces (RGB, Grayscale, HSV)
-   - Images as numerical arrays
-   - File formats and storage considerations
+   - Bit depth and data types (uint8, float32)
+   - RGB color model and channel representation
+   - Understanding images as numerical arrays
 
 ### Practical Tools
 
