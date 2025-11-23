@@ -237,7 +237,7 @@ ultralytics/
 .thumbnails
 
 # Large media files (if accidentally added)
-*.mp4
+# *.mp4
 *.avi
 *.mov
 *.mkv
