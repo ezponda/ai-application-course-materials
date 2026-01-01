@@ -34,11 +34,15 @@ pillow>=9.5.0
 
 # For advanced CV (YOLO)
 ultralytics>=8.0.0
+lapx>=0.5.2  # For object tracking (linear assignment)
 
 # Jupyter environment
 jupyter>=1.0.0
 notebook>=6.5.0
 ipywidgets>=8.0.0
+
+# Jupyter Book (for building HTML documentation)
+jupyter-book>=1.0.0,<2.0.0
 
 # Optional but recommended
 scikit-learn>=1.2.0

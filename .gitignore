@@ -267,3 +267,7 @@ models/*.h5
 
 # Jupyter Book build output
 _build/
+
+# Build reports and logs
+reports/
+CHANGELOG_REVIEW_FIXES.md

@@ -2,6 +2,14 @@ title: "Application of AI"
 
 only_build_toc_files: true
 
+exclude_patterns:
+  - .venv
+  - .venv/**
+  - _build
+  - "**.ipynb_checkpoints"
+  - .git
+  - .claude
+
 execute:
   execute_notebooks: "off"
 

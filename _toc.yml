@@ -26,8 +26,10 @@ parts:
         title: "10 - Segmentation and Pose Estimation with Ultralytics YOLO"
       - file: notebooks/07c_object_tracking_with_ultralytics
         title: "11 - Object Tracking with Ultralytics YOLO"
+      - file: notebooks/07d_people_counting_store_entrance
+        title: "12 - People Counting at a Store Entrance"
 
   - caption: "Part 2 – AI Agents"
     chapters:
       - file: notebooks/08_ai_agents_intro
-        title: "12 - Introduction to AI Agents (Placeholder)"
+        title: "13 - Introduction to AI Agents (Placeholder)"
