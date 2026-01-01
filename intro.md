@@ -20,7 +20,7 @@ The course uses Python as the primary programming language, along with:
 - **Pillow & OpenCV** - Image processing and computer vision fundamentals
 - **TensorFlow/Keras** - Deep learning and CNN architectures
 - **Ultralytics YOLO** - State-of-the-art object detection, segmentation, and tracking
-- **LangChain** - AI agent development and orchestration
+- **Python standard library** - Framework-free agent concepts and patterns
 
 ## Prerequisites
 
@@ -42,12 +42,12 @@ This part covers the complete journey from basic image processing to advanced co
 
 ### Part 2: AI Agents
 
-This part introduces the emerging field of AI agents:
+This part introduces the conceptual foundations of AI agents (framework-free):
 
-1. **Agent Architectures** - Understanding how AI agents work
-2. **Tool Integration** - Connecting LLMs with external tools and APIs
-3. **CV + Agents** - Using computer vision models as agent tools
-4. **Multi-Agent Systems** - Orchestrating multiple agents for complex tasks
+1. **LLMs & Prompting** - Understanding LLMs, prompt engineering patterns, and effective communication
+2. **Agent Architectures** - Reactive, deliberative, and hybrid agent designs
+3. **Tools & Memory** - How agents use external tools and maintain context
+4. **CV + Agents** - Using computer vision models as perception tools in agent systems
 
 ## Getting Started
 

@@ -110,17 +110,30 @@ The course is divided into two comprehensive parts:
     - Counting and flow analysis
     - Real-world tracking applications
 
-## Part 2: AI Agents
+## Part 2: AI Agents (Framework-Free Foundations)
 
-12. **[Introduction to AI Agents](notebooks/08_ai_agents_intro.ipynb)** *(Placeholder)*
-    - AI agents fundamentals and architectures
-    - LLMs as reasoning engines
-    - Tool integration and orchestration
-    - Memory systems and decision making
-    - Building agents with LangChain
-    - Integrating CV models as agent tools
-    - Multi-agent systems
-    - Real-world applications
+12. **[Part 2 Landing Page](notebooks/08_ai_agents_intro.ipynb)** ✅
+    - Why Part 2 exists: from perception to decision-making
+    - Scope: what we cover and don't cover
+    - Connection to Part 1 CV models
+    - Learning outcomes and prerequisites
+
+13. **[LLMs & Prompt Engineering](notebooks/09_llms_and_prompting.ipynb)** ✅
+    - LLM fundamentals and the prompt contract
+    - Seven core prompt patterns (few-shot, decomposition, schema, etc.)
+    - CV-related prompt examples
+    - Prompt injection awareness and safety
+    - Practical exercises with solutions
+
+14. **[Introduction to AI Agents](notebooks/10_intro_to_agents.ipynb)** ✅
+    - Agent loop: observe → decide → act → update
+    - Architectures: reactive, deliberative, hybrid
+    - Tools and action spaces
+    - Memory strategies (short-term and long-term)
+    - Planning, control, and the ReAct pattern
+    - Multi-agent systems overview
+    - Evaluation and reliability patterns
+    - Bridging CV models as agent tools
 
 ## Getting Started
 
@@ -199,8 +212,9 @@ The HTML site will be available at `_build/html/index.html`.
    - Explore advanced topics with Ultralytics (7-11)
 
 2. Continue with **Part 2: AI Agents**
-   - Complete the AI agents introduction (12)
-   - Apply CV knowledge in agent-based systems
+   - Read the Part 2 landing page (12) for context
+   - Study LLMs & Prompt Engineering (13) for communication patterns
+   - Learn agent concepts (14) and how CV models integrate as tools
 
 ### Exercise Policy
 

@@ -32,4 +32,8 @@ parts:
   - caption: "Part 2 – AI Agents"
     chapters:
       - file: notebooks/08_ai_agents_intro
-        title: "13 - Introduction to AI Agents (Placeholder)"
+        title: "Part 2 – AI Agents: From Prompts to Goal-Directed Systems"
+      - file: notebooks/09_llms_and_prompting
+        title: "09 - LLMs & Prompt Engineering"
+      - file: notebooks/10_intro_to_agents
+        title: "10 - Introduction to AI Agents"

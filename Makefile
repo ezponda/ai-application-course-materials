@@ -23,7 +23,9 @@ NOTEBOOKS = \
 	notebooks/07b_segmentation_and_pose_with_ultralytics.ipynb \
 	notebooks/07c_object_tracking_with_ultralytics.ipynb \
 	notebooks/07d_people_counting_store_entrance.ipynb \
-	notebooks/08_ai_agents_intro.ipynb
+	notebooks/08_ai_agents_intro.ipynb \
+	notebooks/09_llms_and_prompting.ipynb \
+	notebooks/10_intro_to_agents.ipynb
 
 help:
 	@echo "Available targets:"
