@@ -25,3 +25,11 @@ repository:
 
 launch_buttons:
   colab_url: "https://colab.research.google.com"
+
+sphinx:
+  config:
+    nb_merge_streams: true
+    nb_output_stderr: "remove"
+
+mystnb:
+  scroll_outputs: true
