@@ -17,7 +17,7 @@ parts:
       - file: notebooks/06_transfer_learning
         title: "06 - Transfer Learning and Fine-tuning"
       - file: notebooks/07_cv_tasks_theory
-        title: "07 - Computer Vision Tasks: Theory and Concepts (Placeholder)"
+        title: "07 - Computer Vision Tasks: Theory and Concepts"
       - file: notebooks/07_intro_to_ultralytics
         title: "08 - Introduction to Ultralytics YOLO"
       - file: notebooks/07_object_detection_with_ultralytics
