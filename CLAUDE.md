@@ -44,6 +44,8 @@ jupyter nbconvert --clear-output --inplace notebooks/<notebook>.ipynb
 | File | Purpose |
 |------|---------|
 | `CLAUDE.md` | This file - course contract and guidelines |
+| `_toc.yml` | Jupyter Book table of contents (defines site navigation) |
+| `_config.yml` | Jupyter Book configuration |
 | `README.md` | Main repository documentation |
 | `notebooks/README.md` | Notebook-specific documentation |
 | `requirements.txt` | Python dependencies |
@@ -58,6 +60,7 @@ jupyter nbconvert --clear-output --inplace notebooks/<notebook>.ipynb
 - **YOLO model weights** (`.pt` files) are downloaded automatically; don't commit them
 - **Large images** should be compressed before adding to `images/`
 - **Notebook outputs** can make files very large; consider clearing before commits
+- **New notebooks must be added to `_toc.yml`** to appear on the Jupyter Book site (https://ezponda.github.io/ai-application-course-materials/)
 
 ---
 
@@ -331,6 +334,7 @@ When generating or modifying any **target notebook**:
    * Do not overwrite or delete the original source notebooks.
    * All new course content should be in numbered notebooks (`01_` through `08_`).
    * When searching for examples or images, save assets locally in `images/`.
+   * **When creating a new notebook**, add it to `_toc.yml` so it appears on the Jupyter Book site.
 
 ---
 
