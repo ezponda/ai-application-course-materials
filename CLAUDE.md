@@ -241,6 +241,13 @@ Target notebooks are the student-facing materials (create, refine, and maintain 
    * Hybrid approaches (custom CNN + pre-trained)
    * Comparative exercises with different backbones
 
+6b. `notebooks/06b_cnn_review_cats_vs_dogs.ipynb` ✅ **COMPLETED**
+    * Hands-on CNN review with Cats vs Dogs dataset
+    * Progressive exercises: no pooling → pooling → regularization → transfer learning
+    * tf.data.Dataset API for efficient data loading
+    * Model comparison and generalization testing
+    * Binary classification with sigmoid activation
+
 7. `notebooks/07_cv_tasks_theory.ipynb` *(Placeholder)*
    * Overview of CV tasks (classification to tracking)
    * Object detection theory and concepts
