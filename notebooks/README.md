@@ -96,17 +96,35 @@ The course is organized into two main parts:
     - Real-time tracking applications
     - Video processing exercises
 
-## Part 2: AI Agents
+## Part 2: AI Agents with n8n
 
-12. **08_ai_agents_intro.ipynb** *(Placeholder)*
-    - AI agents fundamentals and architectures
-    - Agent types (reactive, deliberative, hybrid)
-    - LLMs as reasoning engines
-    - Tool integration and orchestration
-    - Memory systems and decision making
-    - Building agents with LangChain
-    - Integrating CV models as agent tools
-    - Multi-agent collaboration scenarios
+Build AI systems that think, decide, and act — without writing code.
+
+12. **08_ai_agents_intro.ipynb** ✅
+    - Why AI agents matter: beyond simple prompts
+    - Workflows vs Agents: who decides the steps?
+    - Agent building blocks: LLM, Tools, Memory, Reasoning
+    - Agentic design patterns overview
+    - Agent limitations and how to handle them
+
+13. **08b_n8n_setup.ipynb** ✅
+    - Installing n8n (Desktop App, npm, Docker, Cloud)
+    - Setting up the development environment
+    - Troubleshooting common installation issues
+
+14. **08c_n8n_quickstart.ipynb** ✅
+    - Building your first AI workflow from scratch
+    - Manual Trigger, Edit Fields, Basic LLM Chain nodes
+    - Setting up API credentials (OpenRouter, Google AI)
+    - Introduction to expressions: `{{ $json.field }}`
+    - Using the Output Panel and pinning data
+
+15. **08d_n8n_workflow_patterns.ipynb** ✅
+    - Core concepts: data flow, connection types, triggers
+    - Expressions deep dive and common patterns
+    - Pattern 1: Prompt Chaining (sequential refinement)
+    - Pattern 2: Routing (Switch node for conditional paths)
+    - Pattern 3: Parallelization (Merge node for combining results)
 
 ## Source Notebooks (Reference Only)
 
@@ -172,7 +190,7 @@ Students should have:
 
 4. Follow the numbered sequence:
    - Part 1: Start with 01-02 (concepts), then 03-04 (tools), 05-06 (deep learning), 07-11 (advanced CV)
-   - Part 2: Complete 08 (AI agents)
+   - Part 2: Complete 08 (intro), 08b (setup), 08c (quickstart), 08d (patterns)
 
 ## Notes
 

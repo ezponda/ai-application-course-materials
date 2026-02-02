@@ -31,11 +31,13 @@ parts:
       - file: notebooks/07d_people_counting_store_entrance
         title: "12 - People Counting at a Store Entrance"
 
-  - caption: "Part 2 – AI Agents"
+  - caption: "Part 2 – AI Agents with n8n"
     chapters:
       - file: notebooks/08_ai_agents_intro
-        title: "Part 2 – AI Agents: From Prompts to Goal-Directed Systems"
-      - file: notebooks/09_llms_and_prompting
-        title: "13 - LLMs & Prompt Engineering"
-      - file: notebooks/10_intro_to_agents
-        title: "14 - Introduction to AI Agents"
+        title: "08 - AI Agents: Introduction"
+      - file: notebooks/08b_n8n_setup
+        title: "08b - n8n Setup"
+      - file: notebooks/08c_n8n_quickstart
+        title: "08c - n8n Quick Start"
+      - file: notebooks/08d_n8n_workflow_patterns
+        title: "08d - Workflow Patterns"

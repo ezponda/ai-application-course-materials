@@ -51,6 +51,7 @@ jupyter nbconvert --clear-output --inplace notebooks/<notebook>.ipynb
 | `requirements.txt` | Python dependencies |
 | `images/` | All images used in notebooks |
 | `data/` | Sample datasets (if any) |
+| `_static/workflows/` | n8n workflow JSON files for import |
 | `.claude/commands/` | Reusable slash command templates |
 
 ### Important Warnings
@@ -81,14 +82,14 @@ jupyter nbconvert --clear-output --inplace notebooks/<notebook>.ipynb
 - Transfer learning and fine-tuning strategies.
 - Advanced applications with Ultralytics: **object detection**, **segmentation**, **pose estimation**, **tracking**.
 
-**Part 2 – AI Agents**
+**Part 2 – AI Agents with n8n**
 
 - Introduction to AI agents and their architectures.
-- LLMs as reasoning engines.
-- Tool integration and orchestration (including CV models).
-- Memory systems and decision-making.
-- Practical agent implementation with frameworks like LangChain.
-- Real-world application scenarios.
+- Understanding workflows vs agents: who decides the steps?
+- Building AI workflows with **n8n** (visual, no-code approach).
+- Core patterns: prompt chaining, routing, parallelization.
+- Tool integration and practical agent implementation.
+- Hands-on exercises building real workflows.
 
 ---
 
@@ -287,17 +288,33 @@ Target notebooks are the student-facing materials (create, refine, and maintain 
     * Real-time tracking applications
     * Video processing exercises
 
-#### Part 2: AI Agents
+#### Part 2: AI Agents with n8n
 
-12. `notebooks/08_ai_agents_intro.ipynb` *(Placeholder)*
-    * AI agents fundamentals and architectures
-    * Agent types (reactive, deliberative, hybrid)
-    * LLMs as reasoning engines
-    * Tool integration and orchestration
-    * Memory systems and decision making
-    * Building agents with LangChain
-    * Integrating CV models as agent tools
-    * Multi-agent collaboration scenarios
+12. `notebooks/08_ai_agents_intro.ipynb` ✅ **COMPLETED**
+    * Why AI agents matter: beyond simple prompts
+    * Workflows vs Agents: who decides the steps?
+    * Agent building blocks: LLM, Tools, Memory, Reasoning
+    * Agentic design patterns: Tool Use, Reflection, Planning, Multi-agent
+    * Agent limitations and how to handle them
+
+13. `notebooks/08b_n8n_setup.ipynb` ✅ **COMPLETED**
+    * Installing n8n (Desktop App, npm, Docker, Cloud)
+    * Setting up the development environment
+    * Troubleshooting common installation issues
+
+14. `notebooks/08c_n8n_quickstart.ipynb` ✅ **COMPLETED**
+    * Building your first AI workflow from scratch
+    * Manual Trigger, Edit Fields, Basic LLM Chain nodes
+    * Setting up API credentials (OpenRouter, Google AI)
+    * Introduction to expressions: `{{ $json.field }}`
+    * Using the Output Panel and pinning data
+
+15. `notebooks/08d_n8n_workflow_patterns.ipynb` ✅ **COMPLETED**
+    * Core concepts: data flow, connection types, triggers
+    * Expressions deep dive and common patterns
+    * Pattern 1: Prompt Chaining (sequential refinement)
+    * Pattern 2: Routing (Switch node for conditional paths)
+    * Pattern 3: Parallelization (Merge node for combining results)
 
 ---
 
@@ -346,8 +363,11 @@ When generating or modifying any **target notebook**:
 - **Deep Learning**: Notebooks 5-6 (CNNs, Transfer Learning)
 - **Advanced CV**: Notebooks 7-11 (Ultralytics YOLO tasks)
 
-### Part 2: AI Agents (Notebook 12)
-- **AI Agents**: Notebook 12 (comprehensive introduction)
+### Part 2: AI Agents with n8n (Notebooks 12-15)
+- **Introduction**: Notebook 08 (agents vs workflows, building blocks)
+- **Setup**: Notebook 08b (n8n installation)
+- **Quick Start**: Notebook 08c (first workflow)
+- **Patterns**: Notebook 08d (chaining, routing, parallelization)
 
 ### Status Legend
 - ✅ **COMPLETED**: Notebook is ready for use
@@ -357,9 +377,13 @@ When generating or modifying any **target notebook**:
 
 ## 7. Recent updates
 
-* ✅ Created placeholder notebooks for 01, 02, 07_cv_tasks_theory, and 08
+* ✅ Created placeholder notebooks for 01, 02, 07_cv_tasks_theory
 * ✅ Updated course structure to two-part format (CV Applications + AI Agents)
 * ✅ Added notebooks 07b (Segmentation and Pose) and 07c (Object Tracking)
 * ✅ Clarified TODO/exercise policy: hints allowed, no complete solutions
 * ✅ All documentation files aligned with actual notebook structure
 * ✅ Added clickable links in README files using relative markdown paths
+* ✅ **Part 2 rewritten**: AI Agents now uses n8n (visual, no-code approach)
+* ✅ Added 4 new notebooks: 08 (intro), 08b (setup), 08c (quickstart), 08d (patterns)
+* ✅ Added workflow JSON files in `_static/workflows/` for import into n8n
+* ✅ Added n8n-related images to `images/` folder

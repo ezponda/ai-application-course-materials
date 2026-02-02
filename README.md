@@ -110,30 +110,32 @@ The course is divided into two comprehensive parts:
     - Counting and flow analysis
     - Real-world tracking applications
 
-## Part 2: AI Agents (Framework-Free Foundations)
+## Part 2: AI Agents with n8n
 
-12. **[Part 2 Landing Page](notebooks/08_ai_agents_intro.ipynb)** ✅
-    - Why Part 2 exists: from perception to decision-making
-    - Scope: what we cover and don't cover
-    - Connection to Part 1 CV models
-    - Learning outcomes and prerequisites
+Build AI systems that think, decide, and act — without writing code.
 
-13. **[LLMs & Prompt Engineering](notebooks/09_llms_and_prompting.ipynb)** ✅
-    - LLM fundamentals and the prompt contract
-    - Seven core prompt patterns (few-shot, decomposition, schema, etc.)
-    - CV-related prompt examples
-    - Prompt injection awareness and safety
-    - Practical exercises with solutions
+12. **[AI Agents: Introduction](notebooks/08_ai_agents_intro.ipynb)** ✅
+    - Why AI agents matter: beyond simple prompts
+    - Workflows vs Agents: who decides the steps?
+    - Agent building blocks: LLM, Tools, Memory, Reasoning
+    - Agentic design patterns overview
 
-14. **[Introduction to AI Agents](notebooks/10_intro_to_agents.ipynb)** ✅
-    - Agent loop: observe → decide → act → update
-    - Architectures: reactive, deliberative, hybrid
-    - Tools and action spaces
-    - Memory strategies (short-term and long-term)
-    - Planning, control, and the ReAct pattern
-    - Multi-agent systems overview
-    - Evaluation and reliability patterns
-    - Bridging CV models as agent tools
+13. **[n8n Setup](notebooks/08b_n8n_setup.ipynb)** ✅
+    - Installing n8n (Desktop App, npm, Docker, Cloud)
+    - Setting up the development environment
+    - Troubleshooting common issues
+
+14. **[n8n Quick Start](notebooks/08c_n8n_quickstart.ipynb)** ✅
+    - Building your first AI workflow from scratch
+    - Manual Trigger, Edit Fields, Basic LLM Chain nodes
+    - Setting up API credentials (OpenRouter, Google AI)
+    - Introduction to expressions and data flow
+
+15. **[Workflow Patterns](notebooks/08d_n8n_workflow_patterns.ipynb)** ✅
+    - Core concepts: data flow, connection types, triggers
+    - Pattern 1: Prompt Chaining (sequential refinement)
+    - Pattern 2: Routing (conditional paths with Switch)
+    - Pattern 3: Parallelization (combining results with Merge)
 
 ## Getting Started
 
@@ -211,10 +213,11 @@ The HTML site will be available at `_build/html/index.html`.
    - Study CNN theory (5) and transfer learning (6)
    - Explore advanced topics with Ultralytics (7-11)
 
-2. Continue with **Part 2: AI Agents**
-   - Read the Part 2 landing page (12) for context
-   - Study LLMs & Prompt Engineering (13) for communication patterns
-   - Learn agent concepts (14) and how CV models integrate as tools
+2. Continue with **Part 2: AI Agents with n8n**
+   - Read the introduction (08) for agent concepts and building blocks
+   - Install n8n following the setup guide (08b)
+   - Build your first workflow with the quick start (08c)
+   - Learn advanced patterns: chaining, routing, parallelization (08d)
 
 ### Exercise Policy
 
